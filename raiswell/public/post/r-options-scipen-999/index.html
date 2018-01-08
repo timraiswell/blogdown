@@ -209,17 +209,21 @@ pacman::p_load(broom, ggplot2)</code></pre>
     se = FALSE) + labs(title = &quot;Faster-moving cars have greater stopping distances&quot;, 
     subtitle = &quot;There is a positive linear relationship in the data between car speed and stopping distance.&quot;, 
     x = &quot;Speed of car (MPH)&quot;, y = &quot;Stopping\ndistance (feet)&quot;) + theme_classic() + 
-    theme(axis.title.y = element_text(angle = 0, vjust = 1))</code></pre>
+    theme(axis.title.y = element_text(angle = 0, vjust = 1))
+</code></pre>
+
 <p><img src="/post/2018-01-04-r-options-scipen-999_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Then I build the linear regression using the lm() function in R. Stopping distance is the target variable we want to predict, using car speed at time of breaking as the descriptive variable we want to employ in the prediction.</p>
 <p>Here is how I view a description of the data. Enter this short string into your R console. Putting a question mark before a package name or function results in help documentation in R. One reason I love the language.</p>
 <p><code>?cars</code></p>
 <p>Now, the code for the model:</p>
 <p>Let’s take a look at the results of the regression analysis. Becuase we set the ‘scipen’ option to a large number earlier (999), we can see the p-values in their full glory. In a future post, I will cover how to interpret R’s output for the lm() function and the simple linear regression.</p>
-<pre class="r"><code>tidy(car_lm)</code></pre>
+<pre class="r"><code>tidy(car_lm)
+</code></pre>
 <pre><code>##          term   estimate std.error statistic              p.value
 ## 1 (Intercept) -17.579095 6.7584402 -2.601058 0.012318816153809090
-## 2       speed   3.932409 0.4155128  9.463990 0.000000000001489836</code></pre>
+## 2       speed   3.932409 0.4155128  9.463990 0.000000000001489836
+</code></pre>
 
     </div>
 
