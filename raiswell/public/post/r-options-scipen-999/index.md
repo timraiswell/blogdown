@@ -28,12 +28,7 @@ pacman::p_load(broom, ggplot2)</code></pre>
 <p><code>?cars</code></p>
 <p>Now, the code for the model:</p>
 <p>Let’s take a look at the results of the regression analysis. Becuase we set the ‘scipen’ option to a large number earlier (999), we can see the p-values in their full glory. In a future post, I will cover how to interpret R’s output for the lm() function and the simple linear regression.</p>
-
-<pre class="r"><code>tidy(car_lm)
-</code></pre>
-
-<pre><code>
-##          term   estimate std.error statistic              p.value
+<pre class="r"><code>tidy(car_lm)</code></pre>
+<pre><code>##          term   estimate std.error statistic              p.value
 ## 1 (Intercept) -17.579095 6.7584402 -2.601058 0.012318816153809090
-## 2       speed   3.932409 0.4155128  9.463990 0.000000000001489836
-</code></pre>
+## 2       speed   3.932409 0.4155128  9.463990 0.000000000001489836</code></pre>
