@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Tool ~ options(scipen = 999) - Tim Raiswell - Data science notes</title>
+  <title>Tool ~ options(scipen = 999) - Tim Raiswell - Data Science Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -33,7 +33,7 @@ Scientific notation is shorthand for large number strings. For example:
 <meta name="generator" content="Hugo 0.32.2" />
 
 
-<link rel="canonical" href="/post/r-options-scipen-999/" />
+<link rel="canonical" href="https://raiswell.rbind.io/post/r-options-scipen-999/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -58,7 +58,7 @@ Scientific notation is shorthand for large number strings. For example:
  The number 0.00000000002 is written in R output in the scientific notation format as 2e-11
  Basically, this approach takes the integer “2”, puts a decimal point in front of it (1 of the 11), and counts off remainder of the e-number (10) as decimal places." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/post/r-options-scipen-999/" />
+<meta property="og:url" content="https://raiswell.rbind.io/post/r-options-scipen-999/" />
 
 
 
@@ -127,10 +127,10 @@ Scientific notation is shorthand for large number strings. For example:
         <li class="mobile-menu-item">Archives</li>
       </a><a href="/tags/">
         <li class="mobile-menu-item">Tags</li>
-      </a><a href="/contact/">
-        <li class="mobile-menu-item">Contact Me</li>
       </a><a href="/about/">
         <li class="mobile-menu-item">About</li>
+      </a><a href="/contact/">
+        <li class="mobile-menu-item">Contact Me</li>
       </a>
   </ul>
 </nav>
@@ -149,9 +149,9 @@ Scientific notation is shorthand for large number strings. For example:
       </li><li class="menu-item">
         <a class="menu-item-link" href="/tags/">Tags</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/contact/">Contact Me</a>
-      </li><li class="menu-item">
         <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/contact/">Contact Me</a>
       </li>
   </ul>
 </nav>
@@ -204,7 +204,7 @@ Scientific notation is shorthand for large number strings. For example:
 <blockquote>
 <p>“The function p_load is particularly well suited for help forums and blog posts, as it will load and, if necessary, install missing packages.”</p>
 </blockquote>
-<pre class="r"><code>#install.packages(&quot;pacman&quot;)
+<pre class="r"><code>#install.packages(&quot;pacman&quot;) -this line is commented because I already have the pacman package installed. 
 pacman::p_load(broom, ggplot2) # loading in broom and ggplot2 from the superb Tidyverse
 </code></pre>
 <p>Okay, now for the linear model. First, I visualize the two variables with ggplot2. The target variable - stopping distance for cars - is on my y-axis; the explanatory variable - car speed - is on my x-axis.</p>
@@ -283,7 +283,7 @@ car_lm &lt;- lm(dist ~ speed, data = cars)
       <a href="https://twitter.com/timraiswell" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.linkedin.com/in/traiswell/" class="iconfont icon-linkedin" title="linkedin"></a>
       <a href="https://github.com/timraiswell/" class="iconfont icon-github" title="github"></a>
-  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://raiswell.rbind.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
