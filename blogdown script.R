@@ -12,8 +12,6 @@ olOwOlo/hugo-theme-even
 # git remote add origin https://github.com/timraiswell/blogdown.git
 # git push -u origin master
 
-setwd("/Users/timraiswell/Blog")
-
 # blogdown::new_site("raiswell", theme = "olOwOlo/hugo-theme-even")
 blogdown::stop_server()
 blogdown::serve_site()

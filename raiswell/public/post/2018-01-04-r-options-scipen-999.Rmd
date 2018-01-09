@@ -1,5 +1,5 @@
 ---
-title: The comforting weight of zeros
+title: R Tool ~ options(scipen = 999)
 author: Tim Raiswell
 date: '2018-01-04'
 slug: r-options-scipen-999
@@ -11,36 +11,37 @@ tags:
 
 ```options(scipen = 999) # this command turns off scientific notation in R output```
 
-But why would you want to turn off scientific notation? 
+I often set this parameter in any R project in which I'll be evaluating predictive model performance. But why would you want to turn off scientific notation? 
 
-Scientific notation is shorthand for large number sequences. For example:
+Scientific notation is shorthand for large number strings. For example:
 
 > The number `0.00000000002` is written in R output in the scientific notation format as **2e-11**
 
 Basically, this approach takes the integer "2", puts a decimal point in front of it (1 of the 11), and counts off remainder of the e-number (10) as decimal places. So, zero-point-ten-zeros-two. The number **4e-16** would be zero-point-fifteen-zeros-four.
 
 
-If you build a predictive model like a linear regression (using the lm() function in R) and then summarise its output, R will use scientific notation in the output. For a fast example of what I mean, run this code in R's console, substituting the number for anything you like.
+If you build a predictive model and then summarise its output, R will use scientific notation in the output. For a quick example of what I mean, run this code in R's console, substituting the number for any large or small number you like.
 
 `x <- 0.00000000002`  
 
 `format(x, scientific = TRUE)`
 
-Perhaps because I have humanities training and, like many, arrived a little later in my career to the data science party, I prefer to view and compare full number strings when I'm examining data mining results. There's something satisfying to me about feeling the weight of all the zeroes in the p-values of a model I have built.
+##The satisfying weight of zeros##
+Perhaps because I have humanities training and, like many, arrived a little later in my career to the data science party, I prefer to view and compare full number strings when I'm examining data mining results. There's something satisfying to me about feeling the weight of all the zeroes in the p-values of a model I have built. I also prefer to visually compare number string lengths rather than think about number size in the scientific format. 
 
 For a demonstration of what I'm talking about, let's build a simple linear model using an accessible dataset, and view the output using the broom package's 'tidy' function.
 
-First I use an R package called ['pacman'](https://cran.r-project.org/web/packages/pacman/vignettes/Introduction_to_pacman.html) to load in the libraries I need for the project. As package authors Tyler W. Rinker & Dason Kurkiewicz say in the package vignette documentation:
+First I use an R package called [pacman](https://cran.r-project.org/web/packages/pacman/vignettes/Introduction_to_pacman.html) to load in the libraries I need for the project. As package authors Tyler W. Rinker & Dason Kurkiewicz say in the package vignette documentation:
 
 >"The function p_load is particularly well suited for help forums and blog posts, as it will load and, if necessary, install missing packages."
 
 
 ```{r}
 #install.packages("pacman") -this line is commented because I already have the pacman package installed. 
-pacman::p_load(broom, ggplot2)
+pacman::p_load(broom, ggplot2) # loading in broom and ggplot2 from the superb Tidyverse
 ```
 
-Okay, a linear model. First, I visualize the data with ggplot2. 
+Okay, now for the linear model. First, I visualize the two variables with ggplot2. The target variable - stopping distance for cars - is on my y-axis; the explanatory variable - car speed - is on my x-axis. 
 
 ```{r, tidy = TRUE}
 ggplot(data = cars, aes(x=speed, y=dist)) +
@@ -58,11 +59,12 @@ Here is how I view a description of the data. Enter this short string into your 
 
 ```?cars ```
 
-Now, the code for the model:
+Now, the code for the model:  
 
-```{r, echo=FALSE}
+
+```{r, echo=TRUE}
 #linear model
-car_lm <- lm(dist ~ speed, data = cars)
+car_lm <- lm(dist ~ speed, data = cars) 
 ```
 
 Let's take a look at the results of the regression analysis. Becuase we set the 'scipen' option to a large number earlier (999), we can see the p-values in their full glory. In a future post, I will cover how to interpret R's output for the lm() function and the simple linear regression. 
