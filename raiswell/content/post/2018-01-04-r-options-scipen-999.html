@@ -16,7 +16,7 @@ tags:
 <blockquote>
 <p>The number <code>0.00000000002</code> is written in R output in the scientific notation format as <strong>2e-11</strong></p>
 </blockquote>
-<p>Basically, this approach takes the integer “2”, puts a decimal point in front of it (1 of the 11), and counts off remainder of the e-number (10) as decimal places. So, zero-point-ten-zeros-two. The number <strong>4e-16</strong> would be zero-point-fifteen-zeros-four.</p>
+<p>Basically, this approach takes the integer “2”, puts a decimal point in front of it (1 of the 11), and counts off the remainder of the e-numbers (10) as decimal places. So, zero-point-ten-zeros-two. The number <strong>4e-16</strong> would be zero-point-fifteen-zeros-four.</p>
 <p>If you build a predictive model and then summarise its output, R will use scientific notation in the output. For a quick example of what I mean, run this code in R’s console, substituting the number for any large or small number you like.</p>
 <p><code>x &lt;- 0.00000000002</code></p>
 <p><code>format(x, scientific = TRUE)</code></p>
