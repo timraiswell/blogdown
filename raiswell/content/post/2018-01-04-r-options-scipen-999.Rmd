@@ -22,9 +22,11 @@ Basically, this approach takes the integer "2", puts a decimal point in front of
 
 If you build a predictive model and then summarise its output, R will use scientific notation in the output. For a quick example of what I mean, run this code in R's console, substituting the number for any large or small number you like.
 
-`x <- 0.00000000002`  
+```{r}
+x <- 0.00000000002 # assigns the decimal to 'x'
+format(x, scientific = TRUE) # reproduces 'x' in scientific notation
+```
 
-`format(x, scientific = TRUE)`
 
 ##The satisfying weight of zeros##
 Perhaps because I have humanities training and, like many, arrived a little later in my career to the data science party, I prefer to view and compare full number strings when I'm examining data mining results. There's something satisfying to me about feeling the weight of all the zeroes in the p-values of a model I have built. I also prefer to visually compare number string lengths rather than think about number size in the scientific format. 
