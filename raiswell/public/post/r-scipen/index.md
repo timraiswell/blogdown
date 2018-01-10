@@ -27,7 +27,7 @@ pacman::p_load(broom, ggplot2) # loading in broom and ggplot2 from the superb Ti
     theme(axis.title.y = element_text(angle = 0, vjust = 1))</code></pre>
 <p><img src="/post/2018-01-04-r-options-scipen-999_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Then I build the linear regression using the lm() function in R. Stopping distance is the target variable we want to predict, using car speed at time of breaking as the descriptive variable we want to employ in the prediction.</p>
-<p>Here is how I view a description of the data. Enter this short string into your R console. Putting a question mark before a package name or function results in help documentation in R. One reason I love the language.</p>
+<p>Enter the code below into your R console. Putting a question mark before a package name or function results in help documentation in R. This in one reason I love the language.</p>
 <p><code>?cars</code></p>
 <p>Now, the code for the model:</p>
 <pre class="r"><code>#linear model

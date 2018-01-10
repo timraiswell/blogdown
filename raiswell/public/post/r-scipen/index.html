@@ -32,7 +32,7 @@ Scientific notation is shorthand for large number strings. For example:
 <meta name="generator" content="Hugo 0.32.2" />
 
 
-<link rel="canonical" href="https://raiswell.rbind.io/post/r-scipen/" />
+<link rel="canonical" href="/post/r-scipen/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -56,7 +56,7 @@ Scientific notation is shorthand for large number strings. For example:
  The number 0.00000000002 is written in R output in the scientific notation format as 2e-11
  Basically, this approach takes the integer “2”, puts a decimal point in front of it (1 of the 11), and counts off the remainder of the e-numbers (10) as decimal places." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://raiswell.rbind.io/post/r-scipen/" />
+<meta property="og:url" content="/post/r-scipen/" />
 
 
 
@@ -83,7 +83,7 @@ Scientific notation is shorthand for large number strings. For example:
 
 <meta itemprop="datePublished" content="2018-01-04T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-01-04T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="635">
+<meta itemprop="wordCount" content="627">
 
 
 
@@ -164,7 +164,7 @@ Scientific notation is shorthand for large number strings. For example:
       <div class="post-meta">
         <span class="post-time"> 2018-01-04 </span>
         
-        <span class="more-meta"> 635 word </span>
+        <span class="more-meta"> 627 word </span>
         <span class="more-meta"> 3 min read </span>
         
       </div>
@@ -211,7 +211,7 @@ pacman::p_load(broom, ggplot2) # loading in broom and ggplot2 from the superb Ti
     theme(axis.title.y = element_text(angle = 0, vjust = 1))</code></pre>
 <p><img src="/post/2018-01-04-r-options-scipen-999_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Then I build the linear regression using the lm() function in R. Stopping distance is the target variable we want to predict, using car speed at time of breaking as the descriptive variable we want to employ in the prediction.</p>
-<p>Here is how I view a description of the data. Enter this short string into your R console. Putting a question mark before a package name or function results in help documentation in R. One reason I love the language.</p>
+<p>Enter the code below into your R console. Putting a question mark before a package name or function results in help documentation in R. This in one reason I love the language.</p>
 <p><code>?cars</code></p>
 <p>Now, the code for the model:</p>
 <pre class="r"><code>#linear model
@@ -275,7 +275,7 @@ car_lm &lt;- lm(dist ~ speed, data = cars) </code></pre>
       <a href="https://twitter.com/timraiswell" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.linkedin.com/in/traiswell/" class="iconfont icon-linkedin" title="linkedin"></a>
       <a href="https://github.com/timraiswell/" class="iconfont icon-github" title="github"></a>
-  <a href="https://raiswell.rbind.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">

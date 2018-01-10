@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://raiswell.rbind.io/sitemap.xml
+Sitemap: /sitemap.xml
