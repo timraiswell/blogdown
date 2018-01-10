@@ -10,7 +10,14 @@
   </url>
   
   <url>
-    <loc>/post/r-options-scipen-999/</loc>
+    <loc>/contact/</loc>
+    <lastmod>2017-08-28T21:41:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/post/r-scipen/</loc>
     <lastmod>2018-01-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

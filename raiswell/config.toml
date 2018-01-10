@@ -1,7 +1,7 @@
 baseURL = "https://raiswell.rbind.io/"
 languageCode = "en"
 defaultContentLanguage = "en"
-title = "Tim Raiswell - Data science notes"
+title = "Tim Raiswell - Data Science Notes"
 enableRobotsTXT = true
 enableEmoji = true
 theme = "hugo-theme-even"
@@ -33,11 +33,6 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   weight = 30
   identifier = "tags"
   url = "/tags/"
-[[menu.main]]
-  name = "Contact Me"
-  weight = 40
-  identifier = "contact"
-  url = "/contact/"
 
 [params]
   debug = false             # If true, load `eruda.min.js`. See https://github.com/liriliri/eruda

@@ -13,12 +13,10 @@ olOwOlo/hugo-theme-even
 # git push -u origin master
 
 # blogdown::new_site("raiswell", theme = "olOwOlo/hugo-theme-even")
-blogdown::stop_server()
-blogdown::serve_site()
 
 ###Log in
 setwd("/Users/timraiswell/Blog/raiswell")
 blogdown::hugo_build(local=FALSE)
 blogdown::serve_site()
-
+blogdown::stop_server()
 

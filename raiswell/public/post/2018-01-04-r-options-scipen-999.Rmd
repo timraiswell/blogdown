@@ -1,8 +1,8 @@
 ---
-title: Tool ~ options(scipen = 999)
+title: Removing scientific notation in R
 author: Tim Raiswell
 date: '2018-01-04'
-slug: r-options-scipen-999
+slug: r-scipen
 categories: []
 tags:
   - R
@@ -17,7 +17,7 @@ Scientific notation is shorthand for large number strings. For example:
 
 > The number `0.00000000002` is written in R output in the scientific notation format as **2e-11**
 
-Basically, this approach takes the integer "2", puts a decimal point in front of it (1 of the 11), and counts off remainder of the e-number (10) as decimal places. So, zero-point-ten-zeros-two. The number **4e-16** would be zero-point-fifteen-zeros-four.
+Basically, this approach takes the integer "2", puts a decimal point in front of it (1 of the 11), and counts off the remainder of the e-numbers (10) as decimal places. So, zero-point-ten-zeros-two. The number **4e-16** would be zero-point-fifteen-zeros-four.
 
 
 If you build a predictive model and then summarise its output, R will use scientific notation in the output. For a quick example of what I mean, run this code in R's console, substituting the number for any large or small number you like.

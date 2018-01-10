@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>R on Tim Raiswell - Data science notes</title>
+    <title>R on Tim Raiswell - Data Science Notes</title>
     <link>/tags/r/</link>
-    <description>Recent content in R on Tim Raiswell - Data science notes</description>
+    <description>Recent content in R on Tim Raiswell - Data Science Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 04 Jan 2018 00:00:00 +0000</lastBuildDate>
@@ -12,16 +12,16 @@
     
     
     <item>
-      <title>Tool ~ options(scipen = 999)</title>
-      <link>/post/r-options-scipen-999/</link>
+      <title>Removing scientific notation in R</title>
+      <link>/post/r-scipen/</link>
       <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/r-options-scipen-999/</guid>
+      <guid>/post/r-scipen/</guid>
       <description>options(scipen = 999) # this command turns off scientific notation in R output
 I often set this parameter in any R project in which I’ll be evaluating predictive model performance. But why would you want to turn off scientific notation?
 Scientific notation is shorthand for large number strings. For example:
  The number 0.00000000002 is written in R output in the scientific notation format as 2e-11
- Basically, this approach takes the integer “2”, puts a decimal point in front of it (1 of the 11), and counts off remainder of the e-number (10) as decimal places.</description>
+ Basically, this approach takes the integer “2”, puts a decimal point in front of it (1 of the 11), and counts off the remainder of the e-numbers (10) as decimal places.</description>
     </item>
     
   </channel>

@@ -1,15 +1,3 @@
----
-title: Removing scientific notation in R
-author: Tim Raiswell
-date: '2018-01-04'
-slug: r-scipen
-categories: []
-tags:
-  - R
----
-
-
-
 <p><code>options(scipen = 999) # this command turns off scientific notation in R output</code></p>
 <p>I often set this parameter in any R project in which I’ll be evaluating predictive model performance. But why would you want to turn off scientific notation?</p>
 <p>Scientific notation is shorthand for large number strings. For example:</p>

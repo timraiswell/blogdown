@@ -1,8 +1,8 @@
 ---
-title: Tool ~ options(scipen = 999)
+title: Removing scientific notation in R
 author: Tim Raiswell
 date: '2018-01-04'
-slug: r-options-scipen-999
+slug: r-scipen
 categories: []
 tags:
   - R
