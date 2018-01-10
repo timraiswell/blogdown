@@ -8,8 +8,9 @@ tags:
   - R
 ---
 
-
-```options(scipen = 999) # this command turns off scientific notation in R output```
+```{r}
+options(scipen = 999) #the command that turns off scientific notation in R output
+```
 
 I often set this parameter in any R project in which I'll be evaluating predictive model performance. But why would you want to turn off scientific notation? 
 

@@ -1,4 +1,4 @@
-<p><code>options(scipen = 999) # this command turns off scientific notation in R output</code></p>
+<pre class="r"><code>options(scipen = 999) #the command that turns off scientific notation in R output</code></pre>
 <p>I often set this parameter in any R project in which I’ll be evaluating predictive model performance. But why would you want to turn off scientific notation?</p>
 <p>Scientific notation is shorthand for large number strings. For example:</p>
 <blockquote>
@@ -25,7 +25,7 @@ pacman::p_load(broom, ggplot2) # loading in broom and ggplot2 from the superb Ti
     subtitle = &quot;There is a positive linear relationship in the data between car speed and stopping distance.&quot;, 
     x = &quot;Speed of car (MPH)&quot;, y = &quot;Stopping\ndistance (feet)&quot;) + theme_classic() + 
     theme(axis.title.y = element_text(angle = 0, vjust = 1))</code></pre>
-<p><img src="/post/2018-01-04-r-options-scipen-999_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/post/2018-01-04-r-options-scipen-999_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Then I build the linear regression using the lm() function in R. Stopping distance is the target variable we want to predict, using car speed at time of breaking as the descriptive variable we want to employ in the prediction.</p>
 <p>Here is how I view a description of the data. Enter this short string into your R console. Putting a question mark before a package name or function results in help documentation in R. One reason I love the language.</p>
 <p><code>?cars</code></p>
