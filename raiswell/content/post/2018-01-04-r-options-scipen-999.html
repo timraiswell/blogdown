@@ -18,8 +18,9 @@ tags:
 </blockquote>
 <p>Basically, this approach takes the integer “2”, puts a decimal point in front of it (1 of the 11), and counts off the remainder of the e-numbers (10) as decimal places. So, zero-point-ten-zeros-two. The number <strong>4e-16</strong> would be zero-point-fifteen-zeros-four.</p>
 <p>If you build a predictive model and then summarise its output, R will use scientific notation in the output. For a quick example of what I mean, run this code in R’s console, substituting the number for any large or small number you like.</p>
-<p><code>x &lt;- 0.00000000002</code></p>
-<p><code>format(x, scientific = TRUE)</code></p>
+<pre class="r"><code>x &lt;- 0.00000000002 # assigns the decimal to &#39;x&#39;
+format(x, scientific = TRUE) # reproduces &#39;x&#39; in scientific notation</code></pre>
+<pre><code>## [1] &quot;2e-11&quot;</code></pre>
 <div id="the-satisfying-weight-of-zeros" class="section level2">
 <h2>The satisfying weight of zeros</h2>
 <p>Perhaps because I have humanities training and, like many, arrived a little later in my career to the data science party, I prefer to view and compare full number strings when I’m examining data mining results. There’s something satisfying to me about feeling the weight of all the zeroes in the p-values of a model I have built. I also prefer to visually compare number string lengths rather than think about number size in the scientific format.</p>
@@ -36,7 +37,7 @@ pacman::p_load(broom, ggplot2) # loading in broom and ggplot2 from the superb Ti
     subtitle = &quot;There is a positive linear relationship in the data between car speed and stopping distance.&quot;, 
     x = &quot;Speed of car (MPH)&quot;, y = &quot;Stopping\ndistance (feet)&quot;) + theme_classic() + 
     theme(axis.title.y = element_text(angle = 0, vjust = 1))</code></pre>
-<p><img src="/post/2018-01-04-r-options-scipen-999_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="/post/2018-01-04-r-options-scipen-999_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Then I build the linear regression using the lm() function in R. Stopping distance is the target variable we want to predict, using car speed at time of breaking as the descriptive variable we want to employ in the prediction.</p>
 <p>Here is how I view a description of the data. Enter this short string into your R console. Putting a question mark before a package name or function results in help documentation in R. One reason I love the language.</p>
 <p><code>?cars</code></p>

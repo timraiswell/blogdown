@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tim Raiswell - Data Science Notes</title>
-    <link>https://raiswell.rbind.io/</link>
+    <link>/</link>
     <description>Recent content on Tim Raiswell - Data Science Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 20 Aug 2017 21:38:52 +0800</lastBuildDate>
     
-	<atom:link href="https://raiswell.rbind.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About</title>
-      <link>https://raiswell.rbind.io/about/</link>
+      <link>/about/</link>
       <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
       
-      <guid>https://raiswell.rbind.io/about/</guid>
+      <guid>/about/</guid>
       <description>Hi there. My intent with this site is to share useful analytic ideas and tools - from basic to advanced - that have made my work easier and more fun.
 Current Employment I am a research principal in Gartner&amp;rsquo;s finance practice. I currently use quantitative and qualitative research methods to answer hard questions for chief financial officers and their finance teams. I have been in a related role at CEB (now Gartner) for thirteen years, with visits to the worlds of product development and management, sales support and client advisory services.</description>
     </item>
     
     <item>
       <title>Contact Me</title>
-      <link>https://raiswell.rbind.io/contact/</link>
+      <link>/contact/</link>
       <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
       
-      <guid>https://raiswell.rbind.io/contact/</guid>
+      <guid>/contact/</guid>
       <description>Send me a note to book me as a team or conference speaker for your organization, or just to say hi.
 Your name  Your email  Your message
   </description>
@@ -34,10 +34,10 @@ Your name  Your email  Your message
     
     <item>
       <title>Removing scientific notation in R</title>
-      <link>https://raiswell.rbind.io/post/r-scipen/</link>
+      <link>/post/r-scipen/</link>
       <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://raiswell.rbind.io/post/r-scipen/</guid>
+      <guid>/post/r-scipen/</guid>
       <description>options(scipen = 999) # this command turns off scientific notation in R output
 I often set this parameter in any R project in which I’ll be evaluating predictive model performance. But why would you want to turn off scientific notation?
 Scientific notation is shorthand for large number strings. For example:
