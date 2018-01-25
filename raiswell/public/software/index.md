@@ -8,7 +8,7 @@ I will mostly use R and Python in these notes and case studies. Both languages h
 <h2>Installing Python</h2>
 
 [**Install Anaconda**](https://www.anaconda.com/download/)  
-Anaconda installs the latest version of the Python language (if you're new to this, use version 3.X, not the obsolescent 2.7), several data science and analytic packages, and a few options for coding interfaces, including the popular (and recommended) Jupyter Notebooks. [Jupyter](www.jupyter.org) is a browser-based interface for Python.
+Anaconda installs the latest version of the Python language (if you're new to this, use version 3.X, not the obsolescent 2.7), several data science and analytic packages, and a few options for coding interfaces, including the popular (and recommended) Jupyter Notebooks. [Jupyter](https://www.jupyter.org) is a browser-based interface for Python.
 
 
 
