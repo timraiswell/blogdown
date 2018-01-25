@@ -1,7 +1,7 @@
 baseURL = "https://raiswell.rbind.io/"
 languageCode = "en"
 defaultContentLanguage = "en"
-title = "Tim Raiswell - Data Science Notes"
+title = "Data Notes"
 enableRobotsTXT = true
 enableEmoji = true
 theme = "hugo-theme-even"
