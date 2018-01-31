@@ -46,6 +46,17 @@ Anaconda installs the latest version of the Python language (if you&amp;rsquo;re
     </item>
     
     <item>
+      <title>Sentiment analysis of football fan tweets during a game</title>
+      <link>/post/sentiment-analysis-of-football-fans/</link>
+      <pubDate>Fri, 26 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sentiment-analysis-of-football-fans/</guid>
+      <description>I’ll start this analysis with the question I want to answer:
+Are Manchester United fans more critical of their team than opposing fans about theirs?
+I love English football. I was born and grew up in Manchester, England, but now I live in the States and I’m forced to follow the English Premiership remotely. I like to track my Twitter feed during games to see the opinion of other fans. One thing I noticed was the propensity of Manchester United fans to expect heroics from the team on a weekly basis and I wondered whether it was any different for fans of other clubs.</description>
+    </item>
+    
+    <item>
       <title>Removing scientific notation in R</title>
       <link>/post/r-scipen/</link>
       <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
