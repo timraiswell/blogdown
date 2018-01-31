@@ -83,7 +83,7 @@ Scientific notation is shorthand for large number strings. For example:
 
 <meta itemprop="datePublished" content="2018-01-04T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-01-04T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="627">
+<meta itemprop="wordCount" content="699">
 
 
 
@@ -168,8 +168,8 @@ Scientific notation is shorthand for large number strings. For example:
       <div class="post-meta">
         <span class="post-time"> 2018-01-04 </span>
         
-        <span class="more-meta"> 627 word </span>
-        <span class="more-meta"> 3 min read </span>
+        <span class="more-meta"> 699 word </span>
+        <span class="more-meta"> 4 min read </span>
         
       </div>
     </header>
@@ -200,6 +200,7 @@ format(x, scientific = TRUE) # reproduces &#39;x&#39; in scientific notation</co
 <div id="the-satisfying-weight-of-zeros" class="section level2">
 <h2>The satisfying weight of zeros</h2>
 <p>Perhaps because I have humanities training and, like many, arrived a little later in my career to the data science party, I prefer to view and compare full number strings when I’m examining data mining results. There’s something satisfying to me about feeling the weight of all the zeroes in the p-values of a model I have built. I also prefer to visually compare number string lengths rather than think about number size in the scientific format.</p>
+<p><strong>Addendum: I’m adding a quick note as to why someone might choose to express the results of data science plainly and without scientific notation. First, it’s a personal preference, but I strongly advocate for learning how to read scientific notation as it is a data science standard. Second, your audience may not be mathematically trained. In many cases, my business audience wants to see the raw number to faster understand its significance.</strong></p>
 <p>For a demonstration of what I’m talking about, let’s build a simple linear model using an accessible dataset, and view the output using the broom package’s ‘tidy’ function.</p>
 <p>First I use an R package called <a href="https://cran.r-project.org/web/packages/pacman/vignettes/Introduction_to_pacman.html">pacman</a> to load in the libraries I need for the project. As package authors Tyler W. Rinker &amp; Dason Kurkiewicz say in the package vignette documentation:</p>
 <blockquote>
@@ -260,6 +261,11 @@ car_lm &lt;- lm(dist ~ speed, data = cars) </code></pre>
       
       <nav class="post-nav">
         
+          <a class="prev" href="/post/sentiment-analysis-of-football-fans/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Sentiment analysis of football fan tweets during a game</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         
       </nav>
     </footer>
