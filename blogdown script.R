@@ -16,7 +16,7 @@ olOwOlo/hugo-theme-even
 
 ###Log in
 setwd("/Users/timraiswell/Blog/raiswell")
-blogdown::hugo_build(local=FALSE)
+blogdown::hugo_build(local=TRUE)
 blogdown::serve_site()
 blogdown::stop_server()
 

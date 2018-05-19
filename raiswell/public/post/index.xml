@@ -6,21 +6,10 @@
     <description>Recent content in Posts on Data Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 26 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jan 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Sentiment analysis of football fan tweets during a game</title>
-      <link>/post/sentiment-analysis-of-football-fans/</link>
-      <pubDate>Fri, 26 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/sentiment-analysis-of-football-fans/</guid>
-      <description>I’ll start this analysis with the question I want to answer:
-Are Manchester United fans more critical of their team than opposing fans about theirs?
-I love English football. I was born and grew up in Manchester, England, but now I live in the States and I’m forced to follow the English Premiership remotely. I like to track my Twitter feed during games to see the opinion of other fans. One thing I noticed was the propensity of Manchester United fans to expect heroics from the team on a weekly basis and I wondered whether it was any different for fans of other clubs.</description>
-    </item>
     
     <item>
       <title>Removing scientific notation in R</title>
