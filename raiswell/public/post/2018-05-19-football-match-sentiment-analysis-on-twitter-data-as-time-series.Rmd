@@ -371,7 +371,7 @@ The p-value of the Wilcox test is **0.01078**, lower than the alpha of 0.05 (95%
 
 ##Conclusion
 
-Yeovil Town fans express more positive sentiment than Manchester United fans on Twitter for our analysis time period despite getting beat by four goals to nil. There is more than one factor at play that gets us to this result. First, the data is incomplete as I outline above. Second,  Yeovil fans likely never expected to win the game; as such, just playing against a Premier League club and getting this far in the competition likely buoyed their mood.  
+Yeovil Town fans express more positive sentiment than Manchester United fans on Twitter for our analysis time period despite getting beat by four goals to nil. There is more than one factor at play that gets us to this result. First, the data is incomplete as I outline above. Second,  Yeovil fans likely never expected to win the game; as such, just playing against a Premier League club and getting this far in the competition likely buoyed their mood.
 
 
 **Here are the texts I used while writing these notes.**
