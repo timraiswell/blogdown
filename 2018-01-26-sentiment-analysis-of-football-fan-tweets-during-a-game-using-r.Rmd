@@ -25,11 +25,12 @@ This was the (ambitious) question I intended to answer when I began this project
 
 ##Is there observable evidence in tweets from football fans during matches that one fanbase is more critical than another?
 
-I was born and grew up in Manchester, England, but now I live in the States and I'm forced to follow the English Premiership remotely. I like to track my Twitter feed during games to see the opinion of other fans. One thing I noticed was the propensity of Manchester United fans to expect heroics from the team on a weekly basis and I wondered whether it was any different for fans of other clubs.
+I was born and grew up in Manchester, England, but now I live in the States and I'm forced to follow the English Premier League remotely. I track my Twitter feed during games to see the opinions of other fans. One thing I noticed was the propensity of Manchester United fans to expect heroics from the team on a weekly basis and I wondered whether it was any different for fans of other clubs.
 
 First, I load the packages I'll use in R. Tidyverse and tidytext will help me format the data and prepare my analysis. The twitteR and ROauth packages are what I will use to create my sentiment data for the football teams in question. 
 
 Full documentation for how to use both those Twitter-related packages can be found [here in the user vignette](http://geoffjentry.hexdump.org/twitteR.pdf).
+
 ```{r}
 pacman::p_load(tidyverse, twitteR, ROAuth, tidytext, psych,lubridate, SentimentAnalysis, scales, RCurl, tm, grid, wrapr)
 ```
