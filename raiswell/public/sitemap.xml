@@ -31,6 +31,13 @@
   </url>
   
   <url>
+    <loc>/post/r-tips-1-scientific-notation/</loc>
+    <lastmod>2018-01-05T17:16:10-04:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>/post/r-scipen/</loc>
     <lastmod>2018-01-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>

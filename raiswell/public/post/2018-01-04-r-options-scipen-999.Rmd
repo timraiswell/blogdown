@@ -30,7 +30,9 @@ format(x, scientific = TRUE) # reproduces 'x' in scientific notation
 
 
 ##The satisfying weight of zeros##
+Perhaps because I have humanities training and, like many, arrived a little later in my career to the data science party, I prefer to view and compare full number strings when I'm examining data mining results. There's something satisfying to me about feeling the weight of all the zeroes in the p-values of a model I have built. I also prefer to visually compare number string lengths rather than think about number size in the scientific format. 
 
+**Addendum: I'm adding a quick note as to why someone might choose to express the results of data science plainly and without scientific notation. First, it's a personal preference, but I strongly advocate for learning how to read scientific notation as it is a data science standard. Second, your audience may not be mathematically trained. In many cases, my business audience wants to see the raw number to faster understand its significance.**
 
 
 For a demonstration of what I'm talking about, let's build a simple linear model using an accessible dataset, and view the output using the broom package's 'tidy' function.
