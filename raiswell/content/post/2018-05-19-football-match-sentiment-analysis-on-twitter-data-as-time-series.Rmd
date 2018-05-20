@@ -207,7 +207,7 @@ grobf <- grobTree(textGrob("Fulltime", x=0.87,  y =0.8, just = "right", rot = 27
 ```
 
 
-```{r, fig.width=11, fig.height=8}
+```{r, fig.width=12, fig.height=8}
 grob1 <- grobTree(textGrob("Happy\nTweets", x=0.46,  y=0.90, hjust=0,
   gp=gpar(col="gray50", fontsize = 16, fontfamily = "Arial", fontface = "bold")))
 
@@ -275,7 +275,7 @@ ytfc_game <- ytfc_data[ytfc_data$created %within% int, ]
 ```
 
 
-```{r, fig.width=11, fig.height=8, echo=FALSE}
+```{r, fig.width=12, fig.height=8, echo=FALSE}
 
 grob7 <- grobTree(textGrob("Rashford, '41", x=0.36,  y=0.805, just = "right", rot = 270,
   gp=gpar(col="#DA020E", fontsize = 11, fontfamily = "Arial", fontface = "bold")))
@@ -342,7 +342,7 @@ So, despite the fact that Manchester United is winning, *some* of the team's fan
 
 Let's take a look at the aggregate sentiment for the game in two ways. First we'll plot a histogram of fan sentiment that will help us to compare the teams side by side. And then we'll run a t-test to see if the differences in fan sentiment are statistically significant. 
 
-```{r, warning = FALSE, message = FALSE, fig.width=11, fig.height=8}
+```{r, warning = FALSE, message = FALSE, fig.width=12, fig.height=8}
 
 ggplot() +
   geom_histogram(data = ytfc_game, aes(sentiment), fill = "#377D22", alpha = 0.7, binwidth = 0.06) +
