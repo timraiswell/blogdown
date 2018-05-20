@@ -61,6 +61,7 @@ Anaconda installs the latest version of the Python language (if you&amp;rsquo;re
       
       <guid>/post/r-tips-1-scientific-notation/</guid>
       <description>options(scipen = 999) #the command that turns off scientific notation in R output I often set this parameter in any R project in which I’ll be evaluating predictive model performance. But why would you want to turn off scientific notation? First, it’s a personal preference, but I strongly advocate for learning how to read scientific notation as it is a data science standard. Second, your audience may not be mathematically trained.</description>
-    </item>    
+    </item>
+    
   </channel>
 </rss>
