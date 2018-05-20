@@ -349,7 +349,7 @@ ggplot() +
   geom_histogram(data = mufc_game, aes(sentiment), fill = "#DA020E", alpha = 0.7, binwidth = 0.06) +
   scale_y_continuous(limits = c(0, 60)) +
   atheme +
-  labs(x = "Sentiment", y = "Count", title = "Figure 3. Histogram of Manchester United\nand Yeovil Town fan Twitter sentiment", subtitle = "Yeovil Town F.C. versus Manchester United F.C.\nFA Cup Round 4, Jan 26 2018\n", caption = "Analysis: Tim Raiswell. Source: Twitter.")
+  labs(x = "Sentiment", y = "Count", title = "Figure 3. Histogram of Manchester United and Yeovil Town fan Twitter sentiment", subtitle = "Yeovil Town F.C. versus Manchester United F.C.\nFA Cup Round 4, Jan 26 2018\n", caption = "Analysis: Tim Raiswell. Source: Twitter.")
 
 
 ```

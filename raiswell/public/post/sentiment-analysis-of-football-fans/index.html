@@ -74,7 +74,7 @@
 
 <meta itemprop="datePublished" content="2018-05-18T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-05-18T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2861">
+<meta itemprop="wordCount" content="2862">
 
 
 
@@ -156,7 +156,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-05-18 </span>
         
-        <span class="more-meta"> 2861 word </span>
+        <span class="more-meta"> 2862 word </span>
         <span class="more-meta"> 14 min read </span>
         
       </div>
@@ -313,7 +313,7 @@ ggplot(data = mufc_game, aes(x = as.POSIXct(created), y = sentiment)) +
   geom_vline(xintercept = mufc_game$created[45], color = &quot;#DA020E&quot;) +
   geom_vline(xintercept = mufc_game$created[340], color = &quot;#DA020E&quot;, size = 1.8, alpha = 0.5) +
   geom_vline(xintercept = mufc_game$created[44], color = &quot;#DA020E&quot;, size = 1.8, alpha = 0.5)</code></pre>
-<p><img src="/post/2018-05-19-football-match-sentiment-analysis-on-twitter-data-as-time-series_files/figure-html/unnamed-chunk-14-1.png" width="1056" /></p>
+<p><img src="/post/2018-05-19-football-match-sentiment-analysis-on-twitter-data-as-time-series_files/figure-html/unnamed-chunk-14-1.png" width="1344" /></p>
 </div>
 </div>
 <div id="analysis" class="section level2">
@@ -324,7 +324,7 @@ ggplot(data = mufc_game, aes(x = as.POSIXct(created), y = sentiment)) +
 <li>Related to item #1, Manchester United fans are less likely to take to Twitter to celebrate a goal against a team from a lower league.</li>
 <li>Our techniques for capturing a robust sample of fan sentiment on Twitter are limited.</li>
 </ol>
-<p><img src="/post/2018-05-19-football-match-sentiment-analysis-on-twitter-data-as-time-series_files/figure-html/unnamed-chunk-17-1.png" width="1056" /></p>
+<p><img src="/post/2018-05-19-football-match-sentiment-analysis-on-twitter-data-as-time-series_files/figure-html/unnamed-chunk-17-1.png" width="1344" /></p>
 <p>As the game progresses and as it becomes clearer that Manchester United are going to win, Yeovil fan sentiment lightens. In <strong>Figure 2</strong>, there is an observable drop in negative sentiment as the full time whistle approaches. The same cannot be said of Manchester United fans in <strong>Figure 1</strong>. United fans seem to become frustrated as their team creates chances even though four of these chances resulted in goals. I am <em>narrativizing</em> here; a sloppy method. I watched the game and felt these sentiments myself. Let’s check on the content of the tweets to see if this storyline is somewhat justified.</p>
 <p>This tweet expresses frustration with a refereeing decision towards the end of the game.</p>
 <pre><code>## [1] &quot;Awwwww. Offside. Why @juanmata8 smile? #MUSCbean #ManchesterUnited#mufc#RedArmy#keepgrinding&quot;</code></pre>
@@ -339,8 +339,8 @@ ggplot(data = mufc_game, aes(x = as.POSIXct(created), y = sentiment)) +
   geom_histogram(data = mufc_game, aes(sentiment), fill = &quot;#DA020E&quot;, alpha = 0.7, binwidth = 0.06) +
   scale_y_continuous(limits = c(0, 60)) +
   atheme +
-  labs(x = &quot;Sentiment&quot;, y = &quot;Count&quot;, title = &quot;Figure 3. Histogram of Manchester United\nand Yeovil Town fan Twitter sentiment&quot;, subtitle = &quot;Yeovil Town F.C. versus Manchester United F.C.\nFA Cup Round 4, Jan 26 2018\n&quot;, caption = &quot;Analysis: Tim Raiswell. Source: Twitter.&quot;)</code></pre>
-<p><img src="/post/2018-05-19-football-match-sentiment-analysis-on-twitter-data-as-time-series_files/figure-html/unnamed-chunk-21-1.png" width="1056" /></p>
+  labs(x = &quot;Sentiment&quot;, y = &quot;Count&quot;, title = &quot;Figure 3. Histogram of Manchester United and Yeovil Town fan Twitter sentiment&quot;, subtitle = &quot;Yeovil Town F.C. versus Manchester United F.C.\nFA Cup Round 4, Jan 26 2018\n&quot;, caption = &quot;Analysis: Tim Raiswell. Source: Twitter.&quot;)</code></pre>
+<p><img src="/post/2018-05-19-football-match-sentiment-analysis-on-twitter-data-as-time-series_files/figure-html/unnamed-chunk-21-1.png" width="1344" /></p>
 <p>The mean sentiment of Manchester United fans for the game period is <strong>0.024</strong>; for Yeovil fans it is <strong>0.036</strong>. Does this answer our question above? Are United fans more critical of their team and less likely to enjoy a game, even if they win? Sentiment scores for both sets of fans fail a Shapiro-Wilk normality test, so we use a <a href="http://www.sthda.com/english/wiki/unpaired-two-samples-wilcoxon-test-in-r">non-parametric, two-sample Wilcoxon rank test</a>.</p>
 <pre class="r"><code>tidy(wilcox.test(mufc_game$sentiment, ytfc_game$sentiment, alternative = &quot;two.sided&quot;))</code></pre>
 <pre><code>##   statistic   p.value                                            method
