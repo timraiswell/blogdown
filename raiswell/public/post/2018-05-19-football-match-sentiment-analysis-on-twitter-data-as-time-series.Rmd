@@ -1,0 +1,385 @@
+---
+title: Sentiment analysis of football fan tweets during a game
+author: Tim Raiswell
+date: '2018-05-18'
+tags:
+  - football
+  - mufc
+  - R
+  - text mining
+  - t-test
+  - ggplot
+  - histogram
+slug: sentiment-analysis-of-football-fans
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+load("~/Blog/raiswell/mufc.RData")
+```
+
+```{r, eval = TRUE, echo = FALSE}
+atheme <-
+  theme_bw() +
+  theme(
+  text = element_text(family = "Arial"),
+  plot.subtitle = element_text(size = 14),
+  plot.title = element_text(size = 22),
+  legend.title=element_text(size=14), 
+  legend.text=element_text(size=12)
+  ) + 
+  theme(
+  panel.border = element_blank(),
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank(),
+  axis.line = element_line(colour = "gray"),
+  axis.text = element_text(size = 14),
+  axis.ticks.x = element_blank(),
+  axis.ticks.y = element_blank(),
+  axis.title.y = element_text(
+  angle = 0,
+  size = 14,
+  vjust = 1.0
+  ),
+  axis.title.x = element_text(
+  size = 14
+  ),
+  strip.text.x = element_blank(),
+  plot.caption  = element_text(
+  angle = 0,
+  size = 10,
+  vjust = 1.0
+  )
+  )
+```
+
+
+##Are Manchester United fans more critical of their team than opposing fans about theirs?
+
+This was the (too ambitious) question I intended to answer when I began this piece but having discovered some of the difficulties in accessing bulk, multi-period Twitter data I have scaled it back. I certainly intend to revist the bigger question using Twitter scraping solutions that have since become available, but for now I'll restrict myself to the more achievable question:
+
+##Is there observable evidence in tweets from football fans during matches that one fanbase is more critical than another?
+
+I was born and grew up in Manchester, England, but now I live in the States and I'm forced to follow the English Premier League remotely. I track my Twitter feed during games to see the opinions of other fans. One thing I noticed was the propensity of Manchester United fans to expect heroics from the team on a weekly basis and I wondered whether it was any different for fans of other clubs. One way to tackle this is to examine the sentiment of opposing fans watching the same football match but necessarily wanting different outcomes: their own team to win. As we will see, this is very far from perfect experimental conditiuons, but the approach does give a better sense of the *art of the possible* for this type of analysis. 
+
+##Method
+
+First, I load the packages I'll use in R. Tidyverse and tidytext will help me format the data and prepare my analysis. The twitteR and ROauth packages are what I will use to create my sentiment data for the football teams in question. 
+
+Full documentation for how to use both those Twitter-related packages can be found [here in the user vignette](http://geoffjentry.hexdump.org/twitteR.pdf).
+
+```{r}
+#Loading the relevant packages
+pacman::p_load(tidyverse, twitteR, ROAuth, tidytext, psych,lubridate, SentimentAnalysis, scales, RCurl, tm, grid, wrapr, broom)
+```
+
+Next, I setup my Twitter authentification information so I can start acessing the relevant API. You will need a Twitter account to do this. Full details are included the vignette linked above.
+
+```{r, message = FALSE, warning = FALSE, eval = FALSE, echo = FALSE}
+# Declare Twitter API Credentials
+api_key <- "Your Info" # From dev.twitter.com
+api_secret <- "Your Info" # From dev.twitter.com
+token <- "Your Info" # From dev.twitter.com
+token_secret <- "Your Info" # From dev.twitter.com
+ 
+# Create Twitter Connection
+setup_twitter_oauth(api_key, api_secret, token, token_secret)
+```
+
+###Data acquisition
+
+I start by pulling a set of relevant tweets from the Twitter API for Manchester United's game against Yeovil Town in the FA Cup played on January 26, 2018. I leave the date range broad (all of January 26) so that I can later refine the enquiry to tweets an hour before the match starts and shortly after it ends to capture pre-match expectations and post-game sentiment for both sets of fans.
+
+```{r, eval = FALSE}
+mufc_tweets1 <- searchTwitteR("manchesterunited", n=2000, lang="en", since="2018-01-26", until = "2018-01-26") %>% 
+  strip_retweets(strip_manual = TRUE, strip_mt = TRUE) # ...remove manual retweets that are labeled 'RT'.
+mufc_tweets2 <- searchTwitteR("#mufc", n=2000, lang="en", since="2018-01-26", until = "2018-01-26") %>% 
+  strip_retweets(strip_manual = TRUE, strip_mt = TRUE) # ...remove manual retweets that are labeled 'RT'.
+mufc_tweets3 <- searchTwitteR("#manu", n=2000, lang="en", since="2018-01-26", until = "2018-01-26") %>% 
+  strip_retweets(strip_manual = TRUE, strip_mt = TRUE) # ...remove manual retweets that are labeled 'RT'.
+
+mufc_tweets <- merge.list(mufc_tweets1, mufc_tweets2, mufc_tweets3) # I merge the three Twitter lists into a single list before conversion into a dataframe using the merge.list function from the RCurl package.
+
+```
+
+My intent here is to find tweets from Manchester United fans. This is an imperfect approach that will suffice for now. While I certainly access fan tweets, the use of football club hashtags by no means guarantees that the 'tweeter' is a supporter of Manchester United. Frequently, commercial tweets or rival fans use club hashtags to attract the attention of 'real fans.  Let's look at a few examples from the combined list we just created:
+
+This is certainly a useful example of a fan tweet for sentiment analysis purposes. It conveys fan satisfaction with the final result. 
+
+```{r}
+#A useful example of a fan tweet
+mufc_tweets[[119]] #Nested square parentheses help me access the tweets 
+```
+
+This tweet before the game starts is designed to attract the attention of Manchester United and other football fans by using the '#ManchesterUnited' hastag along with a media hashtag. It is problematic because it uses the word 'killing', which will be picked up in our sentiment analysis as a negative sentiment associated with Manchester United fans. 
+
+```{r}
+#A example of 'advertising' for Manchester United fan attention
+mufc_tweets[[6]]
+```
+
+Now I convert the output to a dataframe, which is a more intuitive format for me to work with.
+
+```{r, eval = FALSE}
+#convert output to a data frame
+mufc_tweets_df <- twListToDF(mufc_tweets)
+dim(mufc_tweets_df) # examine dimensions, 1,106 instances with 19 variables
+```
+Now we examine the column names to get a better sense of the variables in the data. The data is fairly intuitive. We are most interested in the 'text' variable as this contains the subject matter for our sentiment analysis. 
+```{r}
+names(mufc_tweets_df) # lists variable names
+```
+
+I clean the text field of special characters and gambling references. When I first wrote this code I did not implement it as a function; when I realized I would need to reuse the approach multiple times I wrap it to make it faster for future use. 
+
+
+```{r, eval = FALSE}
+
+cleantweet <- function(x) {
+  data("stop_words") # stop words dict as a data frame from the tidytext package.
+  stopwords <- as.vector(stop_words$word)
+  x$text <- removeWords(x$text, stopwords)
+  replace_reg <-
+  "https://t.co/[A-Za-z\\d]+|http://[A-Za-z\\d]+|&amp;|&lt;|&gt;|RT|https|#039;|\n|[^\x01-\x7F]|�|  "
+  x <-
+  x %>%  # regular expressions (regex) useful for cleaning twitter data
+  mutate(text = str_replace_all(text, replace_reg, "")) %>%
+  filter(
+  !str_detect(text, "LIVE") | # Regex specific to sports tweets that are riddled with gambling advertisements
+  !str_detect(text, "Betfair") |
+  !str_detect(text, "Stream") |
+  !str_detect(text, "Betting") |
+  !str_detect(text, "betting") |
+  !str_detect(text, "stream")
+  ) 
+  return(x)
+}
+
+mufc_tweets_df <- cleantweet(mufc_tweets_df) # run the function on the Twitter dataframe
+
+```
+
+I convert the relevant text column to a text vector so it can be used by the tm package's removeWords function. I used this because I want to leave the tweets whole, and not disaggregate using unnest_tokens() in 'tidytext'. 
+
+I run sentiment analysis on the cleaned text field, again using a function so that I can repeat this analysis quickly in the future.  
+
+```{r, eval = FALSE}
+mufc_data <- mufc_tweets_df %>%
+  select(text, favoriteCount, retweetCount, created, location) # Select the fields I will use for the sentiment analysis and for plotting the results 
+  
+  sentiment_tw <- function(x) {
+  vec <- as.vector(x$text)
+  sentiment <- analyzeSentiment(vec)
+  sentiment$SentimentQDAP <- as.numeric(sentiment$SentimentQDAP)
+  x <- cbind(x, sentiment$SentimentQDAP)
+  x <- rename(x, sentiment = `sentiment$SentimentQDAP`)
+  return(x)
+  }
+  
+  mufc_data <- sentiment_tw(mufc_data) # running the sentiment function on our Twitter data
+
+```
+
+Now I use Posix strings that approximate pre- and post-game time periods to help me 'zoom in' on the sentiment I wanbt to examine. 
+
+```{r}
+preko <- as.POSIXlt("2018-01-26 19:45:00")
+postgame <- as.POSIXlt("2018-01-26 22:00:00")
+int <- interval(preko, postgame) #Creates an interval object using the lubridate package 
+mufc_game <- mufc_data[mufc_data$created %within% int,] #This reduces my data to tweets within the specified interval
+row.names(mufc_game) <- 1:nrow(mufc_game) # renumber the rows consecutively from 1 so that the goal times are easier to find later for the sentiment plot.
+```
+
+Now I plot the sentiment results on a timeline with ggplot. I'm using the grid package's textGrob and annotation_custom functions to add major events to the plot, e.g. when the game starts and ends, and goals scored. These events are inserted using approximate times based on tweets about the events. The plot itself is a heatmap of 2-dimensional bin counts using geom_bin2d. The color scheme is from Manchester United's official team colors. I take the same approach with Yeovil Town. I have only displayed a selection of the grob text to prevent it overwhelming the code chunk.  
+
+
+```{r, echo = FALSE}
+
+grob3 <- grobTree(textGrob("Rashford, '41", x=0.4,  y=0.805, just = "right", rot = 270,
+  gp=gpar(col="#DA020E", fontsize = 11, fontfamily = "Arial", fontface = "bold")))
+
+grob4 <- grobTree(textGrob("Herrera, '61", x=0.62,  y=0.82, just = "right", rot = 270,
+  gp=gpar(col="#DA020E", fontsize = 11, fontfamily = "Arial", fontface = "bold")))
+
+grob5 <- grobTree(textGrob("Lingard, '89", x=0.806,  y=0.82, just = "right", rot = 270,
+  gp=gpar(col="#DA020E", fontsize = 11, fontfamily = "Arial", fontface = "bold")))
+
+grob6 <- grobTree(textGrob("Lukaku, '90 + 3", x=0.835,  y =0.783, just = "right", rot = 270,
+  gp=gpar(col="#DA020E", fontsize = 11, fontfamily = "Arial", fontface = "bold")))
+
+grobk <- grobTree(textGrob("Kick Off", x=0.165,  y =0.8, just = "right", rot = 270,
+  gp=gpar(col="black", fontsize = 16, fontfamily = "Arial", fontface = "bold")))
+
+grobf <- grobTree(textGrob("Fulltime", x=0.87,  y =0.8, just = "right", rot = 270,
+  gp=gpar(col="black", fontsize = 16, fontfamily = "Arial", fontface = "bold")))
+
+```
+
+
+```{r, fig.width=11, fig.height=8}
+grob1 <- grobTree(textGrob("Happy", x=0.5,  y=0.98, hjust=0,
+  gp=gpar(col="black", fontsize = 16, fontfamily = "Arial", fontface = "bold")))
+
+grob2 <- grobTree(textGrob("Angry", x=0.5,  y=0.1, hjust=0,
+  gp=gpar(col="black", fontsize = 16, fontfamily = "Arial", fontface = "bold")))
+
+ggplot(data = mufc_game, aes(x = as.POSIXct(created), y = sentiment)) +
+  geom_bin2d() +
+  labs(x = "\nTime", y = "Sentiment", title = "Figure 1. Manchester United Twitter fan sentiment", subtitle = "Yeovil Town F.C. versus Manchester United F.C.\nFA Cup Round 4, Jan 26 2018\n", fill = "Tweet\ncount", caption = "Analysis: Tim Raiswell. Source: Twitter.") +
+  scale_fill_gradient(low = "#DA020E", high = "black", space = "Lab",
+  na.value = "grey50", guide = "colourbar") +
+  atheme +
+  annotation_custom(grob1) +
+  annotation_custom(grob2) +
+  annotation_custom(grob3) +
+  annotation_custom(grob4) +
+  annotation_custom(grob5) +
+  annotation_custom(grob6) +
+  annotation_custom(grobk) +
+  annotation_custom(grobf) +
+  geom_vline(xintercept = mufc_game$created[173], color = "#DA020E") +
+  geom_vline(xintercept = mufc_game$created[130], color = "#DA020E") +
+  geom_vline(xintercept = mufc_game$created[66], color = "#DA020E") +
+  geom_vline(xintercept = mufc_game$created[45], color = "#DA020E") +
+  geom_vline(xintercept = mufc_game$created[340], color = "#DA020E", size = 1.8, alpha = 0.5) +
+  geom_vline(xintercept = mufc_game$created[44], color = "#DA020E", size = 1.8, alpha = 0.5)
+
+```
+
+##Analysis
+
+Figures 1 and 2 show Manchester United and Yeovil fan sentiment before, during and after the match. Both sets of fans seem equally neutral heading into the event. After the game starts, Yeovil fan sentiment in Figure 2 shows greater variation. Relatively high positive and negative scores for tweets precede the first (Manchester United) goal, scored just before half-time in the 41st minute by Marcus Rashford. After the goal, as we might expect, Yeovil fan tweets seem to be more consistently angry (negative sentiment). Interestingly, Manchester United fan tweets in Figure 1 - where we might expect elation - are somewhat neutral. There are several potential reasons for this:
+
+1. Manchester United is playing a lower league club in Yeovil. The team's fans expect the team to win the game handily. A goal as delayed as this prompts relief but not necessarily elation. 
+2. Related to item #1, Manchester United fans are less likely to take to Twitter to celebrate a goal against a team from a lower league. 
+3. Our techniques for capturing a robust sample of fan sentiment on Twitter are limited. 
+
+
+```{r, eval = FALSE, echo = FALSE}
+ytfc_tweets1 <- searchTwitteR("#ytfc", n=2000, lang="en", since="2018-01-26", until = "2018-01-26") %>%
+  strip_retweets(strip_manual = TRUE, strip_mt = TRUE) # ...remove manual retweets that are labeled 'RT'.
+
+ytfc_tweets2 <- searchTwitteR("#yeoviltown", n=2000, lang="en", since="2018-01-26", until = "2018-01-26") %>% 
+  strip_retweets(strip_manual = TRUE, strip_mt = TRUE) # ...remove manual retweets that are labeled 'RT'.
+
+ytfc_tweets3 <- searchTwitteR("#yeovil", n=2000, lang="en", since="2018-01-26", until = "2018-01-26") %>% 
+  strip_retweets(strip_manual = TRUE, strip_mt = TRUE) # ...remove manual retweets that are labeled 'RT'.
+
+ytfc_tweets <- merge.list(ytfc_tweets1, ytfc_tweets2, ytfc_tweets3) # I merge the three Twitter lists into a single list before conversion into a dataframe using the merge.list function from the RCurl package.
+```
+
+
+```{r, echo = FALSE, eval = FALSE}
+#convert output to a data frame
+ytfc_tweets_df <- twListToDF(ytfc_tweets)
+dim(ytfc_tweets_df) # examine dimensions
+ytfc_tweets_df <- cleantweet(ytfc_tweets_df)
+
+ytfc_data <- ytfc_tweets_df %>% 
+  select(text, favoriteCount, retweetCount, created, location) %>% 
+  sentiment_tw()
+
+ytfc_game <- ytfc_data[ytfc_data$created %within% int, ]
+```
+
+
+```{r, fig.width=11, fig.height=8, echo=FALSE}
+
+grob7 <- grobTree(textGrob("Rashford, '41", x=0.36,  y=0.805, just = "right", rot = 270,
+  gp=gpar(col="#DA020E", fontsize = 11, fontfamily = "Arial", fontface = "bold")))
+
+grob8 <- grobTree(textGrob("Herrera, '61", x=0.605,  y=0.82, just = "right", rot = 270,
+  gp=gpar(col="#DA020E", fontsize = 11, fontfamily = "Arial", fontface = "bold")))
+
+grob9 <- grobTree(textGrob("Lingard, '89", x=0.814,  y=0.82, just = "right", rot = 270,
+  gp=gpar(col="#DA020E", fontsize = 11, fontfamily = "Arial", fontface = "bold")))
+
+grob10 <- grobTree(textGrob("Lukaku, '90 + 3", x=0.842,  y =0.783, just = "right", rot = 270,
+  gp=gpar(col="#DA020E", fontsize = 11, fontfamily = "Arial", fontface = "bold")))
+
+grob11 <- grobTree(textGrob("Fulltime", x=0.878,  y =0.8, just = "right", rot = 270,
+  gp=gpar(col="black", fontsize = 16, fontfamily = "Arial", fontface = "bold")))
+
+grob12 <- grobTree(textGrob("Kick Off", x=0.084,  y =0.8, just = "right", rot = 270,
+  gp=gpar(col="black", fontsize = 16, fontfamily = "Arial", fontface = "bold")))
+
+
+ggplot(data = ytfc_game, aes(x = as.POSIXct(created), y = sentiment)) +
+  geom_bin2d() +
+  labs(x = "\nTime", y = "Sentiment", title = "Figure 2. Yeovil Town Twitter fan sentiment", subtitle = "Yeovil Town F.C. versus Manchester United F.C.\nFA Cup Round 4, Jan 26 2018\n", fill = "Tweet\ncount", caption = "Analysis: Tim Raiswell. Source: Twitter.") +
+  scale_fill_gradient(low = "#377D22", high = "black", space = "Lab",
+  na.value = "grey50", guide = "colourbar") +
+  atheme +
+  annotation_custom(grob1) +
+  annotation_custom(grob2) +
+  annotation_custom(grob7) +
+  annotation_custom(grob8) +
+  annotation_custom(grob9) +
+  annotation_custom(grob10) +
+  annotation_custom(grob11) +
+  annotation_custom(grob12) +
+  geom_vline(xintercept = mufc_game$created[173], color = "#DA020E") +
+  geom_vline(xintercept = mufc_game$created[130], color = "#DA020E") +
+  geom_vline(xintercept = mufc_game$created[66], color = "#DA020E") +
+  geom_vline(xintercept = mufc_game$created[45], color = "#DA020E") +
+  geom_vline(xintercept = mufc_game$created[340], color = "#377D22", size = 1.8, alpha = 0.5) +
+  geom_vline(xintercept = mufc_game$created[44], color = "#377D22", size = 1.8, alpha = 0.5)
+
+
+
+```
+
+As the game progresses and as it becomes clearer that Manchester United are going to win, Yeovil fan sentiment lightens. In Figure 2, there is an observable drop in negative sentiment as the fulltime whistle approaches. The same cannot be said of Figure 1. United fans seem to become frustrated as their team creates chances even though four of these chances resulted in goals. I am *narrativizing* here; a sloppy method. I watched the game and felt these sentiments myself. Let's check on the content of the tweets to see if this storyline is somewhat justified.
+
+This tweet expresses frustration with a refereeing decision towards the end of the game. 
+
+```{r, echo = FALSE}
+(mufc_game$text[109])
+```
+Excuse my printing the language - this tweet expresses frustration with a Manchester United player: Jesse Lingard.
+```{r, echo = FALSE}
+(mufc_game$text[41]) # 
+```
+And while this tweet expresses frustration with a television pundit, it is indicative of general Manchester United fan sentiment at this point in the game.
+```{r, echo = FALSE}
+(mufc_game$text[27]) # 
+```
+
+So, despite the fact that Manchester United is winning, *some* of the team's fans are unhappy. Why? To answer that question in full would require several blogs, and months - maybe years - of sentiment analysis. Like Yankees fans in baseball, Manchester United fans have very high expectations. Since the retirement of the club's talismanic, and record-breaking manager Sir Alex Ferguson in 2014, the club and its fans have endured relative failure compared to the heady successes of the 1990s and early 2000s. The tribal nature of European football fans, and the boiling pot that is football fandom on Twitter combine into a weekly groan-zone as fans deperately try to assure themselves that the glory days will return, and attack anything and anyone that suggests they won't. 
+
+Let's take a look at the aggregated sentiment for the game in two ways. First we'll plot a histogram of fan sentiment that will help us to compare the teams side by side. And then we'll perform an analysis of variance to see if the differences in fan sentiment are statistically significant (for this small sample). 
+
+```{r, warning = FALSE, message = FALSE, fig.width=11, fig.height=8}
+
+ggplot() +
+  geom_histogram(data = ytfc_game, aes(sentiment), fill = "#377D22", alpha = 0.7, binwidth = 0.06) +
+  geom_histogram(data = mufc_game, aes(sentiment), fill = "#DA020E", alpha = 0.7, binwidth = 0.06) +
+  scale_y_continuous(limits = c(0, 60)) +
+  atheme +
+  labs(x = "Sentiment", y = "Count", title = "Figure 3. Histogram of Manchester United\nand Yeovil Town fan Twitter sentiment", subtitle = "Yeovil Town F.C. versus Manchester United F.C.\nFA Cup Round 4, Jan 26 2018\n", caption = "Analysis: Tim Raiswell. Source: Twitter.")
+
+
+```
+
+The mean sentiment of Manchester United fans for the game period is **0.024**; for Yeovil fans it is **0.036**. Does this answer our question above? Are United fans more critical of their team and lkkess likely to enjoy a game, even if they win? Sentiment scores for both sets of fans fail a Shapiro-Wilk normality test, so we use a [non-parametric, two-sample Wilcoxon rank test](http://www.sthda.com/english/wiki/unpaired-two-samples-wilcoxon-test-in-r).  
+
+
+```{r}
+tidy(wilcox.test(mufc_game$sentiment, ytfc_game$sentiment, alternative = "two.sided"))
+```
+
+The p-value of the Wilcox test is **0.01078**, lower than the alpha of 0.05 (95% signifcance level), which indicates that the differences in sentiment between fans are significant. But Figure 3 tells a more nuanced story. First, I have limited the Y (count) axis to 60. The majority of tweets we captured are neutral, hence the gap in the middle of the chart. This filter is to help us see the extreme sentiment values (angry to the left, happy to the right). We see that Yeovil fans on Twitter actually convey a broader range of emotions, both positive and negative. But the most negative sentiments for from Yeovil fans; and the most positive sentiments are from United fans. 
+
+##Conclusion
+
+Yeovil Town fans express more positive sentiment than Manchester United fans on Twitter for our analysis time period despite getting beat by four goals to nil. There is more than one factor at play that gets us to this result. First, the data is incomplete as I outline above. Second,  Yeovil fans likely never expected to win the game; as such, just playing against a Premier League club and getting this far in the competition likely buoyed their mood. Third, 
+
+
+**Here are the texts I used while writing these notes.**
+
+##References
+<ul>
+<li>Said JAI-ANDALOUSSI, Imane EL MOURABIT, Nabil MADRANE, Samia BENABDELLAH CHAOUNI, Abderrahim SEKKAKI, ['Soccer Events Summarization by Using Sentiment Analysis'](http://ieeexplore.ieee.org/abstract/document/7424124/z), Computational Science and Computational Intelligence (CSCI), 2015, pps 398	- 403.
+<li>Silge J and Robinson D (2016). “tidytext: Text Mining and Analysis Using Tidy Data Principles in R.” JOSS, 1(3). [doi: 10.21105/joss.00037](http://dx.doi.org/10.21105/joss.00037). [Free online Bookdown version](https://www.tidytextmining.com).
+</ul>
+
+

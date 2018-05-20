@@ -6,10 +6,19 @@
     <description>Recent content in R on Data Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 04 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 18 May 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sentiment analysis of football fan tweets during a game</title>
+      <link>/post/sentiment-analysis-of-football-fans/</link>
+      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sentiment-analysis-of-football-fans/</guid>
+      <description>Are Manchester United fans more critical of their team than opposing fans about theirs? This was the (too ambitious) question I intended to answer when I began this piece but having discovered some of the difficulties in accessing bulk, multi-period Twitter data I have scaled it back. I certainly intend to revist the bigger question using Twitter scraping solutions that have since become available, but for now I’ll restrict myself to the more achievable question:</description>
+    </item>
     
     <item>
       <title>Removing scientific notation in R</title>

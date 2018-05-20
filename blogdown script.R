@@ -20,3 +20,12 @@ blogdown::hugo_build(local=TRUE)
 blogdown::serve_site()
 blogdown::stop_server()
 
+# # Declare Twitter API Credentials
+# api_key <- "TEt0KZ4RddAOre4GsbOdbupOT" # From dev.twitter.com
+# api_secret <- "nUt2O4PUSDdAl6cZ2GvWW9mzrUL5J3g1eeiolhHo52sSFPXBbe" # From dev.twitter.com
+# token <- "742737889809838080-CtQrGFnDUF2c4VrpnFLQssmVuwhO3fP" # From dev.twitter.com
+# token_secret <- "RxryAiaY1DuxSdQ6873b6TiuX48fZvgtIAj2mPdKTixG4" # From dev.twitter.com
+# 
+# # Create Twitter Connection
+# setup_twitter_oauth(api_key, api_secret, token, token_secret)
+
