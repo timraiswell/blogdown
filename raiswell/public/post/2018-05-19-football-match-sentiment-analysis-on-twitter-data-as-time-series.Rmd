@@ -346,7 +346,7 @@ And while this tweet expresses frustration with a television pundit, it is indic
 
 So, despite the fact that Manchester United is winning, *some* of the team's fans are unhappy. Why? To answer that question in full would require several blogs, and months - maybe years - of sentiment analysis. Like Yankees fans in baseball, Manchester United fans have very high expectations. Since the retirement of the club's talismanic, and record-breaking manager Sir Alex Ferguson in 2014, the club and its fans have endured relative failure compared to the heady successes of the 1990s and early 2000s. The tribal nature of European football fans, and the boiling pot that is football fandom on Twitter combine into a weekly groan-zone as fans deperately try to assure themselves that the glory days will return, and attack anything and anyone that suggests they won't. 
 
-Let's take a look at the aggregated sentiment for the game in two ways. First we'll plot a histogram of fan sentiment that will help us to compare the teams side by side. And then we'll perform an analysis of variance to see if the differences in fan sentiment are statistically significant (for this small sample). 
+Let's take a look at the aggregated sentiment for the game in two ways. First we'll plot a histogram of fan sentiment that will help us to compare the teams side by side. And then we'll run a t-test to see if the differences in fan sentiment are statistically significant. 
 
 ```{r, warning = FALSE, message = FALSE, fig.width=11, fig.height=8}
 
@@ -371,7 +371,7 @@ The p-value of the Wilcox test is **0.01078**, lower than the alpha of 0.05 (95%
 
 ##Conclusion
 
-Yeovil Town fans express more positive sentiment than Manchester United fans on Twitter for our analysis time period despite getting beat by four goals to nil. There is more than one factor at play that gets us to this result. First, the data is incomplete as I outline above. Second,  Yeovil fans likely never expected to win the game; as such, just playing against a Premier League club and getting this far in the competition likely buoyed their mood. Third, 
+Yeovil Town fans express more positive sentiment than Manchester United fans on Twitter for our analysis time period despite getting beat by four goals to nil. There is more than one factor at play that gets us to this result. First, the data is incomplete as I outline above. Second,  Yeovil fans likely never expected to win the game; as such, just playing against a Premier League club and getting this far in the competition likely buoyed their mood.  
 
 
 **Here are the texts I used while writing these notes.**

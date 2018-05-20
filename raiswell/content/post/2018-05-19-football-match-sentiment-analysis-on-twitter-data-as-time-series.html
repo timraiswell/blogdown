@@ -153,7 +153,7 @@ ggplot(data = mufc_game, aes(x = as.POSIXct(created), y = sentiment)) +
 <p>And while this tweet expresses frustration with a television pundit, it is indicative of general Manchester United fan sentiment at this point in the game.</p>
 <pre><code>## [1] &quot;Martin keown giving sounessrun bitter pundit #ManchesterUnited #YEOMUN #football&quot;</code></pre>
 <p>So, despite the fact that Manchester United is winning, <em>some</em> of the team’s fans are unhappy. Why? To answer that question in full would require several blogs, and months - maybe years - of sentiment analysis. Like Yankees fans in baseball, Manchester United fans have very high expectations. Since the retirement of the club’s talismanic, and record-breaking manager Sir Alex Ferguson in 2014, the club and its fans have endured relative failure compared to the heady successes of the 1990s and early 2000s. The tribal nature of European football fans, and the boiling pot that is football fandom on Twitter combine into a weekly groan-zone as fans deperately try to assure themselves that the glory days will return, and attack anything and anyone that suggests they won’t.</p>
-<p>Let’s take a look at the aggregated sentiment for the game in two ways. First we’ll plot a histogram of fan sentiment that will help us to compare the teams side by side. And then we’ll perform an analysis of variance to see if the differences in fan sentiment are statistically significant (for this small sample).</p>
+<p>Let’s take a look at the aggregated sentiment for the game in two ways. First we’ll plot a histogram of fan sentiment that will help us to compare the teams side by side. And then we’ll run a t-test to see if the differences in fan sentiment are statistically significant.</p>
 <pre class="r"><code>ggplot() +
   geom_histogram(data = ytfc_game, aes(sentiment), fill = &quot;#377D22&quot;, alpha = 0.7, binwidth = 0.06) +
   geom_histogram(data = mufc_game, aes(sentiment), fill = &quot;#DA020E&quot;, alpha = 0.7, binwidth = 0.06) +
@@ -171,7 +171,7 @@ ggplot(data = mufc_game, aes(x = as.POSIXct(created), y = sentiment)) +
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>Yeovil Town fans express more positive sentiment than Manchester United fans on Twitter for our analysis time period despite getting beat by four goals to nil. There is more than one factor at play that gets us to this result. First, the data is incomplete as I outline above. Second, Yeovil fans likely never expected to win the game; as such, just playing against a Premier League club and getting this far in the competition likely buoyed their mood. Third,</p>
+<p>Yeovil Town fans express more positive sentiment than Manchester United fans on Twitter for our analysis time period despite getting beat by four goals to nil. There is more than one factor at play that gets us to this result. First, the data is incomplete as I outline above. Second, Yeovil fans likely never expected to win the game; as such, just playing against a Premier League club and getting this far in the competition likely buoyed their mood.</p>
 <p><strong>Here are the texts I used while writing these notes.</strong></p>
 </div>
 <div id="references" class="section level2">
