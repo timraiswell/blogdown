@@ -24,6 +24,13 @@
   </url>
   
   <url>
+    <loc>/post/one-way-anova-in-python/</loc>
+    <lastmod>2018-05-27T16:27:37-04:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>/post/sentiment-analysis-of-football-fans/</loc>
     <lastmod>2018-05-18T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -35,6 +42,13 @@
     <lastmod>2018-01-05T17:16:10-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/anova/</loc>
+    <lastmod>2018-05-27T16:27:37-04:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -79,8 +93,22 @@
   </url>
   
   <url>
+    <loc>/tags/ols/</loc>
+    <lastmod>2018-05-27T16:27:37-04:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/post/</loc>
-    <lastmod>2018-05-18T00:00:00+00:00</lastmod>
+    <lastmod>2018-05-27T16:27:37-04:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2018-05-27T16:27:37-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -101,7 +129,7 @@
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2018-05-18T00:00:00+00:00</lastmod>
+    <lastmod>2018-05-27T16:27:37-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -109,6 +137,13 @@
   <url>
     <loc>/tags/text-mining/</loc>
     <lastmod>2018-05-18T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/tukey/</loc>
+    <lastmod>2018-05-27T16:27:37-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Data Notes</title>
+    <link>/tags/python/</link>
+    <description>Recent content in Python on Data Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 27 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>One-Way ANOVA in Python</title>
+      <link>/post/one-way-anova-in-python/</link>
+      <pubDate>Sun, 27 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/one-way-anova-in-python/</guid>
+      <description>knitr::opts_chunk$set(&amp;#39;python&amp;#39;, engine.path = &amp;#39;/usr/local/Cellar/python/3.6.5/bin/python3&amp;#39;) Installing and Loading the Reticulate Package This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the Resources section of the blog. I also needed to change Reticulate’s settings to point it at Python3 on my Mac. You can find those details here.
+Of course, you do not need to run Python from Rstudio, or within the R framework.</description>
+    </item>
+    
+  </channel>
+</rss>
