@@ -46,12 +46,23 @@ Anaconda installs the latest version of the Python language (if you&amp;rsquo;re
     </item>
     
     <item>
-      <title>Sentiment analysis of football fan tweets during a game</title>
+      <title>One-Way ANOVA in Python</title>
+      <link>/post/one-way-anova-in-python/</link>
+      <pubDate>Sun, 27 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/one-way-anova-in-python/</guid>
+      <description>Installing and Loading the Reticulate Package This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the Resources section. I also needed to change Reticulate’s settings to point it at Python 3 on my Mac. You can find those details here.
+Of course, you do not need to run Python from Rstudio, or within the R framework.</description>
+    </item>
+    
+    <item>
+      <title>Sentiment Analysis of Football Fan Tweets During a Game</title>
       <link>/post/sentiment-analysis-of-football-fans/</link>
       <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/sentiment-analysis-of-football-fans/</guid>
-      <description>Are Manchester United fans more critical of their team than opposing fans about theirs? This was the (too ambitious) question I intended to answer when I began this piece but having discovered some of the difficulties in accessing bulk, multi-period Twitter data I have scaled it back. I certainly intend to revisit the bigger question using Twitter scraping solutions that have since become available, but for now I’ll restrict myself to the more achievable question:</description>
+      <description>###Are Manchester United fans more critical of their team than opposing fans about theirs?
+This was the (too ambitious) question I intended to answer when I began this piece but having discovered some of the difficulties in accessing bulk, multi-period Twitter data I have scaled it back. I certainly intend to revisit the bigger question using Twitter scraping solutions that have since become available, but for now I’ll restrict myself to the more achievable question:</description>
     </item>
     
     <item>

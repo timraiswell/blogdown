@@ -1,0 +1,186 @@
+---
+title: One-Way ANOVA in Python
+author: Tim Raiswell
+date: '2018-05-27'
+slug: one-way-anova-in-python
+categories: []
+tags:
+  - Python
+  - ANOVA
+  - OLS
+  - Tukey
+lastmod: '2018-05-27T16:27:37-04:00'
+keywords: []
+description: ''
+comment: no
+toc: no
+autoCollapseToc: no
+contentCopyright: no
+reward: no
+mathjax: no
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set('python', engine.path = '/usr/local/Cellar/python/3.6.5/bin/python3')
+```
+
+
+### Installing and Loading the Reticulate Package
+This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the [Resources section](/resources/). I also needed to change Reticulate's settings to point it at Python 3 on my Mac. You can find those [details here](https://rstudio.github.io/reticulate/articles/versions.html).
+
+Of course, you do not need to run Python from Rstudio, or within the R framework. It will be much easier for you to work through this exercise in IPython or a Jupyter Notebook via Anaconda.
+
+```{r}
+pacman::p_load(reticulate)
+use_python('/usr/local/Cellar/python/3.6.5/bin/python3') # points reticulate at Python3 
+funcs <- import_builtins()
+```
+
+We import the relevant Python packages for the ANOVA exercise. If you installed Python 3 via Anaconda all of these packages will be installed already. If you installed Python 3 using another method, e.g. Homebrew on MacOS, then you can run the `pip3 install -package_name-` command to install them. 
+```{python}
+import pandas as pd # This is a common coding format in Python. The package is imported using a shorter name format so that function calls are faster to type. 
+import numpy as np
+import matplotlib as mpl
+mpl.use('TkAgg')
+import matplotlib.pyplot as plt 
+import seaborn as sns
+from scipy import stats
+import statsmodels
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+
+```
+  
+  
+### Data Acquisition and Transformation
+This data comes from the University of Sheffield in the UK. It is listed as an "R Dataset" but it is a .csv text file, which Python pandas can import with no problems at all. When I began on these notes I didn't realize that the University also has an ANOVA lesson based on this data. You can access the very useful R-based [notes here](https://www.sheffield.ac.uk/polopoly_fs/1.536445!/file/MASH_ANOVA_in_R.pdf).  
+
+
+```{python}
+diet = "https://www.sheffield.ac.uk/polopoly_fs/1.570199!/file/stcp-Rdataset-Diet.csv" # reads in data
+data = pd.read_csv(diet) # gives the data the name 'data'
+data['Loss'] = data['pre.weight'] - data['weight6weeks'] #creates a target variable of weight loss. 
+print(data.head()) # reviews the modified pandas data frame.
+```
+
+### Data Description
+> *"The data set Diet.csv contains information on 78 people who undertook one of three diets. There is background information such as age, gender (Female=0, Male=1) and height. The aim of the study was to see which diet was best for losing weight so the independent variable (group) is diet."* - **The University of Sheffield's Mathematics and Statistics Help Department (MASH)**  
+
+
+We check the data types and find that 'Diet' - our independent variable - is being treated as an integer rather than a categorical variable. In R we would convert it to a factor; in Python we convert it to the equivalent: a categorical variable.  
+
+```{python}
+print(data.dtypes) # list variable types 
+```
+
+This chunk of code contains the pandas conversion:
+
+```{python}
+data['Diet'] = pd.Categorical(data['Diet']) # Change Diet to a categorical variable
+```
+
+We check that the conversion was successful and see that Diet is now listed as 'category': 
+
+
+```{python}
+print(data.dtypes) # list variable types 
+```
+
+### Question for investigation: Are the three diets equally effective for weight loss?
+
+ANOVA cannot *prove* causation. It can tell us whether the mean weight loss of each diet group are different at a statistically significant level. In this case, our null hypothesis is that **all group mean weight losses are the same.** 
+
+We start by visualizing the impact of each diet on the weight loss variable with a box plot. We use the Seaborn data visualization package.  Figure 1 tells us that Diet 3 seems to be the most effective; it has the highest mean weight loss. The standard deviations of each diet look similar. 
+
+Analysis of Variance or ANOVA tells us whether the differences in the variance *between* each diet group are statistically significant when compared to the differences *within* each group.
+
+One of the core assumptions with ANOVA is that the dependent variable is normally distributed. 
+
+```{python, fig.width=12, fig.height=9}
+sns.set(font_scale=1.6)  #sets font size for chart scales
+ax = sns.boxplot(x = "Diet", y = "Loss", data = data, # calls the boxplot
+                 palette="Set1", # sets color scheme 
+                 linewidth = 2) # sets chart line width
+ax.set_title("Figure 1. Boxplot of Weight Loss by Diet Type\n", fontsize=16) # title 
+ax.set_ylabel("Weight\nLoss", rotation = 0, fontsize=16, labelpad=50) # y-axis label
+ax.set_xlabel("Diet", rotation = 0, fontsize=16) # x-axis label
+plt.show()
+plt.gcf().clear() # you do not need to use this line to flush the mpl cache if you're running this in pure Python (as opposed to through R). If I don't run this line, box chart elements merged with  histogram below. 
+```
+
+Create a histogram of the weight loss dependent variable:
+
+```{python}
+plt.hist(data['Loss'], bins='auto') # check for variable normality in weight loss dependent variable. 
+#Data looks normally distributed.
+plt.title("Figure 2. Distribution of Weight Loss Variable, lbs\n")
+plt.xlabel("Weight Loss - lbs")
+plt.ylabel("Count\nof Dieters", rotation = 0, labelpad = 40)
+plt.show()
+
+```
+
+```{python, echo = FALSE}
+plt.gcf().clear() 
+```
+
+We now confirm our intuition from the visualization that the weight loss data is normally distributed. The p-score is higher than our alpha of 0.05, showing our intuition to be correct. 
+
+```{python}
+print(stats.normaltest(data['Loss'], axis=0))
+# statistical normality test to check the visual test. 
+# P > 0.05 therefore We cannot reject the hypothesis that the sample comes from a population which has a normal distribution
+```
+
+Now we create an Ordinary Least Squares (OLS) model as a precursor to the ANOVA. I won't print the results as I'll be writing about interpreting OLS results in a future note. 
+
+```{python}
+model = ols("Loss ~ Diet", data).fit()  # builds the OLS model, predicting weight loss with diet type.
+```
+
+Before the ANOVA, we check the OLS residuals are normally distributed. This is another important prior assumption. The residuals look approximately normal. 
+```{python}
+resids = statsmodels.regression.linear_model.RegressionResults.resid(model) # grabs the residual values from the OLS model
+
+hist2 = plt.hist(resids, bins = 'auto', color='dodgerblue') # check for variable normality in weight loss dependent variable. 
+#Data looks normally distributed.
+plt.title("Figure 3. Distribution of OLS Model Residuals")
+plt.xlabel("Residual Values")
+plt.ylabel("Count", rotation = 0, labelpad = 40)
+plt.show()
+```
+
+
+We call the ANOVA function, applying it to the linear model. We are looking for a p-score lower than 0.05, which will show a statistically significant difference between mean weight losses. It will not tell us *where* those differences exist, just *whether* they exist. The p-score of **0.003229** shows that they do.  
+
+```{python}
+table = sm.stats.anova_lm(model, typ=2) # Type 2 ANOVA DataFrame
+print(table) 
+# In a one-way ANOVA the null hypothesis is that the means of the Diet types are equal. We can reject that hypothesis
+# because P < 0.05 
+```
+
+
+### But which diet is the best one for weight loss?  
+
+This question is out of the scope of the ANOVA, though our analysis is an important precursor to answering this more specific question. We can check with a *post hoc* Tukey test. 
+
+It looks like the Diet 3 group lost the most weight. The second row of results shows a **1.85** mean difference in weight loss between Diets 2 and 3. The third row shows the mean difference for those on Diet 2 if we subtract the second row results from it: `2.12 - 1.85 = 0.27`. So the Diet 2 group only lost an average of **0.27 lbs** more than the Diet 1 group. Again, let me stress that this is not a definitive causal analysis. All we have established is that the three dieting groups differ in weight loss performance from one another, and by what average margin.There may well be other confounding factors at play causing the weight loss. 
+
+
+```{python}
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
+from statsmodels.stats.multicomp import MultiComparison
+
+mc = MultiComparison(data['Loss'], data['Diet'])
+tkresult = mc.tukeyhsd()
+ 
+print(tkresult)
+```
+
+### References  
+<ul>
+<li> ['Using One-way ANOVA and Tukey's test to compare data sets'](http://cleverowl.uk/2015/07/01/using-one-way-anova-and-tukeys-test-to-compare-data-sets/), Clever Owl, July 1, 2015
+<li> ['ANOVA'](https://www.sheffield.ac.uk/mash/statistics2/anova), University of Sheffield, December 2015.
+<li> D.L. Couturier, R. Nicholls, M. Fernandes, ['ANOVA with R: analysis of the diet dataset'](https://bioinformatics-core-shared-training.github.io/linear-models-r/ANOVA.html), Bioinformatics Training Materials, May 10, 2018.
+</ul>
