@@ -25,7 +25,6 @@ mathjax: no
 knitr::opts_chunk$set('python', engine.path = '/usr/local/Cellar/python/3.6.5/bin/python3')
 ```
 
-
 ### Installing and Loading the Reticulate Package
 This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the [Resources section](/resources/) of the blog. I also needed to change Reticulate's settings to point it at Python3 on my Mac. You can find those [details here](https://rstudio.github.io/reticulate/articles/versions.html).
 
@@ -114,13 +113,13 @@ plt.gcf().clear() # you do not need to use this line to flush the mpl cache if y
 Create a histogram of the weight loss dependent variable:
 
 ```{python}
+
 plt.hist(data['Loss'], bins='auto') # check for variable normality in weight loss dependent variable. 
 #Data looks normally distributed.
 plt.title("Figure 2. Distribution of Weight Loss Variable, lbs\n")
 plt.xlabel("Weight Loss - lbs")
 plt.ylabel("Count\nof Dieters", rotation = 0, labelpad = 40)
 plt.show()
-<<<<<<< HEAD
 
 ```
 
@@ -156,7 +155,7 @@ plt.show()
 ```
 
 
-We call the ANOVA function, applying it to the linear model. We are looking for a p-score lower than 0.05, which will show a statistically significant difference between mean weight losses. It will not tell us *where* those differences exist, just *whether* they exist. The p-score of **0.003229** shows that they do.  
+We now call the ANOVA function, applying it to the linear model. We are looking for a p-score lower than 0.05, which will show a statistically significant difference between mean weight losses. It will not tell us *where* those differences exist, just *whether* they exist. The p-score of **0.003229** shows that they do.  
 
 ```{python}
 table = sm.stats.anova_lm(model, typ=2) # Type 2 ANOVA DataFrame
@@ -170,8 +169,6 @@ print(table)
 
 This question is out of the scope of the ANOVA, though our analysis is an important precursor to answering this more specific question. We can check with a *post hoc* Tukey test. 
 
-It looks like the Diet 3 group lost the most weight. The second row of results shows a **1.85** mean difference in weight loss between Diets 2 and 3. The third row shows the mean difference for those on Diet 2 after we subtract the second row results from it: `2.12 - 1.85 = 0.27`. So the Diet 2 group only lost an average of **0.27 lbs** more than the Diet 1 group. Again, let me stress that this is not a definitive causal analysis. All we have established is that the three dieting groups differ in weight loss performance from one another, and by what average margin.There may well be other confounding factors at play causing the weight loss. 
-
 ```{python}
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
 from statsmodels.stats.multicomp import MultiComparison
@@ -181,6 +178,8 @@ tkresult = mc.tukeyhsd()
  
 print(tkresult)
 ```
+
+It looks like the Diet 3 group lost the most weight. The second row of results shows a **1.85** mean difference in weight loss between Diets 2 and 3. The third row shows the mean difference for those on Diet 2 after we subtract the second row results from it: `2.12 - 1.85 = 0.27`. So the Diet 2 group only lost an average of **0.27 lbs** more than the Diet 1 group. Again, let me stress that this is not a definitive causal analysis. All we have established is that the three dieting groups differ in weight loss performance from one another, and by what average margin.There may well be other confounding factors at play causing the weight loss. 
 
 ### References  
 <ul>

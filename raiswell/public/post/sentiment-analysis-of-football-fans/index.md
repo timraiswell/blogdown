@@ -1,14 +1,20 @@
-<p>###Are Manchester United fans more critical of their team than opposing fans about theirs?</p>
+<div id="are-manchester-united-fans-more-critical-of-their-team-than-opposing-fans-about-theirs" class="section level3">
+<h3>Are Manchester United fans more critical of their team than opposing fans about theirs?</h3>
 <p>This was the (too ambitious) question I intended to answer when I began this piece but having discovered some of the difficulties in accessing bulk, multi-period Twitter data I have scaled it back. I certainly intend to revisit the bigger question using Twitter scraping solutions that have since become available, but for now I’ll restrict myself to the more achievable question:</p>
-<p>###Is there evidence in tweets from football fans during matches that one fanbase is more critical than another?</p>
+</div>
+<div id="is-there-evidence-in-tweets-from-football-fans-during-matches-that-one-fanbase-is-more-critical-than-another" class="section level3">
+<h3>Is there evidence in tweets from football fans during matches that one fanbase is more critical than another?</h3>
 <p>I was born and grew up in Manchester, England. I live in the US now and I’m forced to follow the English Premier League remotely. I track my Twitter feed during games to see the opinions of other fans. One thing I noticed was the propensity of Manchester United fans to expect heroics from the team on a weekly basis and I wondered whether it was any different for fans of other clubs. One way to tackle this is to examine the sentiment of opposing fans watching the same football match but necessarily wanting different outcomes: their own team to win. As we will see, this method is very far from experimental conditions, but the approach does give a better sense of the art of the possible.</p>
-<p>##Method</p>
+</div>
+<div id="method" class="section level2">
+<h2>Method</h2>
 <p>First, I load the packages I’ll use in R. Tidyverse and tidytext will help me format the data and prepare my analysis. The twitteR and ROauth packages are what I will use to create my sentiment data for the football teams in question. If you do not have the pacman package installed, run the line <strong>install.packages(‘pacman’)</strong> in the console.</p>
 <p>Full documentation for how to use both those Twitter-related packages can be found <a href="http://geoffjentry.hexdump.org/twitteR.pdf">here in the user vignette</a>.</p>
 <pre class="r"><code>#Loading the relevant packages
 pacman::p_load(tidyverse, twitteR, ROAuth, tidytext, psych,lubridate, SentimentAnalysis, scales, RCurl, tm, grid, wrapr, broom)</code></pre>
 <p>Next, I setup my Twitter authentication information so I can start accessing the relevant API. You will need a Twitter account to do this. Full details are included the vignette linked above.</p>
-<p>###Data acquisition</p>
+<div id="data-acquisition" class="section level3">
+<h3>Data acquisition</h3>
 <p>I download a set of relevant tweets from the Twitter API for Manchester United’s game against Yeovil Town in the FA Cup played on January 26, 2018. I leave the date range broad (all of January 26) so that I can later refine the inquiry to tweets an hour before the match starts and shortly after it ends to capture pre-match expectations and post-game sentiment for both sets of fans.</p>
 <pre class="r"><code>mufc_tweets1 &lt;- searchTwitteR(&quot;manchesterunited&quot;, n=2000, lang=&quot;en&quot;, since=&quot;2018-01-26&quot;, until = &quot;2018-01-26&quot;) %&gt;% 
   strip_retweets(strip_manual = TRUE, strip_mt = TRUE) # ...remove manual retweets that are labeled &#39;RT&#39;.
@@ -132,7 +138,10 @@ ggplot(data = mufc_game, aes(x = as.POSIXct(created), y = sentiment)) +
   geom_vline(xintercept = mufc_game$created[340], color = &quot;#DA020E&quot;, size = 1.8, alpha = 0.5) +
   geom_vline(xintercept = mufc_game$created[44], color = &quot;#DA020E&quot;, size = 1.8, alpha = 0.5)</code></pre>
 <p><img src="/post/2018-05-19-football-match-sentiment-analysis-on-twitter-data-as-time-series_files/figure-html/unnamed-chunk-14-1.png" width="1344" /></p>
-<p>##Analysis</p>
+</div>
+</div>
+<div id="analysis" class="section level2">
+<h2>Analysis</h2>
 <p><strong>Figures 1 and 2</strong> show Manchester United and Yeovil fan sentiment before, during and after the match. Both sets of fans seem equally neutral heading into the event. After the game starts, Yeovil fan sentiment in <strong>Figure 2</strong> shows greater variation. Relatively high positive and negative scores for tweets precede the first (Manchester United) goal, scored just before half-time in the 41st minute by Marcus Rashford. After the goal, as we might expect, Yeovil fan tweets seem to be more consistently angry (negative sentiment). Interestingly, Manchester United fan tweets in <strong>Figure 1</strong> - where we might expect elation - are somewhat neutral. There are several potential reasons for this:</p>
 <ol style="list-style-type: decimal">
 <li>Manchester United is playing a lower league club in Yeovil. The team’s fans expect the team to win the game handily. A goal as delayed as this prompts relief but not necessarily elation.</li>
@@ -163,13 +172,18 @@ ggplot(data = mufc_game, aes(x = as.POSIXct(created), y = sentiment)) +
 ##   alternative
 ## 1   two.sided</code></pre>
 <p>The p-value of the Wilcox test is <strong>0.01078</strong>, lower than the alpha of 0.05 (95% significance level), which indicates that the differences in sentiment between fans are significant. But <strong>Figure 3</strong> tells a more nuanced story. First, I have limited the Y (count) axis to 60. The majority of tweets we captured are neutral, hence the gap in the middle of the chart. This filter is so we can see the extreme sentiment values (angry to the left, happy to the right). We see that Yeovil fans on Twitter actually convey a broader range of emotions, both positive and negative. But the most negative sentiments for from Yeovil fans; and the most positive sentiments are from United fans.</p>
-<p>##Conclusion</p>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
 <p>Yeovil Town fans express more positive sentiment than Manchester United fans on Twitter for the game time period despite getting beat by four goals to nil. There is more than one factor at play that gets us to this result. First, the data is incomplete as I outline above. Second, Yeovil fans likely never expected to win the game; as such, just playing against a Premier League club and getting this far in the competition likely buoyed their mood. Third, Manchester United fans are harder to please than Yeovil fans.</p>
 <p>The comparison of an English Premier League fanbase with the fanbase of a club from a lower league is unfair and bad science in some respects, but the analysis does yield interesting results that I’d like to test in the future with sentiment analysis of multiple games and teams. Other interesting approaches might involve lagging sentiment against club events like games won and lost, or goals scored and conceded, to see if various fanbases react differently, and whether supporting a storied club with an expectant fanbase is really a cause for joy at all.</p>
-##References
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
 <ul>
 <li>
 Said JAI-ANDALOUSSI, Imane EL MOURABIT, Nabil MADRANE, Samia BENABDELLAH CHAOUNI, Abderrahim SEKKAKI, <a href="http://ieeexplore.ieee.org/abstract/document/7424124/z">‘Soccer Events Summarization by Using Sentiment Analysis’</a>, Computational Science and Computational Intelligence (CSCI), 2015, pps 398 - 403.
 <li>
 Silge J and Robinson D (2016). “tidytext: Text Mining and Analysis Using Tidy Data Principles in R.” JOSS, 1(3). <a href="http://dx.doi.org/10.21105/joss.00037">doi: 10.21105/joss.00037</a>. <a href="https://www.tidytextmining.com">Free online Bookdown version</a>.
 </ul>
+</div>
