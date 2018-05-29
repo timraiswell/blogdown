@@ -20,28 +20,31 @@ reward: no
 mathjax: no
 ---
 
+
 ```{r, echo = FALSE}
 knitr::opts_chunk$set('python', engine.path = '/usr/local/Cellar/python/3.6.5/bin/python3')
 ```
 
 
 ### Installing and Loading the Reticulate Package
-This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the [Resources section](/resources/). I also needed to change Reticulate's settings to point it at Python 3 on my Mac. You can find those [details here](https://rstudio.github.io/reticulate/articles/versions.html).
+This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the [Resources section](/resources/) of the blog. I also needed to change Reticulate's settings to point it at Python3 on my Mac. You can find those [details here](https://rstudio.github.io/reticulate/articles/versions.html).
 
 Of course, you do not need to run Python from Rstudio, or within the R framework. It will be much easier for you to work through this exercise in IPython or a Jupyter Notebook via Anaconda.
 
 ```{r}
 pacman::p_load(reticulate)
-use_python('/usr/local/Cellar/python/3.6.5/bin/python3') # points reticulate at Python3 
-funcs <- import_builtins()
+use_python('/usr/local/Cellar/python/3.6.5/bin/python3') # points reticulate at Python 3  
+
 ```
 
-We import the relevant Python packages for the ANOVA exercise. If you installed Python 3 via Anaconda all of these packages will be installed already. If you installed Python 3 using another method, e.g. Homebrew on MacOS, then you can run the `pip3 install -package_name-` command to install them. 
+
+We import the relevant Python packages for the ANOVA exercise. If you have installed Python 3 via Anaconda all of these packages will be installed already. If you installed Python3 using another method, e.g. Homebrew on MacOS, then you can run the `pip3 install -package_name-` command to install them. 
+
 ```{python}
 import pandas as pd # This is a common coding format in Python. The package is imported using a shorter name format so that function calls are faster to type. 
 import numpy as np
 import matplotlib as mpl
-mpl.use('TkAgg')
+mpl.use('TkAgg') # I added this line as a fix to a Matplotlib error - it couldn't be imported to the python environment
 import matplotlib.pyplot as plt 
 import seaborn as sns
 from scipy import stats
@@ -63,11 +66,12 @@ data['Loss'] = data['pre.weight'] - data['weight6weeks'] #creates a target varia
 print(data.head()) # reviews the modified pandas data frame.
 ```
 
+
 ### Data Description
 > *"The data set Diet.csv contains information on 78 people who undertook one of three diets. There is background information such as age, gender (Female=0, Male=1) and height. The aim of the study was to see which diet was best for losing weight so the independent variable (group) is diet."* - **The University of Sheffield's Mathematics and Statistics Help Department (MASH)**  
 
 
-We check the data types and find that 'Diet' - our independent variable - is being treated as an integer rather than a categorical variable. In R we would convert it to a factor; in Python we convert it to the equivalent: a categorical variable.  
+We check the data types and find that 'Diet' - our independent variable - is being treated as an integer rather than a categorical variable. In R we would convert it to a factor; in Python we convert it to the equivalent: a categorical variable. 
 
 ```{python}
 print(data.dtypes) # list variable types 
@@ -80,7 +84,6 @@ data['Diet'] = pd.Categorical(data['Diet']) # Change Diet to a categorical varia
 ```
 
 We check that the conversion was successful and see that Diet is now listed as 'category': 
-
 
 ```{python}
 print(data.dtypes) # list variable types 
@@ -117,6 +120,7 @@ plt.title("Figure 2. Distribution of Weight Loss Variable, lbs\n")
 plt.xlabel("Weight Loss - lbs")
 plt.ylabel("Count\nof Dieters", rotation = 0, labelpad = 40)
 plt.show()
+<<<<<<< HEAD
 
 ```
 
@@ -138,7 +142,8 @@ Now we create an Ordinary Least Squares (OLS) model as a precursor to the ANOVA.
 model = ols("Loss ~ Diet", data).fit()  # builds the OLS model, predicting weight loss with diet type.
 ```
 
-Before the ANOVA, we check the OLS residuals are normally distributed. This is another important prior assumption. The residuals look approximately normal. 
+Before the ANOVA, we check the OLS residuals are normally distributed. This is another important prior assumption. The residuals look approximately normal.  
+
 ```{python}
 resids = statsmodels.regression.linear_model.RegressionResults.resid(model) # grabs the residual values from the OLS model
 
@@ -165,8 +170,7 @@ print(table)
 
 This question is out of the scope of the ANOVA, though our analysis is an important precursor to answering this more specific question. We can check with a *post hoc* Tukey test. 
 
-It looks like the Diet 3 group lost the most weight. The second row of results shows a **1.85** mean difference in weight loss between Diets 2 and 3. The third row shows the mean difference for those on Diet 2 if we subtract the second row results from it: `2.12 - 1.85 = 0.27`. So the Diet 2 group only lost an average of **0.27 lbs** more than the Diet 1 group. Again, let me stress that this is not a definitive causal analysis. All we have established is that the three dieting groups differ in weight loss performance from one another, and by what average margin.There may well be other confounding factors at play causing the weight loss. 
-
+It looks like the Diet 3 group lost the most weight. The second row of results shows a **1.85** mean difference in weight loss between Diets 2 and 3. The third row shows the mean difference for those on Diet 2 after we subtract the second row results from it: `2.12 - 1.85 = 0.27`. So the Diet 2 group only lost an average of **0.27 lbs** more than the Diet 1 group. Again, let me stress that this is not a definitive causal analysis. All we have established is that the three dieting groups differ in weight loss performance from one another, and by what average margin.There may well be other confounding factors at play causing the weight loss. 
 
 ```{python}
 from statsmodels.stats.multicomp import pairwise_tukeyhsd

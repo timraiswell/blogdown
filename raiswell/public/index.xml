@@ -51,12 +51,20 @@ Anaconda installs the latest version of the Python language (if you&amp;rsquo;re
       <pubDate>Sun, 27 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/one-way-anova-in-python/</guid>
+<<<<<<< HEAD
       <description>Installing and Loading the Reticulate Package This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the Resources section. I also needed to change Reticulate’s settings to point it at Python 3 on my Mac. You can find those details here.
+=======
+      <description>knitr::opts_chunk$set(&amp;#39;python&amp;#39;, engine.path = &amp;#39;/usr/local/Cellar/python/3.6.5/bin/python3&amp;#39;) Installing and Loading the Reticulate Package This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the Resources section of the blog. I also needed to change Reticulate’s settings to point it at Python3 on my Mac. You can find those details here.
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 Of course, you do not need to run Python from Rstudio, or within the R framework.</description>
     </item>
     
     <item>
+<<<<<<< HEAD
       <title>Sentiment Analysis of Football Fan Tweets During a Game</title>
+=======
+      <title>Sentiment analysis of football fan tweets during a game</title>
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
       <link>/post/sentiment-analysis-of-football-fans/</link>
       <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
       
