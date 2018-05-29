@@ -20,13 +20,21 @@ reward: no
 mathjax: no
 ---
 
+<<<<<<< HEAD
 ```{r, echo = FALSE}
+=======
+```{r}
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 knitr::opts_chunk$set('python', engine.path = '/usr/local/Cellar/python/3.6.5/bin/python3')
 ```
 
 
 ### Installing and Loading the Reticulate Package
+<<<<<<< HEAD
 This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the [Resources section](/resources/). I also needed to change Reticulate's settings to point it at Python 3 on my Mac. You can find those [details here](https://rstudio.github.io/reticulate/articles/versions.html).
+=======
+This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the [Resources section](/resources/) of the blog. I also needed to change Reticulate's settings to point it at Python3 on my Mac. You can find those [details here](https://rstudio.github.io/reticulate/articles/versions.html).
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 
 Of course, you do not need to run Python from Rstudio, or within the R framework. It will be much easier for you to work through this exercise in IPython or a Jupyter Notebook via Anaconda.
 
@@ -36,7 +44,11 @@ use_python('/usr/local/Cellar/python/3.6.5/bin/python3') # points reticulate at 
 funcs <- import_builtins()
 ```
 
+<<<<<<< HEAD
 We import the relevant Python packages for the ANOVA exercise. If you installed Python 3 via Anaconda all of these packages will be installed already. If you installed Python 3 using another method, e.g. Homebrew on MacOS, then you can run the `pip3 install -package_name-` command to install them. 
+=======
+We import the relevant Python packages for the ANOVA exercise. If you have installed Python 3 via Anaconda all of these packages will be installed already. If you installed Python3 using another method, e.g. Homebrew on MacOS, then you can run the `pip3 install -package_name-` command to install them. 
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 ```{python}
 import pandas as pd # This is a common coding format in Python. The package is imported using a shorter name format so that function calls are faster to type. 
 import numpy as np
@@ -63,23 +75,39 @@ data['Loss'] = data['pre.weight'] - data['weight6weeks'] #creates a target varia
 print(data.head()) # reviews the modified pandas data frame.
 ```
 
+<<<<<<< HEAD
 ### Data Description
 > *"The data set Diet.csv contains information on 78 people who undertook one of three diets. There is background information such as age, gender (Female=0, Male=1) and height. The aim of the study was to see which diet was best for losing weight so the independent variable (group) is diet."* - **The University of Sheffield's Mathematics and Statistics Help Department (MASH)**  
 
 
 We check the data types and find that 'Diet' - our independent variable - is being treated as an integer rather than a categorical variable. In R we would convert it to a factor; in Python we convert it to the equivalent: a categorical variable.  
+=======
+> *"The data set Diet.csv contains information on 78 people who undertook one of three diets. There is background information such as age, gender (Female=0, Male=1) and height. The aim of the study was to see which diet was best for losing weight so the independent variable (group) is diet."* - **The University of Sheffield's Mathematics and Statistics Help Department (MASH)**  
+
+
+We check the data types, and find that Diet - our independent variable - is being treated as an integer rather than a categorical variable. In R we would convert it to a factor; in Python we convert it to the equivalent: a categorical variable.  
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 
 ```{python}
 print(data.dtypes) # list variable types 
 ```
 
+<<<<<<< HEAD
 This chunk of code contains the pandas conversion:
+=======
+This chunk of code contains the pandas conversion.  
+
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 
 ```{python}
 data['Diet'] = pd.Categorical(data['Diet']) # Change Diet to a categorical variable
 ```
 
+<<<<<<< HEAD
 We check that the conversion was successful and see that Diet is now listed as 'category': 
+=======
+We check that the conversion was successful and see that Diet is now listed as 'category'.  
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 
 
 ```{python}
@@ -88,9 +116,15 @@ print(data.dtypes) # list variable types
 
 ### Question for investigation: Are the three diets equally effective for weight loss?
 
+<<<<<<< HEAD
 ANOVA cannot *prove* causation. It can tell us whether the mean weight loss of each diet group are different at a statistically significant level. In this case, our null hypothesis is that **all group mean weight losses are the same.** 
 
 We start by visualizing the impact of each diet on the weight loss variable with a box plot. We use the Seaborn data visualization package.  Figure 1 tells us that Diet 3 seems to be the most effective; it has the highest mean weight loss. The standard deviations of each diet look similar. 
+=======
+First, ANOVA cannot *prove* causation. It can only tell us whether the mean weight loss of each diet group are different at a statistically significant level. In this case, our null hypothesis is that **all group mean weight losses are the same.** 
+
+We start by visualizing the impact of each diet on the weight loss variable with a boxplot. We use the Seaborn data visualization package.  Figure 1 shows that Diet 3 seems to be the most effective with the highest mean weight loss. The standard deviations of each diet look similar. 
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 
 Analysis of Variance or ANOVA tells us whether the differences in the variance *between* each diet group are statistically significant when compared to the differences *within* each group.
 
@@ -108,7 +142,11 @@ plt.show()
 plt.gcf().clear() # you do not need to use this line to flush the mpl cache if you're running this in pure Python (as opposed to through R). If I don't run this line, box chart elements merged with  histogram below. 
 ```
 
+<<<<<<< HEAD
 Create a histogram of the weight loss dependent variable:
+=======
+We create a histogram of the weight loss dependent variable. 
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 
 ```{python}
 plt.hist(data['Loss'], bins='auto') # check for variable normality in weight loss dependent variable. 
@@ -117,6 +155,7 @@ plt.title("Figure 2. Distribution of Weight Loss Variable, lbs\n")
 plt.xlabel("Weight Loss - lbs")
 plt.ylabel("Count\nof Dieters", rotation = 0, labelpad = 40)
 plt.show()
+<<<<<<< HEAD
 
 ```
 
@@ -125,6 +164,12 @@ plt.gcf().clear()
 ```
 
 We now confirm our intuition from the visualization that the weight loss data is normally distributed. The p-score is higher than our alpha of 0.05, showing our intuition to be correct. 
+=======
+plt.gcf().clear() 
+```
+
+We now confirm our intuition from the visualization that the weight loss data is sufficiently normally distributed to conduct ANOVA. The p-score is higher than our alpha of 0.05, showing our intuition to be correct. 
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 
 ```{python}
 print(stats.normaltest(data['Loss'], axis=0))
@@ -132,7 +177,14 @@ print(stats.normaltest(data['Loss'], axis=0))
 # P > 0.05 therefore We cannot reject the hypothesis that the sample comes from a population which has a normal distribution
 ```
 
+<<<<<<< HEAD
 Now we create an Ordinary Least Squares (OLS) model as a precursor to the ANOVA. I won't print the results as I'll be writing about interpreting OLS results in a future note. 
+=======
+Now we create an Ordinary Least Squares (OLS) model as a precursor to our ANOVA. I won't print the results as I'll be writing about interpreting OLS results in a future note. 
+```{python}
+```
+
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 
 ```{python}
 model = ols("Loss ~ Diet", data).fit()  # builds the OLS model, predicting weight loss with diet type.
@@ -151,7 +203,11 @@ plt.show()
 ```
 
 
+<<<<<<< HEAD
 We call the ANOVA function, applying it to the linear model. We are looking for a p-score lower than 0.05, which will show a statistically significant difference between mean weight losses. It will not tell us *where* those differences exist, just *whether* they exist. The p-score of **0.003229** shows that they do.  
+=======
+We now call the ANOVA function, applying it to the linear model. We are looking for a p-score lower than 0.05, which will show a statistically significant difference between mean weight losses. It will not tell us *where* those differences exist, just *whether* they exist. The p-score of **0.003229** shows that they do.  
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 
 ```{python}
 table = sm.stats.anova_lm(model, typ=2) # Type 2 ANOVA DataFrame
@@ -161,11 +217,17 @@ print(table)
 ```
 
 
+<<<<<<< HEAD
 ### But which diet is the best one for weight loss?  
 
 This question is out of the scope of the ANOVA, though our analysis is an important precursor to answering this more specific question. We can check with a *post hoc* Tukey test. 
 
 It looks like the Diet 3 group lost the most weight. The second row of results shows a **1.85** mean difference in weight loss between Diets 2 and 3. The third row shows the mean difference for those on Diet 2 if we subtract the second row results from it: `2.12 - 1.85 = 0.27`. So the Diet 2 group only lost an average of **0.27 lbs** more than the Diet 1 group. Again, let me stress that this is not a definitive causal analysis. All we have established is that the three dieting groups differ in weight loss performance from one another, and by what average margin.There may well be other confounding factors at play causing the weight loss. 
+=======
+### But which diet is the best for weight loss?  
+
+This question is out of the scope of the ANOVA, though our analysis is an important precursor to answering this more specific question. We can check with a *post hoc* Tukey test. It looks like the Diet 3 lost the most weight. The second row of results shows a **1.85** mean difference in weight loss. The third row shows the mean difference for those on Diet 2 if we subtract the second row results from it: `2.12 - 1.85 = 0.27`. So the Diet 2 group only lost an average of **0.27 lbs** more than the Diet 1 group. Again, let me stress that this is not a definitive causal analysis. All we have established is that the three dieting groups differ in weight loss performance from one another, and by what average margin.There may well be other confounding factors at play causing the weight loss.  
+>>>>>>> f3627af34d7dd9bfbf80e39b73eea709996d4124
 
 
 ```{python}
