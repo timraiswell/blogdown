@@ -19,6 +19,7 @@ setwd("/Users/timraiswell/Blog/raiswell")
 blogdown::hugo_build(local=TRUE)
 blogdown::serve_site()
 blogdown::stop_server()
+blogdown::update_hugo()
 
 # # Declare Twitter API Credentials
 # api_key <- "TEt0KZ4RddAOre4GsbOdbupOT" # From dev.twitter.com

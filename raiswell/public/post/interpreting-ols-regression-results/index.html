@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Interpreting OLS Regression Results - Data Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Tim Raiswell" />
+  <meta name="description" content="I recommend this book to help you understand where ordinary least squares (OLS) regression fits within the most common stastistical learning approaches.
+James et al., An Introduction to Statistical Learning: with Applications in R (Springer Texts in Statistics) 1st ed. 2013, Corr. 7th printing 2017 Edition
+With so many options available to students and practitioners it is rare to find a books that takes both an accessible-theoretical and practical approach to econometrics and machine learning." />
+
+  <meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.42.2" />
+
+
+<link rel="canonical" href="/post/interpreting-ols-regression-results/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=2.7.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="Interpreting OLS Regression Results" />
+<meta property="og:description" content="I recommend this book to help you understand where ordinary least squares (OLS) regression fits within the most common stastistical learning approaches.
+James et al., An Introduction to Statistical Learning: with Applications in R (Springer Texts in Statistics) 1st ed. 2013, Corr. 7th printing 2017 Edition
+With so many options available to students and practitioners it is rare to find a books that takes both an accessible-theoretical and practical approach to econometrics and machine learning." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/interpreting-ols-regression-results/" />
+
+
+
+<meta property="article:published_time" content="2018-07-02T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-07-02T11:57:23-04:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Interpreting OLS Regression Results">
+<meta itemprop="description" content="I recommend this book to help you understand where ordinary least squares (OLS) regression fits within the most common stastistical learning approaches.
+James et al., An Introduction to Statistical Learning: with Applications in R (Springer Texts in Statistics) 1st ed. 2013, Corr. 7th printing 2017 Edition
+With so many options available to students and practitioners it is rare to find a books that takes both an accessible-theoretical and practical approach to econometrics and machine learning.">
+
+
+<meta itemprop="datePublished" content="2018-07-02T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-07-02T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="802">
+
+
+
+<meta itemprop="keywords" content="OLS,R,rstats,ggplot,linearregression," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Interpreting OLS Regression Results"/>
+<meta name="twitter:description" content="I recommend this book to help you understand where ordinary least squares (OLS) regression fits within the most common stastistical learning approaches.
+James et al., An Introduction to Statistical Learning: with Applications in R (Springer Texts in Statistics) 1st ed. 2013, Corr. 7th printing 2017 Edition
+With so many options available to students and practitioners it is rare to find a books that takes both an accessible-theoretical and practical approach to econometrics and machine learning."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Data Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/contact/">
+        <li class="mobile-menu-item">Contact Me</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Data Notes</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/contact/">Contact Me</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Interpreting OLS Regression Results</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-02 </span>
+        
+        <span class="more-meta"> 802 word </span>
+        <span class="more-meta"> 4 min read </span>
+        
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      <p>I recommend this book to help you understand where ordinary least squares (OLS) regression fits within the most common stastistical learning approaches.</p>
+<p><a href="https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics/dp/1461471370">James et al., <em>An Introduction to Statistical Learning: with Applications in R</em> (Springer Texts in Statistics) 1st ed. 2013, Corr. 7th printing 2017 Edition</a></p>
+<p>With so many options available to students and practitioners it is rare to find a books that takes both an accessible-theoretical and practical approach to econometrics and machine learning.</p>
+<div id="why-write-about-linear-regression-when-everyone-is-building-deep-learning-models" class="section level2">
+<h2>Why write about linear regression when everyone is building deep learning models?</h2>
+<p>The data come from the excellent <a href="https://archive.ics.uci.edu/ml/index.php">UCI Machine Learning Repository</a>. I browsed ‘Data Area/Business’. They are originally from a demand forecasting study involving a Brazilian logistics provider that delivers parcels for the financial services sector (amongst other sectors one would assume). I have included the original study reference below in the resources section. It is in Portuguese but can be translated online.</p>
+<p>The researchers were using a neural network to predict total daily orders for delivery using the</p>
+<pre class="r"><code>library(tidyverse) # load in tidyverse libraries for data manipulation</code></pre>
+<pre><code>## ── Attaching packages ───────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ tibble  1.4.2     ✔ purrr   0.2.5
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
+<pre><code>## ── Conflicts ──────────────────────── tidyverse_conflicts() ──
+## ✖ stats::filter() masks dplyr::filter()
+## ✖ stats::lag()    masks dplyr::lag()</code></pre>
+<pre class="r"><code>full_data &lt;- read_csv2(&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/00409/Daily_Demand_Forecasting_Orders.csv&#39;) # note we use read_csv2 not plain read_csv because the separators are semicolons not commas, which is evidently popular in Europe...and Brazil!</code></pre>
+<p>Let’s change the names of some of the variables as they’re verbose. We’re interested in the target variable, which in this case is the total daily orders. I assume that because the data were used in a forecasting experiment, the orders by sector are known some time in advance of final daily orders. This matters less for our purposes as we are conducting inferential (why something happens) not predictive analyses. I also chose traffic controllers orders (renamed to ‘tcs’), and orders from the banking sector (2) (renamed to ‘bo2’).</p>
+<pre class="r"><code>names(full_data)</code></pre>
+<pre><code>##  [1] &quot;Week of the month (first week, second, third, fourth or fifth week&quot;
+##  [2] &quot;Day of the week (Monday to Friday)&quot;                                
+##  [3] &quot;Non-urgent order&quot;                                                  
+##  [4] &quot;Urgent order&quot;                                                      
+##  [5] &quot;Order type A&quot;                                                      
+##  [6] &quot;Order type B&quot;                                                      
+##  [7] &quot;Order type C&quot;                                                      
+##  [8] &quot;Fiscal sector orders&quot;                                              
+##  [9] &quot;Orders from the traffic controller sector&quot;                         
+## [10] &quot;Banking orders (1)&quot;                                                
+## [11] &quot;Banking orders (2)&quot;                                                
+## [12] &quot;Banking orders (3)&quot;                                                
+## [13] &quot;Target (Total orders)&quot;</code></pre>
+<pre class="r"><code>full_data &lt;- full_data %&gt;% #renaming our variables of interest
+  rename(tcs = &quot;Orders from the traffic controller sector&quot;,
+         bo2 = &quot;Banking orders (2)&quot;,
+         total_orders = &quot;Target (Total orders)&quot;)
+
+
+data &lt;- full_data %&gt;% # reduce our dataframe to just the variables of interest
+  select(total_orders, tcs, bo2)</code></pre>
+<p>Let’s examine some basic properties of the variables by starting with the descriptive statistics using the <code>describe()</code> function from the ‘psych’ package. The three variables are all integers: numbers of packages. We have their means, standard deviations, medians, trimmed mean (defaults to 0.1), median absolute deviation (mad), the minimum value, the maximum value, range, skew, kurtosis, and the standard error. You may not be familiar with some of those terms. The trimmed mean is designed to remove outliers (top and bottom deciles by default). This is useful for understanding the distribution of the data, but outlier removal generally is not recommended as outlier observations contain information too, sometimes critical to our ultimate understanding of variable relationships. The median absolute deviation is the average of each variable’s variance from the mean. Unlike standard deviation, to avoid negative variance, the figures are rendered absolute (negatives made positive) rather than squared. The skew is the shape of the distribution of the data. Positive skew indicates a right-skew. Skew close to zero indicates a normal distribution. Negative skew indicates a left-skew. Kurtosis is how sharp or ‘pointy’ the distribution curve is. The standard error is - in full - the standard error of the mean, which is the square-root of the variance divided by the number of observations (60 in this case), e.g. for total orders the SE calculation is <code>sqrt(var(data$total_orders)/length(data$total_orders))</code>.</p>
+<pre class="r"><code>library(psych) # load the &#39;psych&#39; package</code></pre>
+<pre><code>## 
+## Attaching package: &#39;psych&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:ggplot2&#39;:
+## 
+##     %+%, alpha</code></pre>
+<pre class="r"><code>describe(data)</code></pre>
+<pre><code>##              vars  n      mean       sd   median   trimmed      mad    min
+## total_orders    1 60 300873.32 89602.04 288034.5 289399.85 72681.50 129412
+## tcs             2 60  44504.35 12197.91  44312.0  44328.92 13533.91  11992
+## bo2             3 60  79401.48 40504.42  67181.0  75135.38 29116.04  16411
+##                 max  range skew kurtosis       se
+## total_orders 616453 487041 1.32     2.08 11567.57
+## tcs           71772  59780 0.04    -0.34  1574.74
+## bo2          188411 172000 0.90     0.14  5229.10</code></pre>
+<pre class="r"><code>sqrt(var(data$total_orders)/60)</code></pre>
+<pre><code>## [1] 11567.57</code></pre>
+<p><strong>So what do these numbers tell us about our package data?</strong></p>
+<pre class="r"><code>multi.hist(data, bcol = &quot;pink&quot;)</code></pre>
+<p><img src="/post/2018-07-02-interpreting-ols-regression-results_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(data, aes(tcs, total_orders)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;)</code></pre>
+<p><img src="/post/2018-07-02-interpreting-ols-regression-results_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/ols/">OLS</a>
+          
+          <a href="/tags/r/">R</a>
+          
+          <a href="/tags/rstats/">rstats</a>
+          
+          <a href="/tags/ggplot/">ggplot</a>
+          
+          <a href="/tags/linearregression/">linearregression</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/one-way-anova-in-python/">
+            <span class="next-text nav-default">One-Way ANOVA in Python</span>
+            <span class="prev-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://twitter.com/timraiswell" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.linkedin.com/in/traiswell/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/timraiswell/" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Tim Raiswell</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.7.1"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-113078456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

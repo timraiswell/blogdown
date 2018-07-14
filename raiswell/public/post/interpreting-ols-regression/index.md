@@ -1,0 +1,121 @@
+<p>I recommend this book to help you understand where ordinary least squares (OLS) regression fits within the most common statistical learning approaches:</p>
+<p><a href="https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics/dp/1461471370">James et al., <em>An Introduction to Statistical Learning: with Applications in R</em> (Springer Texts in Statistics) 1st ed. 2013, Corr. 7th printing 2017 Edition</a></p>
+<p>With so many options available to students and practitioners it is rare to find a book that takes both an accessible-theoretical and practical approach to econometrics and machine learning.</p>
+<div id="why-read-about-linear-regression-when-i-can-be-completing-tutorials-on-neural-nets" class="section level2">
+<h2>Why read about linear regression when I can be completing tutorials on neural nets?</h2>
+<p>I have found it important as I learn more about data science to understand:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>The differences between econometric analysis and inference, versus data mining and prediction. This is a fundamental premise of statistical learning that is often left out of training material either because few people recognize its importance, or because it is supposed that most people (with a statistics background) know it already.</p></li>
+<li><p>It helps you choose a weapon for problem-solving more effectively. Using a neural net when linear regression would have worked is like hunting mice with an elephant gun: impractical and expensive (incurring higher technical debt, and frequently confusing for the target audience).</p></li>
+</ol>
+<p>The data for these notes and the next come from the excellent <a href="https://archive.ics.uci.edu/ml/index.php">UCI Machine Learning Repository</a>. I browsed ‘Data Area/Business’ to find this dataset. It comes from a demand forecasting study involving a Brazilian logistics provider that delivers parcels for the financial services sector (amongst other sectors one would assume). I have included the original study reference below in the resources section. It is in Portuguese but can be translated online in <a href="https://translate.google.com">Google Translate</a>. The researchers used a neural network to predict total daily orders for delivery using twelve explanatory variables. There are 60 observations (days), which seems low for the use of a neural network.</p>
+<pre class="r"><code>library(tidyverse) # load tidyverse libraries for data manipulation.</code></pre>
+<pre class="r"><code>full_data &lt;- read_csv2(&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/00409/Daily_Demand_Forecasting_Orders.csv&#39;) # note we use read_csv2 not plain read_csv because the separators are semicolons not commas, which is evidently popular in Europe...and Brazil!</code></pre>
+<p>Let’s change the names of some of the variables as they’re verbose. We’re interested in the name of the target variable, which in this case is the total daily orders. I assume that because the data were used in a forecasting experiment, the orders by sector are known some time in advance of final daily orders. This matters less for our purposes as we are conducting inferential (why something happens) not predictive analyses. I also chose traffic controllers orders (renamed to ‘tcs’), and orders from the banking sector (2) (renamed to ‘bo2’) as explanatory variables.</p>
+<pre class="r"><code>names(full_data)</code></pre>
+<pre><code>##  [1] &quot;Week of the month (first week, second, third, fourth or fifth week&quot;
+##  [2] &quot;Day of the week (Monday to Friday)&quot;                                
+##  [3] &quot;Non-urgent order&quot;                                                  
+##  [4] &quot;Urgent order&quot;                                                      
+##  [5] &quot;Order type A&quot;                                                      
+##  [6] &quot;Order type B&quot;                                                      
+##  [7] &quot;Order type C&quot;                                                      
+##  [8] &quot;Fiscal sector orders&quot;                                              
+##  [9] &quot;Orders from the traffic controller sector&quot;                         
+## [10] &quot;Banking orders (1)&quot;                                                
+## [11] &quot;Banking orders (2)&quot;                                                
+## [12] &quot;Banking orders (3)&quot;                                                
+## [13] &quot;Target (Total orders)&quot;</code></pre>
+<pre class="r"><code>full_data &lt;- full_data %&gt;% #renaming our variables of interest
+  rename(tcs = &quot;Orders from the traffic controller sector&quot;,
+         bo2 = &quot;Banking orders (2)&quot;,
+         total_orders = &quot;Target (Total orders)&quot;)
+
+data &lt;- full_data %&gt;% # reduce our dataframe to just the variables of interest
+  select(total_orders, tcs, bo2)</code></pre>
+<p>Let’s examine some basic properties of the variables by starting with the descriptive statistics using the <code>describe()</code> function from the ‘psych’ package. The three variables are all integers: numbers of packages. We have their means, standard deviations, medians, trimmed mean (defaults to 0.1), median absolute deviation (mad), the minimum value, the maximum value, range, skew, kurtosis, and the standard error. You may not be familiar with some of those terms. I’ll dig into the more exotic ones, trusting that Google can help with the rest more quickly:</p>
+<ul>
+<li><p>The <strong>trimmed mean</strong> is designed to remove outliers (top and bottom deciles by default). This is useful for understanding the distribution of the data, but outlier removal generally is not recommended for model building as outlier observations contain information too, sometimes critical to our ultimate understanding of variable relationships.</p></li>
+<li><p>The <strong>median absolute deviation</strong> is the average of each variable’s variance from the mean. Unlike standard deviation, to avoid negative variance, the figures are rendered absolute (negatives made positive) rather than squared.</p></li>
+<li><p><strong>Skew</strong> is the shape of the distribution of the data. Positive skew indicates a right-skew. Skew close to zero indicates a normal distribution. Negative skew indicates a left-skew.</p></li>
+<li><p><strong>Kurtosis</strong> is how sharp or ‘pointy’ the distribution curve is.</p></li>
+<li><p>The standard error (abbrev. ‘se’) is - in full - the <strong>standard error of the mean</strong>, which is the square-root of the variance divided by the number of observations (60 in this case), e.g. for total orders the SE calculation is <code>sqrt(var(data$total_orders)/length(data$total_orders))</code>.</p></li>
+</ul>
+<pre class="r"><code>library(psych) # load the &#39;psych&#39; package
+describe(data)</code></pre>
+<pre><code>##              vars  n      mean       sd   median   trimmed      mad    min
+## total_orders    1 60 300873.32 89602.04 288034.5 289399.85 72681.50 129412
+## tcs             2 60  44504.35 12197.91  44312.0  44328.92 13533.91  11992
+## bo2             3 60  79401.48 40504.42  67181.0  75135.38 29116.04  16411
+##                 max  range skew kurtosis       se
+## total_orders 616453 487041 1.32     2.08 11567.57
+## tcs           71772  59780 0.04    -0.34  1574.74
+## bo2          188411 172000 0.90     0.14  5229.10</code></pre>
+<div id="so-what-do-the-statistics-reveal-about-our-logistics-data" class="section level3">
+<h3>So what do the statistics reveal about our logistics data?</h3>
+<p>The average number of parcel orders shipped in a day by the company is 300,873. In the case of total orders, the median is less than the mean, which means that our target variable distribution is bunched to the left (it is right-skewed with a tail on the right side). The min/max values and skew score confirm this long-tailed right-skew. The coefficient of variation (CV = standard deviation divided by the mean) is 30%, which is fairly high variability (precisely why the business is interested in predicting this value!), but not as high as the CV for bank orders: 51%. Bank orders is also right-skewed, while the traffic controller orders seem to be normally distributed.</p>
+<p>We can confirm all of this visually with another fast function from the psych package: <code>multi.hist()</code>. This produces three histograms (density plots) that also contain density distribution lines (small dots), and the normal fit (longer dots), to show the closest of equivalent of ‘normal’. This allows us to see the direction of the skew more easily. As we can see, total orders and bank orders are indeed right skewed distributions, while the traffic controller order distribution is approximately normal.</p>
+</div>
+<div id="why-look-at-summary-statistics-and-visualizations" class="section level3">
+<h3>Why look at summary statistics and visualizations?</h3>
+<ol style="list-style-type: decimal">
+<li><p>It is partially preemptive. If we run into problems with the regression analysis (e.g. poor fitting model or statistically insignificant relationships between variables), then we may already have a theory of the cause. It is common in some fields to log-normalize right-skewed data to normalize the distribution of model residuals (the error margins when applying a linear model to two variables). Unless you work with the same type of data daily, don’t normalize variables until you’ve seen the model results in their raw state.</p></li>
+<li><p>Because it can help the creative-analytic process. If we “see” what the data look like in nature, it can often provoke important questions or ideas. e.g. I wonder what is different about the days with order numbers &gt; 500,000? There are so few of them that it might be possible to hypothesize a cause quickly.</p></li>
+</ol>
+<pre class="r"><code>multi.hist(data, bcol = &quot;lavender&quot;)</code></pre>
+<p><img src="/post/2018-07-02-interpreting-ols-regression-results_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="scatter-plots" class="section level3">
+<h3>Scatter Plots</h3>
+<p>Ahead of building a linear model containing continuous variables you might like to visualize the relationships between each of the explanatory variables and the target variable. The easiest way of doing this is with a scatter plot. Here we combine ggplot’s <code>geom_point</code> (the scatter plot) with <code>geom_smooth(method = &quot;lm&quot;)</code>, which applies a single best-fit lie through the points. “Best-fit” means this is the line that <strong>minimises the residual sum of squares (RSS)</strong>.</p>
+<p>Wait, what?</p>
+<p>Imagine that for each point in the first scatter plot below, you took a pen and drew a line between each of the points and the blue line of best-fit. Then you measured the length of each line, squared each one, and then added them all together. That figure is the RSS. You can see the lines in the charts do not perfectly fit the points. The gaps between the points and the line are residuals or ‘errors’. We can see that the errors in the first chart - bank orders - are smaller than the errors in the second - traffic controller orders. In other words, it looks like <strong>bo2</strong> is going to be a more useful explanatory variable than <strong>tcs</strong> in explaining total orders. But there is more work to do with the model itself before we can conclude anything. I’ll cover that in Part 2.</p>
+<pre class="r"><code>library(ggpmisc) # gives us the ability to calculate the regression line formula in the graph space. 
+library(scales) # helps us add commas to the chart axes and make them more readable.
+
+my.formula &lt;- y ~ x
+ggplot(data = data, aes(x = bo2, y = total_orders)) +
+  geom_smooth(method = &quot;lm&quot;,
+              se = TRUE,
+              formula = my.formula) +
+  stat_poly_eq( # invoking the line formula calculation using ggpmisc package
+    formula = my.formula,
+    eq.with.lhs = &quot;italic(hat(y))~`=`~&quot;,
+    aes(label = paste(..eq.label.., ..rr.label.., sep = &quot;~~~&quot;)),
+    parse = TRUE,
+    color = &quot;firebrick&quot; # Cool-sounding color. Looks nice too. 
+  ) +
+  geom_point() +
+  labs(
+    title = &quot;Total Orders and Bank Orders&quot;,
+    x = &quot;Bank Orders&quot;,
+    y = &quot;Total\nOrders&quot;,
+    subtitle = &quot;Normally we would want to put more information in the chart about the source, date and units\nof the data, but in this case we&#39;re just interested in interpreting our regression model.&quot;
+  ) +
+  annotate(&quot;text&quot;, 
+  x = 150000,
+  y = 225000,
+  label = &quot;It looks like there is a strong linear relationship\nbetween bank orders and total orders!&quot;,
+  size = 3.1) +
+  scale_y_continuous(label = comma) +
+  scale_x_continuous(label = comma) +
+  tim_theme # I often use a ggplot theme customized to the requirements of the current project. It makes the charts look consistent, and I apply visualization standards that aren&#39;t in the plain vanilla ggplot charts, e.g. horizontal text on the y-axis, because noone&#39;s neck has a hinge for reading inverted text!</code></pre>
+<p><img src="/post/2018-07-02-interpreting-ols-regression-results_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>First, let’s take a closer look at the red equations in the top left of each chart. Each one contains a y-hat (predicted value of y, in our case total orders), and then a large number (the point at which the line intercepts the y-axis when the value of the explanatory variable is zero), followed by a sum with x multiplied by a value we refer to as the coefficient of x. In the bank orders chart, the coefficient is 1.77. This means that in the relationship implied by the linear model we have created, that for every single unit increase in x - bank orders - there is a corresponding 1.77 increase in y - total orders. You can intuit why this is referred to as inferential analysis. We are <em>inferring</em> the nature of the relationship between two variables based on this mathematics.</p>
+<p>In the Traffic Controller Orders chart the coefficient is larger: 1.8. That means - within the bounds of this linear model - for each additional <strong>tcs</strong> order there is a corresponding increase of 1.8 in total orders. Now the important part. We can see from the scatter plots that these relationship are not anywhere near precise in either case. <strong>The coefficients describe only the relationship as it exists in the simplified linear model; not the relationship as it is in the real world.</strong></p>
+<p>This is a good point to briefly cover the shaded gray area around each line of best-fit in our scatter plots. This is the confidence interval. The default confidence interval in <code>geom_smooth()</code> is set to 95%. This means that we are 95% confident that the <em>true regression line</em> for the population - beyond just this data sample - sits within the shaded area. As such, where the gray area is fitted tightly to the line as in the bank orders model we are fairly certain we have approximated the variable relationship well with our linear model. Where the shaded area is stretched beyond the line of best-fit, as in the traffic controller model, we are concerned that the true regression line (if a linear model is suitable) could sit anywhere inside the shaded area, giving us larger margins of error.</p>
+<p><img src="/post/2018-07-02-interpreting-ols-regression-results_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="what-have-we-learned-about-our-variables" class="section level3">
+<h3>What have we learned about our variables?</h3>
+<p>Let’s say that we wanted to stop there with our analysis. What have we actually inferred and is it useful? So far we know how our variables are distributed. That total orders and bank orders skew right with days when both variables run into high values. We also know that in both cases there is a positive (hypothetically) linear relationship between our explanatory variables and the target variable: as the x variable increases, so does the y variable. Finally, there appears to be a stronger linear relationship between bank orders and total orders than between traffic controller orders and total orders. We are concerned that a linear model of total orders and <strong>tcs</strong> is potentially flawed, with a wide range of lines of best-fit possible (broad confidence interval zones in the chart).</p>
+<p>In Part 2 of these notes we will build both linear models in R and interpret the results. We will also look at what happens when we combine the explanatory variables into a multilinear regression model. Finally, we will compare the results of a prediction with our multilinear model (the mousetrap) with the results from a neural network (the elephant gun).</p>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<ul>
+<li>
+<a href="https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics/dp/1461471370">James et al., <em>An Introduction to Statistical Learning: with Applications in R</em> (Springer Texts in Statistics) 1st ed. 2013, Corr. 7th printing 2017 Edition</a>
+</ul>
+</div>
+</div>

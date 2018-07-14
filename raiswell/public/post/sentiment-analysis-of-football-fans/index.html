@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.32.2" />
+<meta name="generator" content="Hugo 0.42.2" />
 
 
 <link rel="canonical" href="/post/sentiment-analysis-of-football-fans/" />
@@ -79,7 +79,8 @@
 
 
 <meta itemprop="keywords" content="football,mufc,R,text mining,t-test,ggplot,histogram," />
-<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Sentiment Analysis of Football Fan Tweets During a Game"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sentiment Analysis of Football Fan Tweets During a Game"/>
 <meta name="twitter:description" content="Are Manchester United fans more critical of their team than opposing fans about theirs? This was the (too ambitious) question I intended to answer when I began this piece but having discovered some of the difficulties in accessing bulk, multi-period Twitter data I have scaled it back. I certainly intend to revisit the bigger question using Twitter scraping solutions that have since become available, but for now I’ll restrict myself to the more achievable question:"/>
 
 <!--[if lte IE 9]>
@@ -479,11 +480,15 @@ Silge J and Robinson D (2016). “tidytext: Text Mining and Analysis Using Tidy 
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-113078456-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-113078456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

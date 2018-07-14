@@ -20,11 +20,12 @@ reward: no
 mathjax: no
 ---
 
-
+  
 ```{r, echo = FALSE}
 knitr::opts_chunk$set('python', engine.path = '/usr/local/Cellar/python/3.6.5/bin/python3')
 ```
 
+  
 ### Installing and Loading the Reticulate Package
 This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the [Resources section](/resources/) of the blog. I also needed to change Reticulate's settings to point it at Python3 on my Mac. You can find those [details here](https://rstudio.github.io/reticulate/articles/versions.html).
 
@@ -37,8 +38,9 @@ use_python('/usr/local/Cellar/python/3.6.5/bin/python3') # points reticulate at 
 ```
 
 
-We import the relevant Python packages for the ANOVA exercise. If you have installed Python 3 via Anaconda all of these packages will be installed already. If you installed Python3 using another method, e.g. Homebrew on MacOS, then you can run the `pip3 install -package_name-` command to install them. 
+We import the relevant Python packages for the ANOVA exercise. If you have installed Python 3 via Anaconda all of these packages will be installed already. If you installed Python3 using another method, e.g. Homebrew on MacOS, then you can run the `pip3 install -package_name-` command to install them.  
 
+  
 ```{python}
 import pandas as pd # This is a common coding format in Python. The package is imported using a shorter name format so that function calls are faster to type. 
 import numpy as np

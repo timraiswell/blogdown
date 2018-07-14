@@ -25,7 +25,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.32.2" />
+<meta name="generator" content="Hugo 0.42.2" />
 
 
 <link rel="canonical" href="/" />
@@ -69,7 +69,8 @@
 <meta itemprop="name" content="Data Notes">
 <meta itemprop="description" content="Data notes and ideas.">
 
-<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Data Notes"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Data Notes"/>
 <meta name="twitter:description" content="Data notes and ideas."/>
 
 <!--[if lte IE 9]>
@@ -145,6 +146,30 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/interpreting-ols-regression/">OLS Regression Part 1: Basics</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-07-14 </span>
+      
+      <span class="more-meta"> 2275 word </span>
+      <span class="more-meta"> 11 min read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      I recommend this book to help you understand where ordinary least squares (OLS) regression fits within the most common statistical learning approaches:
+James et al., An Introduction to Statistical Learning: with Applications in R (Springer Texts in Statistics) 1st ed. 2013, Corr. 7th printing 2017 Edition
+With so many options available to students and practitioners it is rare to find a book that takes both an accessible-theoretical and practical approach to econometrics and machine learning.
+    </div>
+    <div class="read-more">
+      <a href="/post/interpreting-ols-regression/" class="read-more-link">Read more..</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/one-way-anova-in-python/">One-Way ANOVA in Python</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2018-05-27 </span>
@@ -188,32 +213,14 @@ Of course, you do not need to run Python from Rstudio, or within the R framework
 </article>
 
     
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/r-tips-1-scientific-notation/">R-Tips #1: Turning Off and On Scientific Notation</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-01-04 </span>
-      
-      <span class="more-meta"> 670 word </span>
-      <span class="more-meta"> 4 min read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      options(scipen = 999) #the command that turns off scientific notation in R output I often set this parameter in any R project in which I’ll be evaluating predictive model performance. But why would you want to turn off scientific notation? First, it’s a personal preference, but I strongly advocate for learning how to read scientific notation as it is a data science standard. Second, your audience may not be mathematically trained.
-    </div>
-    <div class="read-more">
-      <a href="/post/r-tips-1-scientific-notation/" class="read-more-link">Read more..</a>
-    </div>
-  </div>
-</article>
-
-    
   </section>
   
   <nav class="pagination">
     
+      <a class="next" href="/page/2/">
+        <span class="next-text">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
   </nav>
 
         </div>
@@ -267,11 +274,15 @@ Of course, you do not need to run Python from Rstudio, or within the R framework
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-113078456-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-113078456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

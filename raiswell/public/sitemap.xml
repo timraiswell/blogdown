@@ -24,6 +24,13 @@
   </url>
   
   <url>
+    <loc>/post/interpreting-ols-regression/</loc>
+    <lastmod>2018-07-02T11:57:23-04:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>/post/one-way-anova-in-python/</loc>
     <lastmod>2018-05-27T16:27:37-04:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -73,7 +80,7 @@
   
   <url>
     <loc>/tags/ggplot/</loc>
-    <lastmod>2018-05-18T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-02T11:57:23-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -81,6 +88,13 @@
   <url>
     <loc>/tags/histogram/</loc>
     <lastmod>2018-05-18T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/linearregression/</loc>
+    <lastmod>2018-07-02T11:57:23-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -94,14 +108,14 @@
   
   <url>
     <loc>/tags/ols/</loc>
-    <lastmod>2018-05-27T16:27:37-04:00</lastmod>
+    <lastmod>2018-07-02T11:57:23-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-05-27T16:27:37-04:00</lastmod>
+    <lastmod>2018-07-02T11:57:23-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -115,7 +129,14 @@
   
   <url>
     <loc>/tags/r/</loc>
-    <lastmod>2018-05-18T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-02T11:57:23-04:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/rstats/</loc>
+    <lastmod>2018-07-02T11:57:23-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

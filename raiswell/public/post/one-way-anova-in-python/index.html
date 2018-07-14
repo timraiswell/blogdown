@@ -27,7 +27,7 @@ Of course, you do not need to run Python from Rstudio, or within the R framework
 
 
 
-<meta name="generator" content="Hugo 0.32.2" />
+<meta name="generator" content="Hugo 0.42.2" />
 
 
 <link rel="canonical" href="/post/one-way-anova-in-python/" />
@@ -82,7 +82,8 @@ Of course, you do not need to run Python from Rstudio, or within the R framework
 
 
 <meta itemprop="keywords" content="Python,ANOVA,OLS,Tukey," />
-<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="One-Way ANOVA in Python"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="One-Way ANOVA in Python"/>
 <meta name="twitter:description" content="Installing and Loading the Reticulate Package This package allows us to run Python 3 inside R Markdown chunks. You will need Python 3 installed. There are details on how to do that in the Resources section of the blog. I also needed to change Reticulate’s settings to point it at Python3 on my Mac. You can find those details here.
 Of course, you do not need to run Python from Rstudio, or within the R framework."/>
 
@@ -337,6 +338,11 @@ D.L. Couturier, R. Nicholls, M. Fernandes, <a href="https://bioinformatics-core-
       
       <nav class="post-nav">
         
+          <a class="prev" href="/post/interpreting-ols-regression/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">OLS Regression Part 1: Basics</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         
           <a class="next" href="/post/sentiment-analysis-of-football-fans/">
             <span class="next-text nav-default">Sentiment Analysis of Football Fan Tweets During a Game</span>
@@ -397,11 +403,15 @@ D.L. Couturier, R. Nicholls, M. Fernandes, <a href="https://bioinformatics-core-
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-113078456-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-113078456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

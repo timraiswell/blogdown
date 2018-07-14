@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.32.2" />
+<meta name="generator" content="Hugo 0.42.2" />
 
 
 <link rel="canonical" href="/post/r-tips-1-scientific-notation/" />
@@ -79,7 +79,8 @@
 
 
 <meta itemprop="keywords" content="R," />
-<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="R-Tips #1: Turning Off and On Scientific Notation"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="R-Tips #1: Turning Off and On Scientific Notation"/>
 <meta name="twitter:description" content="options(scipen = 999) #the command that turns off scientific notation in R output I often set this parameter in any R project in which I’ll be evaluating predictive model performance. But why would you want to turn off scientific notation? First, it’s a personal preference, but I strongly advocate for learning how to read scientific notation as it is a data science standard. Second, your audience may not be mathematically trained."/>
 
 <!--[if lte IE 9]>
@@ -286,11 +287,15 @@ car_lm &lt;- lm(dist ~ speed, data = cars) </code></pre>
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-113078456-1', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-113078456-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

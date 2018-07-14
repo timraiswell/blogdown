@@ -1,139 +1,130 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Even - A super concise theme for Hugo</title>
+    <title>Tags on Data Notes</title>
     <link>/tags/</link>
-    <description>Recent content in Tags on Even - A super concise theme for Hugo</description>
+    <description>Recent content in Tags on Data Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 31 Aug 2017 15:43:48 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 27 May 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>English</title>
-      <link>/tags/english/</link>
-      <pubDate>Thu, 31 Aug 2017 15:43:48 +0800</pubDate>
+      <title>Anova</title>
+      <link>/tags/anova/</link>
+      <pubDate>Sun, 27 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/english/</guid>
+      <guid>/tags/anova/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Plot</title>
-      <link>/tags/plot/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      <title>Football</title>
+      <link>/tags/football/</link>
+      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/plot/</guid>
+      <guid>/tags/football/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Preview</title>
-      <link>/tags/preview/</link>
-      <pubDate>Wed, 23 Aug 2017 18:03:09 +0800</pubDate>
+      <title>Ggplot</title>
+      <link>/tags/ggplot/</link>
+      <pubDate>Sat, 14 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/preview/</guid>
+      <guid>/tags/ggplot/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>R Markdown</title>
-      <link>/tags/r-markdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      <title>Histogram</title>
+      <link>/tags/histogram/</link>
+      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/r-markdown/</guid>
+      <guid>/tags/histogram/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Regression</title>
-      <link>/tags/regression/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      <title>Linearregression</title>
+      <link>/tags/linearregression/</link>
+      <pubDate>Sat, 14 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/regression/</guid>
+      <guid>/tags/linearregression/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Syntax Highlighting</title>
-      <link>/tags/syntax-highlighting/</link>
-      <pubDate>Tue, 30 Aug 2011 16:01:23 +0800</pubDate>
+      <title>Mufc</title>
+      <link>/tags/mufc/</link>
+      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/syntax-highlighting/</guid>
+      <guid>/tags/mufc/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Tag 1</title>
-      <link>/tags/tag-1/</link>
-      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      <title>Ols</title>
+      <link>/tags/ols/</link>
+      <pubDate>Sat, 14 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/tag-1/</guid>
+      <guid>/tags/ols/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Tag 2</title>
-      <link>/tags/tag-2/</link>
-      <pubDate>Thu, 31 Aug 2017 15:43:48 +0800</pubDate>
+      <title>Python</title>
+      <link>/tags/python/</link>
+      <pubDate>Sun, 27 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/tag-2/</guid>
+      <guid>/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Tag 3</title>
-      <link>/tags/tag-3/</link>
-      <pubDate>Wed, 23 Aug 2017 18:03:09 +0800</pubDate>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Sat, 14 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/tag-3/</guid>
+      <guid>/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Tag 4</title>
-      <link>/tags/tag-4/</link>
-      <pubDate>Wed, 30 Aug 2017 01:53:34 +0800</pubDate>
+      <title>Rstats</title>
+      <link>/tags/rstats/</link>
+      <pubDate>Sat, 14 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/tag-4/</guid>
+      <guid>/tags/rstats/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Tag 5</title>
-      <link>/tags/tag-5/</link>
-      <pubDate>Tue, 30 Aug 2011 16:01:23 +0800</pubDate>
+      <title>T Test</title>
+      <link>/tags/t-test/</link>
+      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/tag-5/</guid>
+      <guid>/tags/t-test/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Theme Preview</title>
-      <link>/tags/theme-preview/</link>
-      <pubDate>Wed, 23 Aug 2017 18:03:09 +0800</pubDate>
+      <title>Text Mining</title>
+      <link>/tags/text-mining/</link>
+      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/theme-preview/</guid>
+      <guid>/tags/text-mining/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>中文</title>
-      <link>/tags/%E4%B8%AD%E6%96%87/</link>
-      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      <title>Tukey</title>
+      <link>/tags/tukey/</link>
+      <pubDate>Sun, 27 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/%E4%B8%AD%E6%96%87/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>日本語</title>
-      <link>/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</link>
-      <pubDate>Wed, 30 Aug 2017 01:53:34 +0800</pubDate>
-      
-      <guid>/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</guid>
+      <guid>/tags/tukey/</guid>
       <description></description>
     </item>
     
