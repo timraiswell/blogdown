@@ -50,7 +50,7 @@
     <item>
       <title>Linearregression</title>
       <link>/tags/linearregression/</link>
-      <pubDate>Sat, 14 Jul 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 22 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/linearregression/</guid>
       <description></description>
@@ -68,7 +68,7 @@
     <item>
       <title>Ols</title>
       <link>/tags/ols/</link>
-      <pubDate>Sat, 14 Jul 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 22 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/ols/</guid>
       <description></description>
@@ -93,9 +93,18 @@
     </item>
     
     <item>
+      <title>Rsquared</title>
+      <link>/tags/rsquared/</link>
+      <pubDate>Sun, 22 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rsquared/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Rstats</title>
       <link>/tags/rstats/</link>
-      <pubDate>Sat, 14 Jul 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 22 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/rstats/</guid>
       <description></description>

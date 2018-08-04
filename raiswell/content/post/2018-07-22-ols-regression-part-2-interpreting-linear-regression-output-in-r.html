@@ -1,0 +1,162 @@
+---
+title: 'OLS Regression Part 2: Simple OLS Regression Results Interpretation'
+author: Tim Raiswell
+date: '2018-07-22'
+slug: ols-regression-part-2
+categories: []
+tags:
+  - OLS
+  - linearregression
+  - rstats
+  - rsquared
+lastmod: '2018-07-22T16:02:14-04:00'
+keywords: []
+description: ''
+comment: no
+toc: no
+autoCollapseToc: no
+contentCopyright: no
+reward: no
+mathjax: no
+---
+
+
+
+<div id="setting-up" class="section level2">
+<h2>Setting Up</h2>
+<p>You will need to load the tidyverse package and also reload the data from <a href="http://raiswell.rbind.io/post/interpreting-ols-regression/">Part 1</a> if you changed your R environment (new project).</p>
+<pre class="r"><code># load the tidyverse package
+library(tidyverse)</code></pre>
+<p>We finished <a href="http://raiswell.rbind.io/post/interpreting-ols-regression/">Part 1</a> looking at the linear relationships between two explanatory variables (bank orders and traffic controller orders), and our target variable (total orders). In the charts we created a formula for the linear regression line that resulted from our analyses in the format <span class="math inline">\(\hat{y} =161,000 + 1.77\)</span>.</p>
+<p>The purpose of moving beyond a simple regression is to help our model move closer to an approximation of the system we are modeling. In this example, our system is the order economics for a Brazilian courier.</p>
+<p>The first question that a multiple linear regression addresses is similar to the one posed by the simple model:</p>
+<p><strong>1. Is the explanatory variable useful in explaining the target variable value?</strong></p>
+<p><strong>2. How <em>well</em> does our model fit the data?</strong></p>
+</div>
+<div id="building-a-linear-model" class="section level2">
+<h2>Building a Linear Model</h2>
+<p>To answer our first question we’re going to build a simple OLS model. We will regress bank orders against total orders.</p>
+<p>Before we do, let’s remind ourselves <em>why</em> we’re conducting this analysis. We’re a data scientist in a parcel business in Brazil. Our name is Danilo. We want to know if <em>the bank orders variable will help us estimate the total orders variable</em>. If it does, this means big money for the firm and for Danilo because ordering too much or little delivery capacity in advance costs the firm a lot of capital. In almost-scientific terminology, we want to know if bank orders estimate total orders. In scientific terminology:</p>
+<p><span class="math inline">\(H_{0} =\)</span> The effect of bank orders on total orders is zero.<br />
+<span class="math inline">\(H_{1} =\)</span> The effect of bank orders on total orders is less than or greater than zero.</p>
+<p><span class="math inline">\(H_{0} =\)</span> is referred to as the null hypothesis (null because ‘nothing happens’).<br />
+<span class="math inline">\(H_{1} =\)</span> is our experimental hypothesis.</p>
+<p>This framework applies to both simple OLS, multivariate OLS and, in fact, any supervised learning approach. Does X have an effect on Y? And how sure are we that the relationship we are seeing reoccurs in the real world and not just in our data?</p>
+<p>Let’s run the first model. Total orders is our target variable and bank orders is our explanatory variable. Does the latter estimate the former?</p>
+<pre class="r"><code># lm() is the rstats linear model function. We pipe (%&gt;%) it to a summary function to see the results. 
+
+lm(total_orders ~ bo2, data = data) %&gt;% 
+  summary</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = total_orders ~ bo2, data = data)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -93966 -32634  -5062  21494 142788 
+## 
+## Coefficients:
+##                Estimate  Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 160627.4079  15561.4062   10.32 9.46e-15 ***
+## bo2              1.7663      0.1749   10.10 2.14e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 54410 on 58 degrees of freedom
+## Multiple R-squared:  0.6375, Adjusted R-squared:  0.6313 
+## F-statistic:   102 on 1 and 58 DF,  p-value: 0.00000000000002145</code></pre>
+<p>Okay, wow. That’s a daunting amount of information from one model using only a single explanatory variable. Let’s pick it apart by data point starting at the top:</p>
+<div id="call" class="section level3">
+<h3>Call</h3>
+<p>This just reminds us of the formula we’re analyzing. Useful if we’re sending many model results outputs to a separate data frame or documenting them in a report. Both are possible in R.</p>
+</div>
+<div id="residuals" class="section level3">
+<h3>Residuals</h3>
+<p>Remember in <a href="http://raiswell.rbind.io/post/interpreting-ols-regression/">Part 1</a> where I described the residuals as the distance between the model estimates (the straight line) and the actual values? These statistics shows us roughly how the residuals are distributed. The smallest (Min) residual is -93,966; the largest (Max) is 142,788. We also have the median, first and third quartiles. From this information we can imagine a density plot or histogram of the distribution with the center at -5,062 (the median). Is the distribution of the residuals symmetrical? Not quite, but it’s close. How do we know? First, look at how far the 1Q and 3Q values are from the median: -27,572 and +26,556 respectively. Next, look at how far the minimum and maximum values are from the median: -88,904 and 147,850. Hmm. Those results are less suggestive of a normal distribution. We can check our math visually using the following code. This grabs the model residuals and then pipes them into ggplot, which generates our histogram. We can see it is right-skewed slightly, but not so much that we should be concerned.</p>
+<pre class="r"><code>library(scales)
+lm(total_orders ~ bo2, data = data) %&gt;% 
+  resid(.) %&gt;% # takes a vector of the model residuals
+  tibble %&gt;%  # pipes them into a single-column data frame
+  ggplot(aes(.)) + geom_histogram(bins = 10, fill = &quot;aquamarine4&quot;) + #generates our histogram in a fetching aquamarine
+  labs(title = &quot;Distribution of the Model Residuals&quot;, x = &quot;Residual Value&quot;, y = &quot;Count&quot;) + # labels
+  scale_x_continuous(label = comma) +
+  tim_theme #my ggplot theme </code></pre>
+<p><img src="/post/2018-07-22-ols-regression-part-2-interpreting-linear-regression-output-in-r_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><strong>Concerned about what?</strong></p>
+<p>There are a few ways of answering this question, some of which involve the frightening word ‘heteroscedasticity’. Let’s try this: when your residuals (errors) are non-normal, it means your model is unevenly predicting the relationship in question. For example, the model is better at predicting values in the middle of the data, but not very high values. That makes Danilo’s model less useful to the firm.</p>
+</div>
+<div id="coefficients" class="section level3">
+<h3>Coefficients</h3>
+<p>Let’s start with the intercept. That is where our model line hits the y-axis. In other words, it is our estimate of the average value of the target variable (total orders) when our explanatory variable (bank orders) is zero. The intercept is sometimes refered to as ‘the constant’. The reason we include it in regression models even if a zero-setting for all explanatory variables isn’t plausible is because it keeps the mean of our residuals at zero.</p>
+<p>Below that we have the bit we’re really interested in: the coefficient of bank orders that tells us what happens to the target variable when you increase bank orders by a one unit. The value is ~ 1.77. For every bank order, the model says total orders will increase by 1.77 units. That is useful if I know bank orders in advance and I’m trying to anticipate how much delivery capacity I’ll need on delivery day.</p>
+<p><strong>How accurate are these estimates?</strong></p>
+</div>
+<div id="standard-error" class="section level3">
+<h3>Standard Error</h3>
+<p>Let’s look at the standard error column. This tells us the <em>average error</em> the model makes for both the intercept and bank order estimates based on our data set. The standard error is actually the standard deviation of the coefficients.</p>
+<p>Are the errors in our model large or small? This is only answerable by the business manager. We can tell her whether the relationship is statistically significant, or how this error compares across models, but she will need to tell us whether an average error of 10% in each prediction is acceptable. Could she live with ordering 10% (or more) excess capacity per day in the long run? If we are serious about adopting this model in the decision making process we could offer to run a simulation for the business manager showing the costs to the business of this error distribution.</p>
+</div>
+<div id="t-value" class="section level3">
+<h3>t-value</h3>
+<p>This is the coefficient divided by the standard error (to standardize it!). In the case of the intercept <span class="math inline">\(160,627.4079/15,561.4062 = t = 10.32\)</span>. That is 10 “standard errors” (or deviations) from zero. Is that significant? i.e. does this t-score reassure us that the coefficients are not zero, and that a relationship exists between the two variables? (N.B. If the coefficient of bank orders was zero or very small, there would be no discernible relationship between our explanatory variable and target variable.)</p>
+</div>
+<div id="prt-huh" class="section level3">
+<h3>Pr(&gt;|t|)… …huh?</h3>
+<p>This is the p-value of the coefficient. R has compared the t-statistic on bank orders (bo2) with values in the <a href="https://en.wikipedia.org/wiki/Student%27s_t-distribution">Student’s t-distribution</a> to determine the p-value. If 95% of the t-distribution is closer to the mean than the t-values on our variable, then we have a p-value of 5%. Still opaque? I know. Basically, this means that there is a 5% probability or less that the regression results we are seeing would emerge in a random distribution. So we are 95% sure the effect that we are observing between the variables in question really exists. The significance codes beneath the coefficient table are also related to p-score. They’re a visual shortcut because reading multiple coefficient p-scores can be hard on the eyes. Three asterisks mean the p-score of the coefficient is effectively zero, i.e. almost zero possibility that relationship we are observing would exist in a random sample. Two asterisks is &lt; 1% chance. One asterisk is &lt; 5%. 95% confidence is usually the statistical standard for p-scores outside medicine and criminal prosecution where the burdens of proof are higher.</p>
+</div>
+<div id="residual-standard-error-and-degrees-of-freedom" class="section level3">
+<h3>Residual Standard Error and Degrees of Freedom</h3>
+<p>The Residual Standard Error (RSE) is the square root of the Residual Sum of Squares (RSS) divided by n - 2, where n is our sample size. So what?</p>
+<blockquote>
+<p><span class="math inline">\(RSE = \sqrt{RSS/(n-2)}\)</span> # awesome-looking equation of RSE</p>
+</blockquote>
+<p>RSS is the average variance of our residuals (<span class="math inline">\(\sigma^2\)</span> - Greek letter sigma, squared) so RSE is the standard deviation (<span class="math inline">\(\sigma\)</span>) of the residuals. Look at our histogram of residuals again. This number is the standard deviation of those residuals.</p>
+<p>The <strong>degrees of freedom</strong> is slightly harder to explain. It is a statistic about a statistic. We don’t need it in this analysis, but it’s useful to know what everything means in our OLS output. This <a href="http://blog.minitab.com/blog/statistics-and-quality-data-analysis/what-are-degrees-of-freedom-in-statistics">Minitab blog post</a> has a useful analogy that helped me. It uses a t-test as its example but we can apply it to regression in a moment:</p>
+<blockquote>
+<p>“Degrees of freedom are often broadly defined as the number of”observations&quot; (pieces of information) in the data that are free to vary when estimating statistical parameters.&quot;</p>
+</blockquote>
+<p>In a one-sample t-test, we only need one fixed, non-free variable (n-1). In a linear regression we need two fixed degrees to estimate:</p>
+<ol style="list-style-type: lower-roman">
+<li>the coefficient of bank orders and,</li>
+<li>the intercept - where the line hits our target variable axis y.</li>
+</ol>
+<p>Also known as the slope (<span class="math inline">\(b\)</span>) and the intercept (<span class="math inline">\(m\)</span>) So, two degrees of freedom is common to all linear regression.</p>
+</div>
+</div>
+<div id="goodness-of-fit-or-r-squared" class="section level2">
+<h2>‘Goodness of Fit’ or R-squared</h2>
+<p>In the charts we created in <a href="http://raiswell.rbind.io/post/interpreting-ols-regression/">Part 1</a> of this blog there was another regression statistic included in the format <span class="math inline">\(R^2 = 0.64\)</span>. The R-squared is a critical (though sometimes overvalued) statistic in linear regression because it helps us understand <em>how well the linear model fits the data</em>. R-squared values range from 0 to 1 (i.e. 0% to 100%). In the real world, R-squared values higher than 0.1 are rare, so our r-squared of 0.64 (64%) is pretty damn good! This fact also fuels my suspicion of why a neural net was required for the real-world analysis of this data, but more of that in Part 4 of this post.</p>
+<p>When Danilo is writing up the results of this regression analysis, he might use the following language to describe the r-squared statistic:</p>
+<blockquote>
+<p>The r-squared value for the model is 0.64, which means bank orders <strong>explain 64% of the variability</strong> in total orders.</p>
+</blockquote>
+<p>There are potential problems when using r-squared to interpret your model. I’ll focus on the two most common problems. The first is that you panic because your r-squared value is low and you abandon your variable or model. In many fields - especially those predicting human behavior - r-squared values are low (mostly &lt; 0.5). But if your predictors are statistically significant you <em>still have critical information about the size and shape of the function involving your target variable</em>.</p>
+<p>The second problem is that you exalt very high r-squared values. A model can have very high r-squared and be useless. Model <a href="https://en.wikipedia.org/wiki/Overfitting">overfitting</a> is one reason r-squared might be inflated. Too many explanatory variables can artificially boost model fit. Bias in the data sample can also inflate r-squared without providing a useful predictive model. The best way of avoiding r-squared inflation is to:</p>
+<ol style="list-style-type: lower-roman">
+<li><p>Visualize the variable relationships like we did in <a href="http://raiswell.rbind.io/post/interpreting-ols-regression/">Part 1</a>. Does it pass a sniff-test or is there systematic under- and over-estimation of the target variable?</p></li>
+<li><p>Look at the model residuals like we did above. Are they close to normally distributed or is there evidence of bias?</p></li>
+</ol>
+<p><strong>What is the adjusted r-squared?</strong></p>
+<p>R tweaks the r-squared based on the complexity of the model. We can revisit this in Part 3 of this post, but for now all we need to know is that because we are only using one explanatory variable, the adjusted and vanilla r-squared values are close. As we pile on more predictive variables, r-squared will probably increase; the adjusted value keeps us grounded by adjusting for this added model complexity.</p>
+<p>Penn State’s Eberly College of Science has excellent online statistics resources that have helped me a lot in the past few years. Their <a href="https://onlinecourses.science.psu.edu/stat501/node/258/">list of R-squared cautions</a> is great.</p>
+<div id="the-f-statistic-and-model-p-value" class="section level3">
+<h3>The F-Statistic and Model P-Value</h3>
+<p>The F-statistic takes us back to the start again. It helps us test our original experimental hypothesiss:</p>
+<p><span class="math inline">\(H_{0} =\)</span> The effect of bank orders on total orders is zero.<br />
+<span class="math inline">\(H_{1} =\)</span> The effect of bank orders on total orders is less than or greater than zero.</p>
+<p>When there is <em>no relationship</em> between the explanatory variables and the target variable in the model, the F-statistic takes a value close to 1. Why? F is the result of an F-test between two variances. If the two variances are the same, F = 1. In Danilo’s case, the two variances are the model with no predictors - the intercept-only model; versus the model with a single predictive variable (bank orders). In English: Does our model do a better job of estimating the target variable (total orders) than just using the mean of total orders? If yes, <span class="math inline">\(F &gt; 1\)</span>. If no, <span class="math inline">\(F\approx{1}\)</span>.</p>
+<p>Note that the p-value of the F-test is the same as the p-value of our single coefficient. That’s because we only have one explanatory variable in our model. The model-p is the same as the variable-p. In a multilinear model the p-value represents the validity of the f-test of the intercept versus the entire model, and will change as variables are added or removed.</p>
+<p>In Part 3 we will build a multilinear OLS model with our data.</p>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<ul>
+<li>
+<a href="https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics/dp/1461471370">James et al., <em>An Introduction to Statistical Learning: with Applications in R</em> (Springer Texts in Statistics) 1st ed. 2013, Corr. 7th printing 2017 Edition</a>
+<li>
+<a href="https://onlinecourses.science.psu.edu/stat501/node/258/">‘1.8 R-Squared Cautions’</a>. Penn State, Eberly College of Science
+<li>
+<a href="http://blog.minitab.com/blog/adventures-in-statistics-2/what-is-the-f-test-of-overall-significance-in-regression-analysis">’What Is the F-test of Overall Significance in Regression Analysis?</a>, The Minitab Blog, 2015
+</ul>
+</div>
+</div>

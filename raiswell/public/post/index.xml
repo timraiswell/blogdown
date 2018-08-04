@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Data Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 14 Jul 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 22 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>OLS Regression Part 2: Simple OLS Regression Results Interpretation</title>
+      <link>/post/ols-regression-part-2/</link>
+      <pubDate>Sun, 22 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ols-regression-part-2/</guid>
+      <description>Setting Up You will need to load the tidyverse package and also reload the data from Part 1 if you changed your R environment (new project).
+# load the tidyverse package library(tidyverse) We finished Part 1 looking at the linear relationships between two explanatory variables (bank orders and traffic controller orders), and our target variable (total orders). In the charts we created a formula for the linear regression line that resulted from our analyses in the format \(\hat{y} =161,000 + 1.</description>
+    </item>
     
     <item>
       <title>OLS Regression Part 1: Basics</title>

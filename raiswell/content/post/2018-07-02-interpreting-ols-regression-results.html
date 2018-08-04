@@ -1,5 +1,4 @@
 ---
-draft: yes
 title: 'OLS Regression Part 1: Basics'
 author: Tim Raiswell
 date: '2018-07-14'
@@ -95,7 +94,7 @@ describe(data)</code></pre>
 <h3>Scatter Plots</h3>
 <p>Ahead of building a linear model containing continuous variables you might like to visualize the relationships between each of the explanatory variables and the target variable. The easiest way of doing this is with a scatter plot. Here we combine ggplot’s <code>geom_point</code> (the scatter plot) with <code>geom_smooth(method = &quot;lm&quot;)</code>, which applies a single best-fit lie through the points. “Best-fit” means this is the line that <strong>minimises the residual sum of squares (RSS)</strong>.</p>
 <p>Wait, what?</p>
-<p>Imagine that for each point in the first scatter plot below, you took a pen and drew a line between each of the points and the blue line of best-fit. Then you measured the length of each line, squared each one, and then added them all together. That figure is the RSS. You can see the lines in the charts do not perfectly fit the points. The gaps between the points and the line are residuals or ‘errors’. We can see that the errors in the first chart - bank orders - are smaller than the errors in the second - traffic controller orders. In other words, it looks like <strong>bo2</strong> is going to be a more useful explanatory variable than <strong>tcs</strong> in explaining total orders. But there is more work to do with the model itself before we can conclude anything. I’ll cover that in Part 2.</p>
+<p>Imagine that for each point in the first scatter plot below, you took a pen and drew a line between each of the points and the blue line of best-fit. Then you measured the length of each line, squared each one, and then added them all together. That figure is the RSS. You can see the lines in the charts do not perfectly fit the points. The gaps between the points and the line are residuals or ‘errors’. We can see that the errors in the first chart - bank orders - are smaller than the errors in the second - traffic controller orders. In other words, it looks like <strong>bo2</strong> is going to be a more useful explanatory variable than <strong>tcs</strong> in explaining total orders. But there is more work to do with the model itself before we can conclude anything.</p>
 <pre class="r"><code>library(ggpmisc) # gives us the ability to calculate the regression line formula in the graph space. 
 library(scales) # helps us add commas to the chart axes and make them more readable.
 
@@ -135,7 +134,7 @@ ggplot(data = data, aes(x = bo2, y = total_orders)) +
 <div id="what-have-we-learned-about-our-variables" class="section level3">
 <h3>What have we learned about our variables?</h3>
 <p>Let’s say that we wanted to stop there with our analysis. What have we actually inferred and is it useful? So far we know how our variables are distributed. That total orders and bank orders skew right with days when both variables run into high values. We also know that in both cases there is a positive (hypothetically) linear relationship between our explanatory variables and the target variable: as the x variable increases, so does the y variable. Finally, there appears to be a stronger linear relationship between bank orders and total orders than between traffic controller orders and total orders. We are concerned that a linear model of total orders and <strong>tcs</strong> is potentially flawed, with a wide range of lines of best-fit possible (broad confidence interval zones in the chart).</p>
-<p>In Part 2 of these notes we will build both linear models in R and interpret the results. We will also look at what happens when we combine the explanatory variables into a multilinear regression model. Finally, we will compare the results of a prediction with our multilinear model (the mousetrap) with the results from a neural network (the elephant gun).</p>
+<p>In Part 2 of these notes we will build a linear model in R and interpret the results. In Part 3 we will look at what happens when we combine the explanatory variables into a multilinear regression model. In Part 4, we will compare the results of a prediction with our multilinear model (the mousetrap) with the results from a neural network (the elephant gun).</p>
 </div>
 <div id="references" class="section level3">
 <h3>References</h3>
