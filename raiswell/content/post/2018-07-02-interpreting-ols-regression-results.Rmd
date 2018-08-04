@@ -129,7 +129,7 @@ Ahead of building a linear model containing continuous variables you might like 
 
 Wait, what? 
 
-Imagine that for each point in the first scatter plot below, you took a pen and drew a line between each of the points and the blue line of best-fit. Then you measured the length of each line, squared each one, and then added them all together. That figure is the RSS. You can see the lines in the charts do not perfectly fit the points. The gaps between the points and the line are residuals or 'errors'. We can see that the errors in the first chart - bank orders - are smaller than the errors in the second - traffic controller orders. In other words, it looks like **bo2** is going to be a more useful explanatory variable than **tcs** in explaining total orders. But there is more work to do with the model itself before we can conclude anything. I'll cover that in Part 2.
+Imagine that for each point in the first scatter plot below, you took a pen and drew a line between each of the points and the blue line of best-fit. Then you measured the length of each line, squared each one, and then added them all together. That figure is the RSS. You can see the lines in the charts do not perfectly fit the points. The gaps between the points and the line are residuals or 'errors'. We can see that the errors in the first chart - bank orders - are smaller than the errors in the second - traffic controller orders. In other words, it looks like **bo2** is going to be a more useful explanatory variable than **tcs** in explaining total orders. But there is more work to do with the model itself before we can conclude anything. 
 
 
 ```{r, message  = FALSE, warning = FALSE}
@@ -205,7 +205,7 @@ ggplot(data = data, aes(x = tcs, y = total_orders)) +
 ### What have we learned about our variables?
 Let's say that we wanted to stop there with our analysis. What have we actually inferred and is it useful? So far we know how our variables are distributed. That total orders and bank orders skew right with days when both variables run into high values. We also know that in both cases there is a positive (hypothetically) linear relationship between our explanatory variables and the target variable: as the x variable increases, so does the y variable. Finally, there appears to be a stronger linear relationship between bank orders and total orders than between traffic controller orders and total orders. We are concerned that a linear model of total orders and **tcs** is potentially flawed, with a wide range of lines of best-fit possible (broad confidence interval zones in the chart). 
 
-In Part 2 of these notes we will build both linear models in R and interpret the results. We will also look at what happens when we combine the explanatory variables into a multilinear regression model. Finally, we will compare the results of a prediction with our multilinear model (the mousetrap) with the results from a neural network (the elephant gun). 
+In Part 2 of these notes we will build a linear model in R and interpret the results. In Part 3 we will look at what happens when we combine the explanatory variables into a multilinear regression model. In Part 4, we will compare the results of a prediction with our multilinear model (the mousetrap) with the results from a neural network (the elephant gun). 
 
 ### References
 

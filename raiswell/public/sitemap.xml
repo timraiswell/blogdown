@@ -24,6 +24,13 @@
   </url>
   
   <url>
+    <loc>/post/ols-regression-part-2/</loc>
+    <lastmod>2018-07-22T16:02:14-04:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>/post/interpreting-ols-regression/</loc>
     <lastmod>2018-07-02T11:57:23-04:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -94,7 +101,7 @@
   
   <url>
     <loc>/tags/linearregression/</loc>
-    <lastmod>2018-07-02T11:57:23-04:00</lastmod>
+    <lastmod>2018-07-22T16:02:14-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -108,14 +115,14 @@
   
   <url>
     <loc>/tags/ols/</loc>
-    <lastmod>2018-07-02T11:57:23-04:00</lastmod>
+    <lastmod>2018-07-22T16:02:14-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-07-02T11:57:23-04:00</lastmod>
+    <lastmod>2018-07-22T16:02:14-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -135,8 +142,15 @@
   </url>
   
   <url>
+    <loc>/tags/rsquared/</loc>
+    <lastmod>2018-07-22T16:02:14-04:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/rstats/</loc>
-    <lastmod>2018-07-02T11:57:23-04:00</lastmod>
+    <lastmod>2018-07-22T16:02:14-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
