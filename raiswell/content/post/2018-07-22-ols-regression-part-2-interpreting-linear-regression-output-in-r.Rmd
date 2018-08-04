@@ -148,7 +148,7 @@ The Residual Standard Error (RSE) is the square root of the Residual Sum of Squa
 
 > $RSE = \sqrt{RSS/(n-2)}$ # awesome-looking equation of RSE
 
-RSS is the average variance of our residuals ($\sigma^2$ - Greek letter sigma, squared) so RSE is the standard deviation ($\sigma$) of the residuals. Look at our histogram of residuals again. This number is the standard deviation of those residuals. 
+RSS is the average variance of our residuals ($\sigma^2$ - Greek letter sigma, squared) so RSE is the standard deviation ($\sigma$) of the residuals. Look at our histogram again. This number is the standard deviation of those residuals. 
 
 The **degrees of freedom** is slightly harder to explain. It is a statistic about a statistic. We don't need it in this analysis, but it's useful to know what everything means in our OLS output. This [Minitab blog post](http://blog.minitab.com/blog/statistics-and-quality-data-analysis/what-are-degrees-of-freedom-in-statistics) has a useful analogy that helped me. It uses a t-test as its example but we can apply it to regression in a moment:
 
