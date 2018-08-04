@@ -161,7 +161,7 @@ In a one-sample t-test, we only need one fixed, non-free variable (n-1). In a li
 
 Also known as the slope ($b$) and the intercept ($m$) So, two degrees of freedom is common to all linear regression. 
 
-##  'Goodness of Fit' or R-squared
+###  'Goodness of Fit' or R-squared
 In the charts we created in [Part 1](http://raiswell.rbind.io/post/interpreting-ols-regression/) of this blog there was another regression statistic included in the format $R^2 = 0.64$. The R-squared is a critical (though sometimes overvalued) statistic in linear regression because it helps us understand *how well the linear model fits the data*. R-squared values range from 0 to 1 (i.e. 0% to 100%).  In the real world, R-squared values higher than 0.1 are rare, so our r-squared of 0.64 (64%) is pretty damn good! This fact also fuels my suspicion of why a neural net was required for the real-world analysis of this data, but more of that in Part 4 of this post. 
 
 When Danilo is writing up the results of this regression analysis, he might use the following language to describe the r-squared statistic: 

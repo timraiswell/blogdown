@@ -100,8 +100,8 @@ lm(total_orders ~ bo2, data = data) %&gt;%
 <h3>t-value</h3>
 <p>This is the coefficient divided by the standard error (to standardize it!). In the case of the intercept <span class="math inline">\(160,627.4079/15,561.4062 = t = 10.32\)</span>. That is 10 “standard errors” (or deviations) from zero. Is that significant? i.e. does this t-score reassure us that the coefficients are not zero, and that a relationship exists between the two variables? (N.B. If the coefficient of bank orders was zero or very small, there would be no discernible relationship between our explanatory variable and target variable.)</p>
 </div>
-<div id="prt-huh" class="section level3">
-<h3>Pr(&gt;|t|)… …huh?</h3>
+<div id="prt" class="section level3">
+<h3>Pr(&gt;|t|)</h3>
 <p>This is the p-value of the coefficient. R has compared the t-statistic on bank orders (bo2) with values in the <a href="https://en.wikipedia.org/wiki/Student%27s_t-distribution">Student’s t-distribution</a> to determine the p-value. If 95% of the t-distribution is closer to the mean than the t-values on our variable, then we have a p-value of 5%. Still opaque? I know. Basically, this means that there is a 5% probability or less that the regression results we are seeing would emerge in a random distribution. So we are 95% sure the effect that we are observing between the variables in question really exists. The significance codes beneath the coefficient table are also related to p-score. They’re a visual shortcut because reading multiple coefficient p-scores can be hard on the eyes. Three asterisks mean the p-score of the coefficient is effectively zero, i.e. almost zero possibility that relationship we are observing would exist in a random sample. Two asterisks is &lt; 1% chance. One asterisk is &lt; 5%. 95% confidence is usually the statistical standard for p-scores outside medicine and criminal prosecution where the burdens of proof are higher.</p>
 </div>
 <div id="residual-standard-error-and-degrees-of-freedom" class="section level3">
@@ -122,9 +122,8 @@ lm(total_orders ~ bo2, data = data) %&gt;%
 </ol>
 <p>Also known as the slope (<span class="math inline">\(b\)</span>) and the intercept (<span class="math inline">\(m\)</span>) So, two degrees of freedom is common to all linear regression.</p>
 </div>
-</div>
-<div id="goodness-of-fit-or-r-squared" class="section level2">
-<h2>‘Goodness of Fit’ or R-squared</h2>
+<div id="goodness-of-fit-or-r-squared" class="section level3">
+<h3>‘Goodness of Fit’ or R-squared</h3>
 <p>In the charts we created in <a href="http://raiswell.rbind.io/post/interpreting-ols-regression/">Part 1</a> of this blog there was another regression statistic included in the format <span class="math inline">\(R^2 = 0.64\)</span>. The R-squared is a critical (though sometimes overvalued) statistic in linear regression because it helps us understand <em>how well the linear model fits the data</em>. R-squared values range from 0 to 1 (i.e. 0% to 100%). In the real world, R-squared values higher than 0.1 are rare, so our r-squared of 0.64 (64%) is pretty damn good! This fact also fuels my suspicion of why a neural net was required for the real-world analysis of this data, but more of that in Part 4 of this post.</p>
 <p>When Danilo is writing up the results of this regression analysis, he might use the following language to describe the r-squared statistic:</p>
 <blockquote>
@@ -139,6 +138,7 @@ lm(total_orders ~ bo2, data = data) %&gt;%
 <p><strong>What is the adjusted r-squared?</strong></p>
 <p>R tweaks the r-squared based on the complexity of the model. We can revisit this in Part 3 of this post, but for now all we need to know is that because we are only using one explanatory variable, the adjusted and vanilla r-squared values are close. As we pile on more predictive variables, r-squared will probably increase; the adjusted value keeps us grounded by adjusting for this added model complexity.</p>
 <p>Penn State’s Eberly College of Science has excellent online statistics resources that have helped me a lot in the past few years. Their <a href="https://onlinecourses.science.psu.edu/stat501/node/258/">list of R-squared cautions</a> is great.</p>
+</div>
 <div id="the-f-statistic-and-model-p-value" class="section level3">
 <h3>The F-Statistic and Model P-Value</h3>
 <p>The F-statistic takes us back to the start again. It helps us test our original experimental hypothesiss:</p>
