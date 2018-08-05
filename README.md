@@ -1,2 +1,3 @@
-# This is the repo for my blog [Data Notes](https://raiswell.rbind.io)
+# This is the repo for my data science blog [Data Notes](https://raiswell.rbind.io)
 
+![blog screenshot](/Blog/README_files/blog snapshot.png)
