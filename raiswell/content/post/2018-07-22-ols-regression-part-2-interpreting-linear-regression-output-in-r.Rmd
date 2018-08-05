@@ -109,7 +109,7 @@ Remember in [Part 1](http://raiswell.rbind.io/post/interpreting-ols-regression/)
 
 ```{r, warning = FALSE, message = FALSE}
 library(scales)
-lm(total_orders ~ bo2, data = data) %>% 
+lm(log(total_orders) ~ bo2, data = data) %>% 
   resid(.) %>% # takes a vector of the model residuals
   tibble %>%  # pipes them into a single-column data frame
   ggplot(aes(.)) + geom_histogram(bins = 10, fill = "aquamarine4") + #generates our histogram in a fetching aquamarine
@@ -126,7 +126,7 @@ There are a few ways of answering this question, some of which involve the frigh
 ### Coefficients
 Let's start with the intercept. That is where our model line hits the y-axis. In other words, it is our estimate of the average value of the target variable (total orders) when our explanatory variable (bank orders) is zero. The intercept is sometimes refered to as 'the constant'. The reason we include it in regression models even if a zero-setting for all explanatory variables isn't plausible is because it keeps the mean of our residuals at zero. 
 
-Below that we have the bit we're really interested in: the coefficient of bank orders that tells us what happens to the target variable when you increase bank orders by a one unit. The value is ~ 1.77.  For every bank order, the model says total orders will increase by 1.77 units. That is useful if I know bank orders in advance and I'm trying to anticipate how much delivery capacity I'll need on delivery day.
+Below that we have the bit we're really interested in: the coefficient of bank orders that tells us what happens to the target variable when you increase bank orders by a one unit. The value is ~ 1.77. For every bank order, the model says total orders will increase by 1.77 units. That is useful if I know bank orders in advance and I'm trying to anticipate how much delivery capacity I'll need on delivery day.
 
 **How accurate are these estimates?**
 
@@ -192,7 +192,11 @@ When there is *no relationship* between the explanatory variables and the target
 
 Note that the p-value of the F-test is the same as the p-value of our single coefficient. That's because we only have one explanatory variable in our model. The model-p is the same as the variable-p. In a multilinear model the p-value represents the validity of the f-test of the intercept versus the entire model, and will change as variables are added or removed. 
 
-In Part 3 we will build a multilinear OLS model with our data.
+### Conclusion
+
+In our (Danilo's) model, $F = 102$ and the p-value is 2.14e-14, or 0.0000000000000214. So we have a statistically significant model, which explains more than 60% of the variability in our target variable. Further, we know the magnitude of the relationship between bank orders and total orders: for every bank order, the model says total orders will increase by 1.77 units. Finally, while our residuals are not perfectly normally distributed they're close. 
+
+In Part 3 we will build a multilinear OLS model with our data, and we'll discuss what to do when model residuals are not normally distributed. 
 
 ### References
 
