@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>OLS Regression Part 2: Simple OLS Regression Results Interpretation - Data Notes</title>
+  <title>OLS Regression Part 2: Results Interpretation - Data Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -48,7 +48,7 @@
 <link href="/dist/even.min.css?v=2.7.1" rel="stylesheet">
 <link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
 
-<meta property="og:title" content="OLS Regression Part 2: Simple OLS Regression Results Interpretation" />
+<meta property="og:title" content="OLS Regression Part 2: Results Interpretation" />
 <meta property="og:description" content="Setting Up You will need to load the tidyverse package and also reload the data from Part 1 if you changed your R environment (new project).
 # load the tidyverse package library(tidyverse) We finished Part 1 looking at the linear relationships between two explanatory variables (bank orders and traffic controller orders), and our target variable (total orders). In the charts we created a formula for the linear regression line that resulted from our analyses in the format \(\hat{y} =161,000 &#43; 1." />
 <meta property="og:type" content="article" />
@@ -70,7 +70,7 @@
 
 
 
-<meta itemprop="name" content="OLS Regression Part 2: Simple OLS Regression Results Interpretation">
+<meta itemprop="name" content="OLS Regression Part 2: Results Interpretation">
 <meta itemprop="description" content="Setting Up You will need to load the tidyverse package and also reload the data from Part 1 if you changed your R environment (new project).
 # load the tidyverse package library(tidyverse) We finished Part 1 looking at the linear relationships between two explanatory variables (bank orders and traffic controller orders), and our target variable (total orders). In the charts we created a formula for the linear regression line that resulted from our analyses in the format \(\hat{y} =161,000 &#43; 1.">
 
@@ -83,7 +83,7 @@
 
 <meta itemprop="keywords" content="OLS,linearregression,rstats,rsquared," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="OLS Regression Part 2: Simple OLS Regression Results Interpretation"/>
+<meta name="twitter:title" content="OLS Regression Part 2: Results Interpretation"/>
 <meta name="twitter:description" content="Setting Up You will need to load the tidyverse package and also reload the data from Part 1 if you changed your R environment (new project).
 # load the tidyverse package library(tidyverse) We finished Part 1 looking at the linear relationships between two explanatory variables (bank orders and traffic controller orders), and our target variable (total orders). In the charts we created a formula for the linear regression line that resulted from our analyses in the format \(\hat{y} =161,000 &#43; 1."/>
 
@@ -179,7 +179,7 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">OLS Regression Part 2: Simple OLS Regression Results Interpretation</h1>
+      <h1 class="post-title">OLS Regression Part 2: Results Interpretation</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2018-07-22 </span>
@@ -247,7 +247,7 @@ lm(total_orders ~ bo2, data = data) %&gt;%
 <h3>Residuals</h3>
 <p>Remember in <a href="http://raiswell.rbind.io/post/interpreting-ols-regression/">Part 1</a> where I described the residuals as the distance between the model estimates (the straight line) and the actual values? These statistics shows us roughly how the residuals are distributed. The smallest (Min) residual is -93,966; the largest (Max) is 142,788. We also have the median, first and third quartiles. From this information we can imagine a density plot or histogram of the distribution with the center at -5,062 (the median). Is the distribution of the residuals symmetrical? Not quite, but it’s close. How do we know? First, look at how far the 1Q and 3Q values are from the median: -27,572 and +26,556 respectively. Next, look at how far the minimum and maximum values are from the median: -88,904 and 147,850. Hmm. Those results are less suggestive of a normal distribution. We can check our math visually using the following code. This grabs the model residuals and then pipes them into ggplot, which generates our histogram. We can see it is right-skewed slightly, but not so much that we should be concerned.</p>
 <pre class="r"><code>library(scales)
-lm(log(total_orders) ~ bo2, data = data) %&gt;% 
+lm(total_orders ~ bo2, data = data) %&gt;% 
   resid(.) %&gt;% # takes a vector of the model residuals
   tibble %&gt;%  # pipes them into a single-column data frame
   ggplot(aes(.)) + geom_histogram(bins = 10, fill = &quot;aquamarine4&quot;) + #generates our histogram in a fetching aquamarine

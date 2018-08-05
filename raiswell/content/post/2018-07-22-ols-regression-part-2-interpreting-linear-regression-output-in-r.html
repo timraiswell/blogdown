@@ -1,5 +1,5 @@
 ---
-title: 'OLS Regression Part 2: Simple OLS Regression Results Interpretation'
+title: 'OLS Regression Part 2: Results Interpretation'
 author: Tim Raiswell
 date: '2018-07-22'
 slug: ols-regression-part-2
@@ -74,7 +74,7 @@ lm(total_orders ~ bo2, data = data) %&gt;%
 <h3>Residuals</h3>
 <p>Remember in <a href="http://raiswell.rbind.io/post/interpreting-ols-regression/">Part 1</a> where I described the residuals as the distance between the model estimates (the straight line) and the actual values? These statistics shows us roughly how the residuals are distributed. The smallest (Min) residual is -93,966; the largest (Max) is 142,788. We also have the median, first and third quartiles. From this information we can imagine a density plot or histogram of the distribution with the center at -5,062 (the median). Is the distribution of the residuals symmetrical? Not quite, but it’s close. How do we know? First, look at how far the 1Q and 3Q values are from the median: -27,572 and +26,556 respectively. Next, look at how far the minimum and maximum values are from the median: -88,904 and 147,850. Hmm. Those results are less suggestive of a normal distribution. We can check our math visually using the following code. This grabs the model residuals and then pipes them into ggplot, which generates our histogram. We can see it is right-skewed slightly, but not so much that we should be concerned.</p>
 <pre class="r"><code>library(scales)
-lm(log(total_orders) ~ bo2, data = data) %&gt;% 
+lm(total_orders ~ bo2, data = data) %&gt;% 
   resid(.) %&gt;% # takes a vector of the model residuals
   tibble %&gt;%  # pipes them into a single-column data frame
   ggplot(aes(.)) + geom_histogram(bins = 10, fill = &quot;aquamarine4&quot;) + #generates our histogram in a fetching aquamarine
