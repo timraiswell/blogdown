@@ -1,5 +1,5 @@
 ---
-title: 'OLS Regression Part 2: Simple OLS Regression Results Interpretation'
+title: 'OLS Regression Part 2: Results Interpretation'
 author: Tim Raiswell
 date: '2018-07-22'
 slug: ols-regression-part-2
