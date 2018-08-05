@@ -8,7 +8,12 @@ weight: 50
 comment: false
 mathjax: false
 ---
-![hello_world](/./about_files/hello_world.jpg)
+<p align="center">
+
+<img src = "https://github.com/timraiswell/blogdown/blob/master/static/about_files/hello_world.jpg?raw=true">
+
+</p>
+
 My intent with this site is **to share useful analytic ideas and tools  - from basic to advanced - that have made my work easier and fun.**
 
 <h1>Current Employment</h1>
