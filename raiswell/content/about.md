@@ -8,13 +8,12 @@ weight: 50
 comment: false
 mathjax: false
 ---
-
-
-Hi there. My intent with this site is **to share useful analytic ideas and tools  - from basic to advanced - that have made my work easier and more fun.**
+![hello_world](/./about_files/hello_world.jpg)
+My intent with this site is **to share useful analytic ideas and tools  - from basic to advanced - that have made my work easier and fun.**
 
 <h1>Current Employment</h1>
 
-I am a research principal in Gartner's finance practice. I currently use quantitative and qualitative research methods to answer hard questions for chief financial officers and their finance teams. I have been in a related role at CEB (now Gartner) for thirteen years, with visits to the worlds of product development and management, sales support and client advisory services.
+I am a research VP in Gartner's finance practice. I currently use quantitative and qualitative research methods to answer hard questions for chief financial officers and their finance teams. I have been in a related role at CEB (now Gartner) for thirteen years, with visits to the worlds of product development and management, sales support and client advisory services.
 
 I have a particular interest in the following management fields at large enterprises: 
 
