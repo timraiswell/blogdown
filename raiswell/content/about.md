@@ -8,7 +8,7 @@ weight: 50
 comment: false
 mathjax: false
 ---
-![hello_world](/./about_files/hello_world.jpg)
+![hello_world](/content/hello_world.jpg)
 My intent with this site is **to share useful analytic ideas and tools  - from basic to advanced - that have made my work easier and fun.**
 
 <h1>Current Employment</h1>
