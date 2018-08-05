@@ -109,7 +109,7 @@ Remember in [Part 1](http://raiswell.rbind.io/post/interpreting-ols-regression/)
 
 ```{r, warning = FALSE, message = FALSE}
 library(scales)
-lm(log(total_orders) ~ bo2, data = data) %>% 
+lm(total_orders ~ bo2, data = data) %>% 
   resid(.) %>% # takes a vector of the model residuals
   tibble %>%  # pipes them into a single-column data frame
   ggplot(aes(.)) + geom_histogram(bins = 10, fill = "aquamarine4") + #generates our histogram in a fetching aquamarine
