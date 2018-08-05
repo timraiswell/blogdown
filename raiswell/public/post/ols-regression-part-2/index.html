@@ -77,7 +77,7 @@
 
 <meta itemprop="datePublished" content="2018-07-22T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-07-22T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2420">
+<meta itemprop="wordCount" content="2505">
 
 
 
@@ -184,7 +184,7 @@
       <div class="post-meta">
         <span class="post-time"> 2018-07-22 </span>
         
-        <span class="more-meta"> 2420 word </span>
+        <span class="more-meta"> 2505 word </span>
         <span class="more-meta"> 12 min read </span>
         
       </div>
@@ -247,7 +247,7 @@ lm(total_orders ~ bo2, data = data) %&gt;%
 <h3>Residuals</h3>
 <p>Remember in <a href="http://raiswell.rbind.io/post/interpreting-ols-regression/">Part 1</a> where I described the residuals as the distance between the model estimates (the straight line) and the actual values? These statistics shows us roughly how the residuals are distributed. The smallest (Min) residual is -93,966; the largest (Max) is 142,788. We also have the median, first and third quartiles. From this information we can imagine a density plot or histogram of the distribution with the center at -5,062 (the median). Is the distribution of the residuals symmetrical? Not quite, but it’s close. How do we know? First, look at how far the 1Q and 3Q values are from the median: -27,572 and +26,556 respectively. Next, look at how far the minimum and maximum values are from the median: -88,904 and 147,850. Hmm. Those results are less suggestive of a normal distribution. We can check our math visually using the following code. This grabs the model residuals and then pipes them into ggplot, which generates our histogram. We can see it is right-skewed slightly, but not so much that we should be concerned.</p>
 <pre class="r"><code>library(scales)
-lm(total_orders ~ bo2, data = data) %&gt;% 
+lm(log(total_orders) ~ bo2, data = data) %&gt;% 
   resid(.) %&gt;% # takes a vector of the model residuals
   tibble %&gt;%  # pipes them into a single-column data frame
   ggplot(aes(.)) + geom_histogram(bins = 10, fill = &quot;aquamarine4&quot;) + #generates our histogram in a fetching aquamarine
@@ -275,7 +275,7 @@ lm(total_orders ~ bo2, data = data) %&gt;%
 </div>
 <div id="prt" class="section level3">
 <h3>Pr(&gt;|t|)</h3>
-<p>This is the p-value of the coefficient. R has compared the t-statistic on bank orders (bo2) with values in the <a href="https://en.wikipedia.org/wiki/Student%27s_t-distribution">Student’s t-distribution</a> to determine the p-value. If 95% of the t-distribution is closer to the mean than the t-values on our variable, then we have a p-value of 5%. Still opaque? I know. Basically, this means that there is a 5% probability or less that the regression results we are seeing would emerge in a random distribution. So we are 95% sure the effect that we are observing between the variables in question really exists. The significance codes beneath the coefficient table are also related to p-score. They’re a visual shortcut because reading multiple coefficient p-scores can be hard on the eyes. Three asterisks mean the p-score of the coefficient is effectively zero, i.e. almost zero possibility that relationship we are observing would exist in a random sample. Two asterisks is &lt; 1% chance. One asterisk is &lt; 5%. 95% confidence is usually the statistical standard for p-scores outside medicine and criminal prosecution where the burdens of proof are higher.</p>
+<p>This is the p-value of the coefficient. R has compared the t-statistic on bank orders (bo2) with values in the <a href="https://en.wikipedia.org/wiki/Student%27s_t-distribution">Student’s t-distribution</a> to determine the p-value. If 95% of the t-distribution is closer to the mean than the t-value of our variable, then we have a p-value of 5%. Still opaque? I know. Basically, this means that there is a 5% probability or less that the regression results we are seeing would emerge in a random distribution. So we are 95% sure the effect that we are observing between the variables in question is not random. The significance codes beneath the coefficient table are also related to p-score. They’re a visual shortcut because reading multiple coefficient p-scores can be hard on the eyes. Three asterisks mean the p-score of the coefficient is effectively zero, i.e. almost zero possibility that relationship we are observing would exist in a random sample. Two asterisks is &lt; 1% chance. One asterisk is &lt; 5%. 95% confidence is usually the statistical standard for p-scores outside medicine and criminal prosecution where the burdens of proof are higher.</p>
 </div>
 <div id="residual-standard-error-and-degrees-of-freedom" class="section level3">
 <h3>Residual Standard Error and Degrees of Freedom</h3>
@@ -283,7 +283,7 @@ lm(total_orders ~ bo2, data = data) %&gt;%
 <blockquote>
 <p><span class="math inline">\(RSE = \sqrt{RSS/(n-2)}\)</span> # awesome-looking equation of RSE</p>
 </blockquote>
-<p>RSS is the average variance of our residuals (<span class="math inline">\(\sigma^2\)</span> - Greek letter sigma, squared) so RSE is the standard deviation (<span class="math inline">\(\sigma\)</span>) of the residuals. Look at our histogram of residuals again. This number is the standard deviation of those residuals.</p>
+<p>RSS is the average variance of our residuals (<span class="math inline">\(\sigma^2\)</span> - Greek letter sigma, squared) so RSE is the standard deviation (<span class="math inline">\(\sigma\)</span>) of the residuals. Look at our histogram again. This number is the standard deviation of those residuals.</p>
 <p>The <strong>degrees of freedom</strong> is slightly harder to explain. It is a statistic about a statistic. We don’t need it in this analysis, but it’s useful to know what everything means in our OLS output. This <a href="http://blog.minitab.com/blog/statistics-and-quality-data-analysis/what-are-degrees-of-freedom-in-statistics">Minitab blog post</a> has a useful analogy that helped me. It uses a t-test as its example but we can apply it to regression in a moment:</p>
 <blockquote>
 <p>“Degrees of freedom are often broadly defined as the number of”observations&quot; (pieces of information) in the data that are free to vary when estimating statistical parameters.&quot;</p>
@@ -319,7 +319,11 @@ lm(total_orders ~ bo2, data = data) %&gt;%
 <span class="math inline">\(H_{1} =\)</span> The effect of bank orders on total orders is less than or greater than zero.</p>
 <p>When there is <em>no relationship</em> between the explanatory variables and the target variable in the model, the F-statistic takes a value close to 1. Why? F is the result of an F-test between two variances. If the two variances are the same, F = 1. In Danilo’s case, the two variances are the model with no predictors - the intercept-only model; versus the model with a single predictive variable (bank orders). In English: Does our model do a better job of estimating the target variable (total orders) than just using the mean of total orders? If yes, <span class="math inline">\(F &gt; 1\)</span>. If no, <span class="math inline">\(F\approx{1}\)</span>.</p>
 <p>Note that the p-value of the F-test is the same as the p-value of our single coefficient. That’s because we only have one explanatory variable in our model. The model-p is the same as the variable-p. In a multilinear model the p-value represents the validity of the f-test of the intercept versus the entire model, and will change as variables are added or removed.</p>
-<p>In Part 3 we will build a multilinear OLS model with our data.</p>
+</div>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
+<p>In our (Danilo’s) model, <span class="math inline">\(F = 102\)</span> and the p-value is 2.14e-14, or 0.0000000000000214. So we have a statistically significant model, which explains more than 60% of the variability in our target variable. Further, we know the magnitude of the relationship between bank orders and total orders: for every bank order, the model says total orders will increase by 1.77 units. Finally, while our residuals are not perfectly normally distributed they’re close.</p>
+<p>In Part 3 we will build a multilinear OLS model with our data, and we’ll discuss what to do when model residuals are not normally distributed.</p>
 </div>
 <div id="references" class="section level3">
 <h3>References</h3>
