@@ -190,7 +190,7 @@ $H_{1} =$ The effect of bank orders on total orders is less than or greater than
 
 When there is *no relationship* between the explanatory variables and the target variable in the model, the F-statistic takes a value close to 1. Why? F is the result of an F-test between two variances. If the two variances are the same, F = 1. In Danilo's case, the two variances are the model with no predictors - the intercept-only model; versus the model with a single predictive variable (bank orders). In English: does our model do a better job of estimating the target variable (total orders) than just using the mean of total orders? If yes, $F > 1$. If no, $F\approx{1}$. 
 
-Note that the p-value of the F-test is the same as the p-value of our single coefficient. That's because we only have one explanatory variable in our model. The model-p is the same as the variable-p. In a multilinear model the p-value represents the validity of the f-test of the intercept versus the entire model, and will change as variables are added or removed. 
+Note that the p-value of the F-test is the same as the p-value of our single coefficient. That's because we only have one explanatory variable in our model. The model-p is the same as the variable-p. In a multilinear model the p-value represents the validity of the F-test of the intercept versus the entire model, and will change as variables are added or removed. 
 
 ### Conclusion
 

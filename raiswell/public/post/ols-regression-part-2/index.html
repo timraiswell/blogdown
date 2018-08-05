@@ -318,7 +318,7 @@ lm(total_orders ~ bo2, data = data) %&gt;%
 <p><span class="math inline">\(H_{0} =\)</span> The effect of bank orders on total orders is zero.<br />
 <span class="math inline">\(H_{1} =\)</span> The effect of bank orders on total orders is less than or greater than zero.</p>
 <p>When there is <em>no relationship</em> between the explanatory variables and the target variable in the model, the F-statistic takes a value close to 1. Why? F is the result of an F-test between two variances. If the two variances are the same, F = 1. In Danilo’s case, the two variances are the model with no predictors - the intercept-only model; versus the model with a single predictive variable (bank orders). In English: does our model do a better job of estimating the target variable (total orders) than just using the mean of total orders? If yes, <span class="math inline">\(F &gt; 1\)</span>. If no, <span class="math inline">\(F\approx{1}\)</span>.</p>
-<p>Note that the p-value of the F-test is the same as the p-value of our single coefficient. That’s because we only have one explanatory variable in our model. The model-p is the same as the variable-p. In a multilinear model the p-value represents the validity of the f-test of the intercept versus the entire model, and will change as variables are added or removed.</p>
+<p>Note that the p-value of the F-test is the same as the p-value of our single coefficient. That’s because we only have one explanatory variable in our model. The model-p is the same as the variable-p. In a multilinear model the p-value represents the validity of the F-test of the intercept versus the entire model, and will change as variables are added or removed.</p>
 </div>
 <div id="conclusion" class="section level3">
 <h3>Conclusion</h3>
